@@ -1,25 +1,28 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StorefrontController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return 'Laravel is working!';
+// Storefront routes with tenant scoping
+Route::prefix('{storeSlug}')->middleware(['tenant'])->name('storefront.')->group(function () {
+    Route::get('/', [StorefrontController::class, 'home'])->name('home');
+    Route::get('/category/{category}', [StorefrontController::class, 'category'])->name('category');
+    Route::get('/product/{product}', [StorefrontController::class, 'product'])->name('product');
 });
 
-// Admin Access Page
-Route::get('/admin/access', function () {
-    return view('admin-access');
-})->name('admin.access');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// Simple Admin Dashboard Routes
-Route::get('/admin/superdashboard', function () {
-    return '<h1>SuperDashboard</h1><p>This will be the superadmin dashboard.</p><a href="/admin/access">Back to Admin Access</a>';
-})->name('admin.superdashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/admin/dashboard', function () {
-    return '<h1>Store Dashboard</h1><p>This will be the store dashboard.</p><a href="/admin/access">Back to Admin Access</a>';
-})->name('admin.dashboard');
+require __DIR__.'/auth.php';
