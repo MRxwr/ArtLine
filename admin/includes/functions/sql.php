@@ -100,46 +100,6 @@ function selectDBNew($table, $placeHolders, $where, $order){
     }
 }
 
-function selectDB2New($select, $table, $placeHolders, $where, $order){
-    GLOBAL $dbconnect;
-    $check = [';', '"'];
-    $where = str_replace($check, "", $where);
-    $sql = "SELECT {$select} FROM `{$table}`";
-    if(!empty($where)) {
-        $sql .= " WHERE {$where}";
-    }
-    if(!empty($order)) {
-        $sql .= " ORDER BY {$order}";
-    }
-    if( $table == "employees" && strstr($where,"email") ){
-        $array = array(
-            "userId" => 0,
-            "username" => 0,
-            "module" => "Login",
-            "action" => "Select",
-            "sqlQuery" => json_encode(array("table"=>$table,"data"=>$placeHolders,"where"=>$where)),
-        );
-        LogsHistory($array);
-    }
-    if($stmt = $dbconnect->prepare($sql)) {
-        $types = str_repeat('s', count($placeHolders));
-        $stmt->bind_param($types, ...$placeHolders);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $array = array();
-        while ($row = $result->fetch_assoc()) {
-            $array[] = $row;
-        }
-        if(isset($array) && is_array($array)) {
-            return $array;
-        }else{
-            return 0;
-        }
-    }else{
-        return 0;
-    }
-}
-
 function selectDB($table, $where){
     GLOBAL $dbconnect;
     $check = [';', '"'];
@@ -232,48 +192,6 @@ function selectJoinDB($table, $joinData, $where){
     }
 }
 
-function selectJoinDBNew($table, $joinData, $placeHolders, $where){
-    global $dbconnect;
-    global $date;
-    $check = [';', '"'];
-    $where = str_replace($check,"",$where);
-    $sql = "SELECT ";
-    for($i = 0 ; $i < sizeof($joinData["select"]) ; $i++ ){
-        $sql .= $joinData["select"][$i];
-        if ( $i+1 != sizeof($joinData["select"]) ){
-            $sql .= ", ";
-        }
-    }
-    $sql .=" FROM `$table` as t ";
-    for($i = 0 ; $i < sizeof($joinData["join"]) ; $i++ ){
-        $counter = $i+1;
-        $sql .= " JOIN `".$joinData["join"][$i]."` as t{$counter} ";
-        if( isset($joinData["on"][$i]) && !empty($joinData["on"][$i]) ){
-            $sql .= " ON ".$joinData["on"][$i]." ";
-        }
-    }
-    if ( !empty($where) ){
-        $sql .= " WHERE " . $where;
-    }
-    if($stmt = $dbconnect->prepare($sql)){
-        $types = str_repeat('s', count($placeHolders));
-        $stmt->bind_param($types, ...$placeHolders);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        while($row = $result->fetch_assoc() ){
-            $array[] = $row;
-        }
-        if ( isset($array) AND is_array($array) ){
-            return $array;
-        }else{
-            return 0;
-        }
-    }else{
-        $error = array("msg"=>"select table error");
-        return 0;
-    }
-}
-
 function insertDB($table, $data){
     GLOBAL $dbconnect, $userID, $empUsername, $_GET;
     $check = [';', '"'];
@@ -291,7 +209,7 @@ function insertDB($table, $data){
     $stmt = $dbconnect->prepare($sql);
     $types = str_repeat('s', count($data));
     $stmt->bind_param($types, ...array_values($data));
-    if( isset($_GET["v"]) && !empty($_GET["v"]) && isset($userID) ){
+    if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
             "userId" => $userID,
             "username" => $empUsername,
@@ -391,9 +309,6 @@ function insertLogDB($table,$data){
 }
 
 function LogsHistory($array){
-    if( !isset($array["id"]) ){
-        $array["id"] = null;
-    }
     insertLogDB("logs",$array);
 }
 
