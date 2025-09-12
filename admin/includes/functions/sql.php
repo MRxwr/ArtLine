@@ -391,6 +391,9 @@ function insertLogDB($table,$data){
 }
 
 function LogsHistory($array){
+    if( !isset($array["id"]) ){
+        $array["id"] = null;
+    }
     insertLogDB("logs",$array);
 }
 
