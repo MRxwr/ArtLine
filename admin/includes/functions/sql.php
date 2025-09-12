@@ -288,12 +288,14 @@ function insertLogDB($table,$data){
     $check = [';', '"'];
     //$data = escapeString($data);
     
-    // Check if table is 'logs' and ensure it has an id field with a proper value
-    if ($table === "logs") {
-        // Remove 'id' from the data if it exists and is 0 (to let auto-increment handle it)
-        if (isset($data['id']) && $data['id'] === '0') {
-            unset($data['id']);
-        }
+    // For logs table, ensure we never try to set the id manually
+    if ($table === "logs" && isset($data['id'])) {
+        unset($data['id']);
+    }
+    
+    // If no data remains after filtering, return success (nothing to insert)
+    if (empty($data) || !is_array($data) || count($data) == 0) {
+        return 1;
     }
     
     $keys = array_keys($data);
@@ -306,23 +308,37 @@ function insertLogDB($table,$data){
     $sql = rtrim($sql, ",");
     $placeholders = rtrim($placeholders, ",");
     $sql .= ") VALUES ({$placeholders})";
-    $stmt = $dbconnect->prepare($sql);
-    $types = str_repeat('s', count($data));
-    $stmt->bind_param($types, ...array_values($data));
-    if($stmt->execute()){
-        return 1;
-    }else{
-        $error = array("msg"=>"insert table error: " . $dbconnect->error);
+    
+    try {
+        $stmt = $dbconnect->prepare($sql);
+        if (!$stmt) {
+            error_log("MySQL prepare error: " . $dbconnect->error);
+            return 0;
+        }
+        
+        $types = str_repeat('s', count($data));
+        $stmt->bind_param($types, ...array_values($data));
+        
+        if($stmt->execute()){
+            return 1;
+        } else {
+            error_log("MySQL execute error: " . $stmt->error);
+            return 0;
+        }
+    } catch (Exception $e) {
+        error_log("Exception in insertLogDB: " . $e->getMessage());
         return 0;
     }
 }
 
 function LogsHistory($array){
-    // Make sure we don't try to insert with ID=0
-    if (isset($array['id']) && $array['id'] === 0) {
+    // Make sure the logs table uses auto-increment for the id
+    // Do not explicitly specify an id field at all, let the database handle it
+    // This ensures we never try to insert with a duplicate ID
+    if (isset($array['id'])) {
         unset($array['id']);
     }
-    insertLogDB("logs",$array);
+    return insertLogDB("logs",$array);
 }
 
 function queryDB($sql){
