@@ -31,7 +31,7 @@ if ( isset($_GET["order"]) && !empty($_GET["order"]) ){
 	$requestOrder = "";
     $getOrder = "t2.subId = '0' ASC, t2.subId ASC";
 }
-?>
+?> 
 <div class="<?php echo $section ?> p-0">
 <div class="container p-0">
 <div class="row w-100 m-auto" id="listOfItems">
