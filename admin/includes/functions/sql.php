@@ -332,9 +332,6 @@ function insertLogDB($table,$data){
 }
 
 function LogsHistory($array){
-    // Make sure the logs table uses auto-increment for the id
-    // Do not explicitly specify an id field at all, let the database handle it
-    // This ensures we never try to insert with a duplicate ID
     if (isset($array['id'])) {
         unset($array['id']);
     }
