@@ -9,9 +9,21 @@ if( isset($_POST["title"]) ){
 	$id = $_POST["update"];
 	unset($_POST["update"]);
 	
+	// Handle logo upload
 	if (is_uploaded_file($_FILES['logo']['tmp_name'])) {
 		$filenewname = uploadImageBannerFreeImageHost($_FILES['logo']['tmp_name']);
 		$_POST["logo"] = $filenewname;
+	}
+	
+	// Handle background image upload
+	if (is_uploaded_file($_FILES['bgImage']['tmp_name'])) {
+		$filenewname = uploadImageBannerFreeImageHost($_FILES['bgImage']['tmp_name']);
+		$_POST["bgImage"] = $filenewname;
+	}
+	
+	// Handle whatsapp notification array
+	if(isset($_POST["whatsappNoti"]) && is_array($_POST["whatsappNoti"])) {
+		$_POST["whatsappNoti"] = json_encode($_POST["whatsappNoti"]);
 	}
 	
 	if ( $id == 0 ){
@@ -538,8 +550,28 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 
+					<!-- uplaod system background image -->
+					<div class="col-md-6">
+						<div class="panel panel-default card-view">
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h6 class="panel-title txt-dark"><?php echo direction("Upload Background image", "ارفق خلفية") ?></h6>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div class="text txt-center">
+										<input class="form-control" type="file" name="bgImage"></br>
+										<img id="bgImagePreview" src="" style="height:250px; max-width: 100%; display: none;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<!-- uplaod system logo -->
-					<div class="col-md-12">
+					<div class="col-md-6">
 						<div class="panel panel-default card-view">
 							<div class="panel-heading">
 								<div class="pull-left">
@@ -550,7 +582,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 							<div class="panel-wrapper collapse in">
 								<div class="panel-body">
 									<div class="text">
-										<input class="form-control" type="file" name="logo">
+										<input class="form-control" type="file" name="logo"></br>
+										<img id="logoPreview" src="" style="height:250px; max-width: 100%; display: none;">
 									</div>
 								</div>
 							</div>
@@ -879,6 +912,10 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var whatsappToken = $("#whatsappToken"+id).html();
 		var whatsappNoti = $("#whatsappNoti"+id).html();
 		
+		// Images
+		var logo = $("#logo"+id).html();
+		var bgImage = $("#bgImage"+id).html();
+		
 		// Fill form fields
 		$("input[name=title]").val(title);
 		$("input[name=email]").val(email);
@@ -940,6 +977,19 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				// If parsing fails, it's not a valid JSON string
 				console.log("WhatsApp notification data is not in valid JSON format");
 			}
+		}
+		
+		// Show image previews if available
+		if (logo) {
+			$("#logoPreview").attr("src", "../logos/" + logo).show();
+		} else {
+			$("#logoPreview").hide();
+		}
+		
+		if (bgImage) {
+			$("#bgImagePreview").attr("src", "../logos/" + bgImage).show();
+		} else {
+			$("#bgImagePreview").hide();
 		}
 		
 		$("input[name=update]").val(id);
