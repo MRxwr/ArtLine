@@ -7,6 +7,7 @@ function deleteDB($table, $where){
     $sql = "DELETE FROM `" . $table . "` WHERE " . $where;
     if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -34,6 +35,7 @@ function deleteDBNew($table, $params, $where){
     $sql = "DELETE FROM `" . $table . "` WHERE " . $where;
     if (isset($_GET["v"]) && !empty($_GET["v"])) {
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -71,9 +73,9 @@ function selectDBNew($table, $placeHolders, $where, $order){
     if(!empty($order)) {
         $sql .= " ORDER BY {$order}";
     }
-    echo $sql;
     if( $table == "employees" && strstr($where,"email") ){
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => 0,
             "username" => 0,
             "module" => "Login",
@@ -114,6 +116,7 @@ function selectDB2New($select, $table, $placeHolders, $where, $order){
     }
     if( $table == "employees" && strstr($where,"email") ){
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => 0,
             "username" => 0,
             "module" => "Login",
@@ -294,6 +297,7 @@ function insertDB($table, $data){
     $stmt->bind_param($types, ...array_values($data));
     if( isset($_GET["v"]) && !empty($_GET["v"]) && isset($userID) ){
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -333,6 +337,7 @@ function updateDB($table, $data, $where) {
     
     if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
+            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -369,7 +374,12 @@ function escapeStringDirect($data){
 function insertLogDB($table,$data){
     GLOBAL $dbconnect;
     $check = [';', '"'];
-    //$data = escapeString($data);
+    
+    // Make sure we don't try to insert an explicit ID with value 0
+    if(isset($data["id"]) && $data["id"] === 0) {
+        unset($data["id"]); // Let the auto_increment handle this
+    }
+    
     $keys = array_keys($data);
     $sql = "INSERT INTO `{$table}`(";
     $placeholders = "";
@@ -380,18 +390,28 @@ function insertLogDB($table,$data){
     $sql = rtrim($sql, ",");
     $placeholders = rtrim($placeholders, ",");
     $sql .= ") VALUES ({$placeholders})";
-    $stmt = $dbconnect->prepare($sql);
-    $types = str_repeat('s', count($data));
-    $stmt->bind_param($types, ...array_values($data));
-    if($stmt->execute()){
-        return 1;
-    }else{
-        $error = array("msg"=>"insert table error");
+    
+    try {
+        $stmt = $dbconnect->prepare($sql);
+        $types = str_repeat('s', count($data));
+        $stmt->bind_param($types, ...array_values($data));
+        if($stmt->execute()){
+            return 1;
+        }else{
+            $error = array("msg"=>"insert table error: " . $stmt->error);
+            return 0;
+        }
+    } catch (Exception $e) {
+        $error = array("msg"=>"insert table error: " . $e->getMessage());
         return 0;
     }
 }
 
 function LogsHistory($array){
+    // Add an ID field to prevent duplicate primary key issues
+    if(!isset($array["id"])) {
+        $array["id"] = null; // Let the database auto-increment handle this
+    }
     insertLogDB("logs",$array);
 }
 
