@@ -7,61 +7,24 @@ if (isset($_POST["title"])) {
 	$css = str_replace($color[0]["websiteColor"], $_POST["websiteColor"], $css);
 	$css = str_replace($color[0]["headerButton"], $_POST["headerButton"], $css);
 	file_put_contents('../css/custome.css', $css);
-	$header = file_get_contents("../template/header.php");
+	$header = file_get_contents("../templates/header.php");
 	$header = str_replace($color[0]["websiteColor"], $_POST["websiteColor"], $header);
 	$header = str_replace($color[0]["headerButton"], $_POST["headerButton"], $header);
-	file_put_contents('../template/header.php', $header);
-	$bill = file_get_contents("../template/bill.php");
+	file_put_contents('../templates/header.php', $header);
+	$bill = file_get_contents("../templates/bill.php");
 	$bill = str_replace($color[0]["websiteColor"], $_POST["websiteColor"], $bill);
 	$bill = str_replace($color[0]["headerButton"], $_POST["headerButton"], $bill);
-	file_put_contents('../template/bill.php', $bill);
+	file_put_contents('../templates/bill.php', $bill);
 	
 	// update db \\
-	updateDB("s_media",array("theme" => $_POST["theme"]),"`id` = '3'");
+	$sql = "UPDATE `s_media` 
+	SET
+	`theme` = '" . $_POST["theme"] . "'
+	WHERE
+	`id` LIKE '3'
+	";
+	$result = $dbconnect->query($sql);
 
-	// update settings \\
-	$updateSettings = array(
-		"title" => $_POST["title"],
-		"cookie" => $_POST["cookie"],
-		"refference" => $_POST["refference"],
-		"dTime" => $_POST["dTime"],
-		"dTimeArabic" => $_POST["dTimeArabic"],
-		"PaymentAPIKey" => $_POST["PaymentAPIKey"],
-		"package" => $_POST["package"],
-		"startDate" => $_POST["startDate"],
-		"amount" => $_POST["amount"],
-		"OgDescription" => $_POST["OgDescription"],
-		"currency" => $_POST["currency"],
-		"language" => $_POST["language"],
-		"country" => $_POST["country"],
-		"version" => $_POST["version"],
-		"showLogo" => $_POST["showLogo"],
-		"websiteColor" => $_POST["websiteColor"],
-		"headerButton" => $_POST["headerButton"],
-		"categoryView" => $_POST["categoryView"],
-		"productView" => $_POST["productView"],
-		"enFont" => $_POST["enFont"],
-		"arFont" => $_POST["arFont"],
-		"enFontFamily" => $_POST["arFontFamily"],
-		"arFontFamily" => $_POST["arFontFamily"],
-		"showCategoryTitle" => $_POST["showCategoryTitle"],
-		"google" => urlencode($_POST["google"]),
-		"shippingMethod" => $_POST["shippingMethod"],
-		"website" => $_POST["website"],
-		"whatsappToken" => $_POST["whatsappToken"],
-		"whatsappNoti" => json_encode($_POST["whatsappNoti"]),
-		"email" => $_POST["email"]
-	);
-	if (is_uploaded_file($_FILES['bgImage']['tmp_name'])) {
-		$filenewname = uploadImageBannerFreeImageHost($_FILES['bgImage']['tmp_name']);
-		$updateSettings["bgImage"] = $filenewname;
-	}
-	if (is_uploaded_file($_FILES['logo']['tmp_name'])) {
-		$filenewname = uploadImageBannerFreeImageHost($_FILES['logo']['tmp_name']);
-		$updateSettings["logo"] = $filenewname;
-	}
-	updateDB("settings", $updateSettings, "`id` = '1'");
-/*
 	$sql = "UPDATE `settings` 
 	SET 
 	`title` = '" . $_POST["title"] . "',
@@ -92,7 +55,9 @@ if (isset($_POST["title"])) {
 	`pixil` = '" . urlencode($_POST["pixil"]) . "',
 	`whatsappNoti` = '" . json_encode($_POST["whatsappNoti"]) . "',
 	`shippingMethod` = '".$_POST["shippingMethod"]."',
-	`website` = '" . $_POST["website"] . "',";
+	`website` = '" . $_POST["website"] . "',
+	`whatsappToken` = '" . $_POST["whatsappToken"] . "',
+	";
 	if (is_uploaded_file($_FILES['bgImage']['tmp_name'])) {
 		$filenewname = uploadImageBannerFreeImageHost($_FILES['bgImage']['tmp_name']);
 		$sql .= "`bgImage` = '" . $filenewname . "',";
@@ -105,54 +70,56 @@ if (isset($_POST["title"])) {
 	
 	$sql .= "`email` = '" . $_POST["email"] . "'WHERE `id` LIKE '1'";
 	$result = $dbconnect->query($sql);
-*/	
-	header("Location: ?v=Settings");die();
 }
 
-$settings = selectDB("settings", "`id` = '1'");
-$settingsEmail = $settings[0]["email"];
-$settingsTitle = $settings[0]["title"];
-$settingsImage = $settings[0]["bgImage"];
-$settingsDTime = $settings[0]["dTime"];
-$settingsDTimeArabic = $settings[0]["dTimeArabic"];
-$settingslogo = $settings[0]["logo"];
-$cookieSession = $settings[0]["cookie"];
-$settingsWebsite = $settings[0]["website"];
-$PaymentAPIKey = $settings[0]["PaymentAPIKey"];
-$package = $settings[0]["package"];
-$startDate = $settings[0]["startDate"];
-$refference = $settings[0]["refference"];
-$amount = $settings[0]["amount"];
-$defaultCurr = $settings[0]["currency"];
-$language = $settings[0]["language"];
-$defaultCountry = $settings[0]["country"];
-$version = $settings[0]["version"];
-$showLogo = $settings[0]["showLogo"];
-$websiteColor = $settings[0]["websiteColor"];
-$headerButton = $settings[0]["headerButton"];
-$categoryView = $settings[0]["categoryView"];
-$showCategoryTitle = $settings[0]["showCategoryTitle"];
-$productView = $settings[0]["productView"];
-$settingsOgDescription = $settings[0]["OgDescription"];
-$SettingsServiceCharge = $settings[0]["serviceCharge"];
-$settingsEnglishFont = $settings[0]["enFont"];
-$settingsArabicFont = $settings[0]["arFont"];
-$settingsArabicFontFamily = $settings[0]["arFontFamily"];
-$settingsEnglishFontFamily = $settings[0]["enFontFamily"];
-$shippingMethod = $settings[0]["shippingMethod"];
-$google = urldecode($settings[0]["google"]);
-$pixil = urldecode($settings[0]["pixil"]);
-$whatsappNoti = json_decode($settings[0]["whatsappNoti"],true);
-$whatsappToken = $settings[0]["whatsappToken"];
-//$paymentMethods = json_decode($settings[0]["paymentMethods"],true);
+$sql = "SELECT * FROM `settings` WHERE `id` LIKE '1'";
+$result = $dbconnect->query($sql);
+$row = $result->fetch_assoc();
+$settingsEmail = $row["email"];
+$settingsTitle = $row["title"];
+$settingsImage = $row["bgImage"];
+$settingsDTime = $row["dTime"];
+$settingsDTimeArabic = $row["dTimeArabic"];
+$settingslogo = $row["logo"];
+$cookieSession = $row["cookie"];
+$settingsWebsite = $row["website"];
+$PaymentAPIKey = $row["PaymentAPIKey"];
+$package = $row["package"];
+$startDate = $row["startDate"];
+$refference = $row["refference"];
+$amount = $row["amount"];
+$defaultCurr = $row["currency"];
+$language = $row["language"];
+$defaultCountry = $row["country"];
+$version = $row["version"];
+$showLogo = $row["showLogo"];
+$websiteColor = $row["websiteColor"];
+$headerButton = $row["headerButton"];
+$categoryView = $row["categoryView"];
+$showCategoryTitle = $row["showCategoryTitle"];
+$productView = $row["productView"];
+$settingsOgDescription = $row["OgDescription"];
+$SettingsServiceCharge = $row["serviceCharge"];
+$settingsEnglishFont = $row["enFont"];
+$settingsArabicFont = $row["arFont"];
+$settingsArabicFontFamily = $row["arFontFamily"];
+$settingsEnglishFontFamily = $row["enFontFamily"];
+$shippingMethod = $row["shippingMethod"];
+$whatsappToken = $row["whatsappToken"];
+$google = urldecode($row["google"]);
+$pixil = urldecode($row["pixil"]);
+$whatsappNoti = json_decode($row["whatsappNoti"],true);
+//$paymentMethods = json_decode($row["paymentMethods"],true);
 
-$theme = selectDB("s_media", "`id` = '3'");
-$theme = $theme[0]["theme"];
+$sql = "SELECT * FROM `s_media` WHERE `id` LIKE '3'";
+$result = $dbconnect->query($sql);
+$row = $result->fetch_assoc();
+$theme = $row["theme"];
 
 if ($currList = getCurr()) {
-	foreach ($currList as $key => $value) {
-		updateDB("currency", array("realValue" => (string)$value, "yourValue" => (string)$value), "`short` LIKE '%{$key}%'");
-	}
+foreach ($currList as $key => $value) {
+updateDB("currency", array("realValue" => (string)$value, "yourValue" => (string)$value), "`short` LIKE '%{$key}%'");
+}
 }
 ?>
 <div class="row heading-bg">
@@ -733,12 +700,12 @@ if ($currList = getCurr()) {
 			</div>
 		</div>
 
-		<!-- whatsapp status -->
+		<!-- whatsapp Details -->
 		<div class="col-md-12">
 			<div class="panel panel-default card-view">
 				<div class="panel-heading">
 					<div class="pull-left">
-						<h6 class="panel-title txt-dark"><?php echo direction("Language","اللغة") ?></h6>
+						<h6 class="panel-title txt-dark"><?php echo direction("Details","التفاصيل") ?></h6>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -758,13 +725,13 @@ if ($currList = getCurr()) {
 
 						<div class="col-md-3">
 						<div class="text">
-						<input class="form-control" name="whatsappToken" value="<?php echo $wSelected = isset($whatsappToken) ? "{$whatsappToken}" : "" ?>" placeholder="<?php echo direction("Automate Domain Token","رمز الموقع من أوتوميت") ?>">
+						<input class="form-control" name="whatsappNoti[to]" value="<?php echo $wSelected = isset($whatsappNoti["to"]) ? "{$whatsappNoti["to"]}" : "" ?>" placeholder="<?php echo direction("Orders Phone","هاتف الطلبات") ?>">
 						</div>
 						</div>
 
 						<div class="col-md-3">
 						<div class="text">
-						<input class="form-control" name="whatsappNoti[to]" value="<?php echo $wSelected = isset($whatsappNoti["to"]) ? "{$whatsappNoti["to"]}" : "" ?>" placeholder="<?php echo direction("Orders Phone","هاتف الطلبات") ?>">
+						<input class="form-control" name="whatsappToken" value="<?php echo $whatsappToken = isset($whatsappToken) ? "{$whatsappToken}" : "" ?>" placeholder="<?php echo direction("Ultra Msg Token","رمز Ultra Msg") ?>">
 						</div>
 						</div>
 					</div>

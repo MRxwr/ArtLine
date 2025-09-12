@@ -23,20 +23,6 @@ function direction($valEn,$valAr){
 	return $response;
 }
 
-function generateRandomToken(){
-	$bytes = date("Y-m-d H:i:s").time();
-	return password_hash($bytes, PASSWORD_BCRYPT);
-}
-
-function errorResponse($lang, $valEn, $valAr){
-	if ( $lang == "ar" ){
-		$response = $valAr;
-	}else{
-		$response = $valEn;
-	}
-	return $response;
-}
-
 // select a randon letter \\
 function randLetter() {
     $alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -73,7 +59,7 @@ function formatNumber($num) {
 
 // convert numbers to 3 digits \\
 function numTo3Float($data){
-	$data = number_format((float)$data, 3, null, "");
+	$data = number_format((float)$data, 3);
 	return $data;
 }
 

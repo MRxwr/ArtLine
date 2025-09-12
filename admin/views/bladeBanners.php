@@ -1,25 +1,25 @@
 <?php 
 if( isset($_GET["hide"]) && !empty($_GET["hide"]) ){
-	if( updateDB('banners',array('hidden'=> '2'),"`id` = '{$_GET["hide"]}'") ){
+	if( updateDB('banner',array('hidden'=> '2'),"`id` = '{$_GET["hide"]}'") ){
 		header("LOCATION: ?v=Banners");
 	}
 }
 
 if( isset($_GET["show"]) && !empty($_GET["show"]) ){
-	if( updateDB('banners',array('hidden'=> '1'),"`id` = '{$_GET["show"]}'") ){
+	if( updateDB('banner',array('hidden'=> '1'),"`id` = '{$_GET["show"]}'") ){
 		header("LOCATION: ?v=Banners");
 	}
 }
 
 if( isset($_GET["delId"]) && !empty($_GET["delId"]) ){
-	if( updateDB('banners',array('status'=> '1'),"`id` = '{$_GET["delId"]}'") ){
+	if( updateDB('banner',array('status'=> '1'),"`id` = '{$_GET["delId"]}'") ){
 		header("LOCATION: ?v=Banners");
 	}
 }
 
 if( isset($_POST["updateRank"]) ){
 	for( $i = 0; $i < sizeof($_POST["rank"]); $i++){
-		updateDB("banners",array("rank"=>$_POST["rank"][$i]),"`id` = '{$_POST["id"][$i]}'");
+		updateDB("banner",array("rank"=>$_POST["rank"][$i]),"`id` = '{$_POST["id"][$i]}'");
 	}
 	header("LOCATION: ?v=Banners");
 }
@@ -34,7 +34,7 @@ if( isset($_POST["title"]) ){
             $_POST["image"] = "";
         }
 		
-		if( insertDB("banners", $_POST) ){
+		if( insertDB("banner", $_POST) ){
 			header("LOCATION: ?v=Banners");
 		}else{
 		?>
@@ -47,10 +47,10 @@ if( isset($_POST["title"]) ){
 		if (is_uploaded_file($_FILES['image']['tmp_name'])) {
             $_POST["image"] = uploadImageBannerFreeImageHost($_FILES['image']['tmp_name']);
 		}else{
-            $imageurl = selectDB("banners", "`id` = '{$id}'");
+            $imageurl = selectDB("banner", "`id` = '{$id}'");
             $_POST["image"] = $imageurl[0]["image"];
         }
-		if( updateDB("banners", $_POST, "`id` = '{$id}'") ){
+		if( updateDB("banner", $_POST, "`id` = '{$id}'") ){
 			header("LOCATION: ?v=Banners");
 		}else{
 		?>
@@ -75,59 +75,39 @@ if( isset($_POST["title"]) ){
 <div class="panel-body">
 	<form class="" method="POST" action="" enctype="multipart/form-data">
 		<div class="row m-0">
-			<div class="col-md-4">
+			<div class="col-md-6">
 			<label><?php echo direction("Title","العنوان") ?></label>
 			<input type="text" name="title" class="form-control" required>
 			</div>
 			
-			<div class="col-md-4">
+			<div class="col-md-6">
 			<label><?php echo direction("Link","رابط") ?></label>
 			<input type="text" name="link" class="form-control" required>
 			</div>
 			
-			<div class="col-md-4">
+			<div class="col-md-6">
 			<label><?php echo direction("Hide Banner","أخفي البنر") ?></label>
 			<select name="hidden" class="form-control">
-				<option value="1"><?php echo direction("No","لا") ?></option>
-				<option value="2"><?php echo direction("Yes","نعم") ?></option>
-			</select>
-			</div>
-
-			<div class="col-md-4">
-			<label><?php echo direction("Type","النوع") ?></label>
-			<select name="type" class="form-control">
-				<option value="1"><?php echo direction("Image","صورة") ?></option>
-				<option value="2"><?php echo direction("Video","فيديو") ?></option>
-				<option value="3"><?php echo direction("Category","فئة") ?></option>
-				<option value="4"><?php echo direction("Brand","ماركة") ?></option>
-				<option value="5"><?php echo direction("Product","منتج") ?></option>
-			</select>
-			</div>
-
-			<div class="col-md-4">
-			<label><?php echo direction("Popup Banner","بنر النافذة") ?></label>
-			<select name="popup" class="form-control">
-				<option value="1"><?php echo direction("No","لا") ?></option>
-				<option value="2"><?php echo direction("Yes","نعم") ?></option>
+				<option value="1">No</option>
+				<option value="2">Yes</option>
 			</select>
 			</div>
 			
-			<div class="col-md-4">
-			<label><?php echo direction("banners","البنر") ?></label>
+			<div class="col-md-6">
+			<label><?php echo direction("Banner","البنر") ?></label>
 			<input type="file" name="image" class="form-control" required>
 			</div>
 			
 			<div id="images" style="margin-top: 10px; display:none">
-				<div class="col-md-4">
+				<div class="col-md-6">
 				</div>
-				<div class="col-md-4">
-				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 				<img id="logoImg" src="" style="width:250px;height:250px">
 				</div>
 			</div>
 			
-			<div class="col-md-12" style="margin-top:10px">
+			
+			<div class="col-md-6" style="margin-top:10px">
 			<input type="submit" class="btn btn-primary" value="<?php echo direction("Submit","أرسل") ?>">
 			<input type="hidden" name="update" value="0">
 			</div>
@@ -162,14 +142,14 @@ if( isset($_POST["title"]) ){
 		<th>#</th>
 		<th><?php echo direction("Title","العنوان") ?></th>
 		<th><?php echo direction("Link","الرابط") ?></th>
-		<th><?php echo direction("banners","الصورة") ?></th>
+		<th><?php echo direction("Banner","الصورة") ?></th>
 		<th class="text-nowrap"><?php echo direction("Actions","الخيارات") ?></th>
 		</tr>
 		</thead>
 		
 		<tbody>
 		<?php 
-		if( $banners = selectDB("banners","`status` = '0' ORDER BY `rank` ASC") ){
+		if( $banners = selectDB("banner","`status` = '0' ORDER BY `rank` ASC") ){
 		for( $i = 0; $i < sizeof($banners); $i++ ){
 		$counter = $i + 1;
 		if ( $banners[$i]["hidden"] == 2 ){
@@ -198,13 +178,10 @@ if( isset($_POST["title"]) ){
 		</a>
 		<a href="<?php echo "?v={$_GET["v"]}&delId={$banners[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="<?php echo direction("Delete","حذف") ?>"><i class="fa fa-close text-danger"></i>
 		</a>
-			<div style="display:none">
-				<label id="hidden<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["hidden"] ?></label>
-				<label id="logo<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["image"] ?></label>
-				<label id="header<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["header"] ?></label>
-				<label id="popup<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["popup"] ?></label>
-				<label id="type<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["type"] ?></label>
-			</div>
+		<div style="display:none"><label id="hidden<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["hidden"] ?></label></div>
+		<div style="display:none"><label id="logo<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["image"] ?></label></div>
+		<div style="display:none"><label id="header<?php echo $banners[$i]["id"]?>"><?php echo $banners[$i]["header"] ?></label></div>
+		
 		</td>
 		</tr>
 		<?php
@@ -225,14 +202,16 @@ if( isset($_POST["title"]) ){
 <script>
 	$(document).on("click",".edit", function(){
 		var id = $(this).attr("id");
-		$("input[name=update]").val(id);
+		var link = $("#link"+id).html();
+		var title = $("#title"+id).html();
+		var hidden = $("#hidden"+id).html();
+		var logo = $("#logo"+id).html();
 		$("input[type=file]").prop("required",false);
-		$("input[name=link]").val($("#link"+id).html());
-		$("input[name=title]").val($("#title"+id).html());
-		$("select[name=hidden]").val($("#hidden"+id).html());
-		$("select[name=popup]").val($("#popup"+id).html());
-		$("select[name=type]").val($("#type"+id).html());
-		$("#logoImg").attr("src","../logos/"+$("#logo"+id).html());
+		$("input[name=link]").val(link);
+		$("input[name=update]").val(id);
+		$("input[name=title]").val(title);
+		$("select[name=hidden]").val(hidden);
+		$("#logoImg").attr("src","../logos/"+logo);
 		$("#images").attr("style","margin-top:10px;display:block");
 	})
 </script>

@@ -20,7 +20,7 @@ if( $user = selectDB("users","`id` = '{$_GET["id"]}'")){
 					<div class="col-md-6">
 						<div class="form-group">
 						<label class="control-label mb-10">Name</label>
-						<input type="text" id="enname" class="form-control" value="<?php echo $user[0]["fName"] . " " . $user[0]["lName"];?>" disabled>
+						<input type="text" id="enname" class="form-control" value="<?php echo $user[0]["fullName"];?>" disabled>
 						</div>
 					</div>
 					<!--/span-->
@@ -55,15 +55,14 @@ if( $user = selectDB("users","`id` = '{$_GET["id"]}'")){
 		</div>
 		</div>
 	</div>
+</div>
 
 <?php
 
 $sql = "SELECT *
 		FROM `orders2`
 		WHERE
-		JSON_UNQUOTE(JSON_EXTRACT(info,'$.name')) LIKE '%{$user[0]["fName"]}%'
-		AND
-		JSON_UNQUOTE(JSON_EXTRACT(info,'$.name')) LIKE '%{$user[0]["lName"]}%'
+		JSON_UNQUOTE(JSON_EXTRACT(info,'$.name')) LIKE '%{$user[0]["fullName"]}%'
 		AND
 		JSON_UNQUOTE(JSON_EXTRACT(info,'$.email')) LIKE '%{$user[0]["email"]}%'
 		AND
@@ -71,6 +70,7 @@ $sql = "SELECT *
 		";
 $result = $dbconnect->query($sql);
 ?>
+<div class="row">
 <div class="col-sm-12">
 <div class="panel panel-default card-view">
 <div class="panel-wrapper collapse in">
@@ -80,13 +80,13 @@ $result = $dbconnect->query($sql);
 <table class="table display responsive product-overview mb-30" id="myTable">
 <thead>
 <tr>
-<th><?php echo direction("Date","التاريخ") ?></th>
-<th><?php echo "#" ?></th>
-<th><?php echo direction("Voucher","كود الخصم") ?></th>
-<th><?php echo direction("Total","المجموع") ?></th>
-<th><?php echo direction("Payment Method","طريقة الدفع") ?></th>
-<th><?php echo direction("Status","الحاله") ?></th>
-<th><?php echo direction("Actions","الخيارات") ?></th>
+<th><?php echo $DateTime ?></th>
+<th><?php echo $OrderID ?></th>
+<th><?php echo $Voucher ?></th>
+<th><?php echo $Price ?></th>
+<th><?php echo $methodOfPayment ?></th>
+<th><?php echo $Status ?></th>
+<th><?php echo $Actions ?></th>
 </tr>
 </thead>
 <tbody>
@@ -101,37 +101,43 @@ while ( $row = $result->fetch_assoc() ){
 	<tr>
 		<td><?php echo $row["date"] ?></td>
 		<td class="txt-dark"><?php echo $row["orderId"] ?></td>
-		<td><?php echo $voucher[0]["voucher"] ?></td>
+		<td><?php echo $voucher["voucher"] ?></td>
 		<td><?php echo numTo3Float($row["price"]+$address["shipping"]) . $defaultCurr ?></td>
 		<td>
-			<?php 
-			if( $row["paymentMethod"] == 1 ){
-				echo "<b style='color:darkblue'>Online Payment</b>";
-			}else{
-				echo "<b style='color:darkgreen'>CASH</b>";
-			}
-			?>
+			<?php if ( $row["paymentMethod"] == 1 ) {echo "<b style='color:darkblue'>KNET</b>"; } elseif($row["paymentMethod"] == 3) { echo "<b style='color:darkgreen'>CASH</b>";; } else { echo "<b style='color:darkred'>VISA/MASTER</b>";} ?>
 		</td>
 		<td>
 			<?php 
-			if( $row["status"] == 5 ){
-				echo "<span class='label label-warning font-weight-100'>".direction("On Delivery","جاري التوصيل")."</span>";
-			}elseif( $row["status"] == 4 ){
-				echo "<span class='label label-success font-weight-100'>".direction("Delivered","تم التوصيل")."</span>";
-			}elseif( $row["status"] == 3 ){
+			if ( $row["status"] == 5 )
+			{
+				echo "<span class='label label-warning font-weight-100'>$OnDelivery</span>";
+			}
+			if ( $row["status"] == 4 )
+			{
+				echo "<span class='label label-success font-weight-100'>$Delivered</span>";
+			}
+			if ( $row["status"] == 3 )
+			{
 				//echo "<span class='label label-danger font-weight-100'>$Returned</span>";
-			}elseif( $row["status"] == 2 ){
-				echo "<span class='label label-default font-weight-100'>".direction("Failed","فشل")."</span>";
-			}elseif( $row["status"] == 1 ){
-				echo "<span class='label label-primary font-weight-100'>".direction("Paid","تم الدفع")."</span>";
-			}elseif( $row["status"] == 0 ){
-				echo "<span class='label label-default font-weight-100'>".direction("Pending","قيد الانتظار")."</span>";
+			}
+			elseif ( $row["status"] == 2 )
+			{
+				echo "<span class='label label-default font-weight-100'>$Failed</span>";
+			}
+			elseif ( $row["status"] == 1 )
+			{
+				echo "<span class='label label-primary font-weight-100'>$Paid</span>";
+			}
+			elseif ( $row["status"] == 0 )
+			{
+				echo "<span class='label label-default font-weight-100'>$Pending</span>";
+				
 			}
 			?>
 		</td>
 		<td>
 			<a target="_blank" href="?v=Order&orderId=<?php echo $orederID ?>">
-			<button class="btn btn-info btn-rounded"><?php echo direction("View","عرض") ?>
+			<button class="btn btn-info btn-rounded"><?php echo $Details ?>
 			</button>
 		</td>
 	</tr>
@@ -143,6 +149,7 @@ while ( $row = $result->fetch_assoc() ){
 </div>
 </div>	
 </div>	
+</div>
 </div>
 </div>
 </div>

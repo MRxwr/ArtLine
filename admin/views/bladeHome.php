@@ -60,7 +60,7 @@
 
 <div class="row" style="padding:16px">
     <div class="col-12">
-    <?php echo direction("Welcome To {$settingsTitle} CP", "مرحبا بك في {$settingsTitle} CP") ?>
+    Welcome To <?php echo $settingsTitle ?> CP
     </div>
 </div>
 				
@@ -171,7 +171,7 @@ for ( $y =0; $y < 3; $y++){
 	}
 }
 ?>		
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="panel panel-default card-view">
         <div class="panel-wrapper collapse in">
         <div class="panel-body row">
@@ -182,10 +182,10 @@ for ( $y =0; $y < 3; $y++){
         </label>
         <thead>
         <tr>
-        <th><?php echo direction("Date","تاريخ") ?></th>
-        <th><?php echo direction("Order ID","رقم الطلب") ?></th>
-        <th><?php echo direction("Price","السعر") ?></th>
-        <th><?php echo direction("Actions","الخيارات") ?></th>
+        <th><?php echo $DateTime ?></th>
+        <th><?php echo $OrderID ?></th>
+        <th><?php echo $Price ?></th>
+        <th><?php echo $Actions ?></th>
         </tr>
         </thead>
         <tbody>
@@ -197,10 +197,49 @@ for ( $y =0; $y < 3; $y++){
         <td><?php echo timeZoneConverter($ordersOnline[$i]["date"]); ?></td>
         <td><?php echo $ordersOnline[$i]["id"] ?></td>
         <td><?php echo numTo3Float($ordersOnline[$i]["price"]) . "KD" ?></td>
-        <td><a href="?v=Order&orderId=<?php echo $ordersOnline[$i]["id"] ?>"><?php echo direction("Details","تفاصيل") ?></a></td>
+        <td><a href="?v=Order&orderId=<?php echo $ordersOnline[$i]["id"] ?>">Details</a></td>
         </tr>
         <?php }
         }
+        ?>
+        </tbody>
+        </table>
+        </div>
+        </div>	
+        </div>	
+        </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="panel panel-default card-view">
+        <div class="panel-wrapper collapse in">
+        <div class="panel-body row">
+        <div class="table-wrap">
+        <div class="table-responsive">
+        <table id="myTable" class="table table-hover display  pb-30" >
+        <label class="tabHead"><?php echo direction("POS Orders","طلبات المحلات") ?></label>
+        <thead>
+        <tr>
+        <th><?php echo $DateTime ?></th>
+        <th><?php echo $OrderID ?></th>
+        <th><?php echo $Price ?></th>
+        <th><?php echo $Actions ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        if($posOrders = selectDB("posorders","`status` != '1000' GROUP BY `orderId` ORDER BY `orderId` DESC LIMIT 5")){
+        for ( $i = 0 ; $i < sizeof($posOrders) ; $i++){
+        ?>
+        <tr>
+        <td><?php echo timeZoneConverter($posOrders[$i]["date"]); ?></td>
+        <td><?php echo $posOrders[$i]["orderId"] ?></td>
+        <td><?php echo numTo3Float($posOrders[$i]["totalPrice"]) . " KWD" ?></td>
+        <td><a href="?v=PosOrder&id=<?php echo $posOrders[$i]["orderId"] ?>">Details</a></td>
+        </tr>
+        <?php }
+        } 
         ?>
         </tbody>
         </table>

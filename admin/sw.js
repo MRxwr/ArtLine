@@ -1,5 +1,5 @@
-var cacheVersion = 'v1.0.0';
-var cacheName = 'COEO App Admin' + cacheVersion;
+var cacheVersion = 'v1';
+var cacheName = 'YaZeenha-' + cacheVersion;
 var filesToCache = [
     ''
 ];

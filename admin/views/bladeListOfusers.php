@@ -64,31 +64,26 @@ if( isset($_POST["fullName"]) ){
 	<form class="" method="POST" action="" enctype="multipart/form-data">
 		<div class="row m-0">
 			<div class="col-md-6">
-			<label><?php echo direction("First Name","الاسم الأول") ?></label>
-			<input type="text" name="fName" class="form-control" required>
-			</div>
-
-			<div class="col-md-6">
-			<label><?php echo direction("Last Name","الاسم الثاني") ?></label>
-			<input type="text" name="lName" class="form-control" required>
-			</div>
-
-			<div class="col-md-4">
-			<label><?php echo direction("Mobile","الهاتف") ?></label>
-			<input type="number" min="0" maxlength="8" name="phone" class="form-control" required>
+			<label><?php echo direction("Name","الإسم") ?></label>
+			<input type="text" name="fullName" class="form-control" required>
 			</div>
 			
-			<div class="col-md-4">
+			<div class="col-md-6">
 			<label><?php echo direction("Email","البريد الإلكتروني") ?></label>
 			<input type="text" name="email" class="form-control" required>
 			</div>
 			
-			<div class="col-md-4">
+			<div class="col-md-6">
 			<label><?php echo direction("Password","كلمة المرور") ?></label>
 			<input type="text" name="password" class="form-control" required>
 			</div>
 			
-			<div class="col-md-12" style="margin-top:10px">
+			<div class="col-md-6">
+			<label><?php echo direction("Mobile","الهاتف") ?></label>
+			<input type="number" min="0" maxlength="8" name="phone" class="form-control" required>
+			</div>
+			
+			<div class="col-md-6" style="margin-top:10px">
 			<input type="submit" class="btn btn-primary" value="<?php echo direction("Submit","أرسل") ?>">
 			<input type="hidden" name="update" value="0">
 			</div>
@@ -99,6 +94,7 @@ if( isset($_POST["fullName"]) ){
 </div>
 </div>
 
+<div class="row">
 <div class="col-sm-12">
 <div class="panel panel-default card-view">
 <div class="panel-heading">
@@ -128,19 +124,14 @@ if( isset($_POST["fullName"]) ){
 			for( $i = 0; $i < sizeof($users); $i++ ){	
 				?>
 				<tr>
-				<td id="name<?php echo $users[$i]["id"]?>" ><?php echo $users[$i]["fName"] . " " . $users[$i]["lName"] ?></td>
+				<td id="name<?php echo $users[$i]["id"]?>" ><?php echo $users[$i]["fullName"] ?></td>
 				<td id="email<?php echo $users[$i]["id"]?>" ><?php echo $users[$i]["email"] ?></td>
 				<td id="mobile<?php echo $users[$i]["id"]?>" ><?php echo $users[$i]["phone"] ?></td>
 				<td id="date<?php echo $users[$i]["id"]?>" ><?php echo $users[$i]["date"] ?></td>
 				<td class="text-nowrap">
 					<a id="<?php echo $users[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="<?php echo direction("Edit","تعديل") ?>"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
 					<a href="?v=ClientInfo&id=<?php echo $users[$i]["id"] ?>" class="mr-25" data-toggle="tooltip" data-original-title="<?php echo direction("More","المزيد") ?>"> <i class="fa fa-plus text-inverse m-r-10"></i></a>
-					<a href="?v=ClientAddress&num=<?php echo $users[$i]["id"] ?>" class="mr-25" data-toggle="tooltip" data-original-title="<?php echo direction("Addresses","العناوين") ?>"> <i class="fa fa-globe text-inverse m-r-10"></i></a>
-					<a href="<?php echo "?v={$_GET["v"]}&delId={$users[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="<?php echo direction("Delete","حذف") ?>"><i class="fa fa-close text-danger"></i></a>
-					<div style="display:none">
-						<label id="fName<?php echo $users[$i]["id"]?>"><?php echo $users[$i]["fName"] ?></label>
-						<label id="lName<?php echo $users[$i]["id"]?>"><?php echo $users[$i]["lName"] ?></label>
-					</div>		
+					<a href="<?php echo "?v={$_GET["v"]}&delId={$users[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="<?php echo direction("Delete","حذف") ?>"><i class="fa fa-close text-danger"></i></a>		
 				</td>
 				</tr>
 				<?php
@@ -167,7 +158,6 @@ if( isset($_POST["fullName"]) ){
 		$("input[name=email]").val(email);
 		$("input[name=phone]").val(mobile);
 		$("input[name=update]").val(id);
-		$("input[name=fName]").val($("#fName"+id).html()).focus();
-		$("input[name=lName]").val($("#lName"+id).html());
+		$("input[name=fullName]").val(name);
 	})
 </script>

@@ -12,7 +12,6 @@ $entitle = escapeStringDirect($_POST["enTitle"]);
 $arDetails = escapeStringDirect($_POST["arDetails"]);
 $enDetails = escapeStringDirect($_POST["enDetails"]);
 $categoryId = $_POST["categoryId"];
-$brandId = $_POST["brandId"];
 $price = $_POST["price"];
 $cost = $_POST["cost"];
 $preorder = $_POST["preorder"];
@@ -47,9 +46,9 @@ if ( isset($_POST["weight"]) ){
 
 $sql = "INSERT INTO 
 		`products`
-		(`categoryId`, `brandId`, `arTitle`, `enTitle`, `arDetails`, `enDetails`, `price`, `cost`, `video`, `storeQuantity`, `onlineQuantity`,`discount`,`discountType`, `weight`, `width`, `height`,`depth`, `preorder`, `preorderText`, `preorderTextAr`, `type`, `oneTime`, `collection`, `isImage`,`extras`, `giftCard`, `sizeChart`, `shopId`) 
+		(`categoryId`, `arTitle`, `enTitle`, `arDetails`, `enDetails`, `price`, `cost`, `video`, `storeQuantity`, `onlineQuantity`,`discount`,`discountType`, `weight`, `width`, `height`,`depth`, `preorder`, `preorderText`, `preorderTextAr`, `type`, `oneTime`, `collection`, `isImage`,`extras`, `giftCard`, `sizeChart`) 
 		VALUES
-		('{$categoryId[0]}','{$brandId}','{$artitle}','{$entitle}','{$arDetails}','{$enDetails}', '{$price}', '{$cost}','{$videoLink}','{$storeQuantity}','{$onlineQuantity}', '{$discount}', '{$discountType}','{$weight}','{$width}','{$height}', '{$depth}', '{$preorder}', '{$preorderText}', '{$preorderTextAr}', '{$type}', '{$oneTime}', '{$collection}', '{$isImage}', '{$extras}', '{$giftCard}', '{$sizeChart}', '{$shopId}')";
+		('{$categoryId[0]}','{$artitle}','{$entitle}','{$arDetails}','{$enDetails}', '{$price}', '{$cost}','{$videoLink}','{$storeQuantity}','{$onlineQuantity}', '{$discount}', '{$discountType}','{$weight}','{$width}','{$height}', '{$depth}', '{$preorder}', '{$preorderText}', '{$preorderTextAr}', '{$type}', '{$oneTime}', '{$collection}', '{$isImage}', '{$extras}', '{$giftCard}', '{$sizeChart}')";
 $result = $dbconnect->query($sql);
 
 $sql = "SELECT * FROM `products` WHERE `enTitle` LIKE '{$entitle}' AND `arTitle` LIKE '{$artitle}'";
@@ -83,16 +82,8 @@ $i = 0;
 while ( $i < sizeof($_FILES['logo']['tmp_name']) ){
 	if( is_uploaded_file($_FILES['logo']['tmp_name'][$i]) ){
 		$filenewname = uploadImageFreeImageHost($_FILES["logo"]["tmp_name"][$i]);
-		$sql = "INSERT INTO `images`(`id`, `productId`, `imageurl`, `imageurl2`, `imageurl3`) VALUES (NULL,'{$productID}','{$filenewname}','{$filenewname}','{$filenewname}')";
+		$sql = "INSERT INTO `images`(`id`, `productId`, `imageurl`) VALUES (NULL,'{$productID}','{$filenewname}')";
 		$result = $dbconnect->query($sql);
-		/*
-		//get extension
-		$ext = pathinfo($_FILES['logo']['name'][$i], PATHINFO_EXTENSION);
-		//upload image
-		$filenewname = imageUpload("logos",$_FILES['logo']['tmp_name'][$i],$ext);
-		$sql = "INSERT INTO `images`(`id`, `productId`, `imageurl3`, `imageurl2`, `imageurl`) VALUES (NULL,'{$productID}','{$filenewname}','{$filenewname}','{$filenewname}')";
-		$result = $dbconnect->query($sql);
-		*/
 	}
 	$i++;
 }

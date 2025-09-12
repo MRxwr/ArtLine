@@ -83,6 +83,15 @@ input {
 	</div>
 
 	<div class="col-md-6">
+	<div class="form-group sizes">
+	<label class="control-label mb-10"><?php echo $selectSubProduct ?></label>
+	<select class="selectpicker" name="" data-style="form-control btn-default btn-outline">
+	<option></option>
+	</select>
+	</div>	
+	</div>
+
+	<div class="col-md-6">
 	<div class="form-group">
 	<label class="control-label mb-10"><?php echo direction("Status","الحالة") ?></label>
 	<select class="selectpicker" name="status" data-style="form-control btn-default btn-outline">
@@ -152,7 +161,7 @@ if ( isset($_POST["endDate"]) ){
 				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(items,'$[*].productId')) LIKE '%{$_POST["productId"]}%'";
 			}
 			if ( !empty($_POST["size"]) ){
-				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(items,'$[*].attributeId')) LIKE '%{$_POST["size"]}%'";
+				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(items,'$[*].subId')) LIKE '%{$_POST["size"]}%'";
 			}
 			if ( !empty($_POST["pMethod"]) ){
 				$where .= " AND `paymentMethod` = '{$_POST["pMethod"]}'";
@@ -187,16 +196,16 @@ if ( !empty($orderIds) ){
 <table id="example" class="table table-hover display  pb-30" >
 <thead>
 	<tr>
-		<th><?php echo direction("Date","التاريخ") ?></th>
-		<th><?php echo direction("Order ID","رقم الطلب") ?></th>
-		<th><?php echo direction("Mobile","رقم الجوال") ?></th>
-		<th><?php echo direction("Voucher","القسيمة") ?></th>
-		<th><?php echo direction("Discount","الخصم") ?></th>
-		<th><?php echo direction("Delivery","التوصيل") ?></th>
-		<th><?php echo direction("Payment Method","طريقة الدفع") ?></th>
+		<th><?php echo $DateTime ?></th>
+		<th><?php echo $OrderID ?></th>
+		<th><?php echo $Mobile ?></th>
+		<th><?php echo $Voucher ?></th>
+		<th><?php echo $Discount ?></th>
+		<th><?php echo $deliveryText ?></th>
+		<th><?php echo $paymentMethodText ?></th>
 		<th><?php echo direction("Profit","الأرباح") ?></th>
-		<th><?php echo direction("Cost","التكلفة") ?></th>
-		<th><?php echo direction("Price","السعر") ?></th>
+		<th><?php echo $Cost ?></th>
+		<th><?php echo $Price ?></th>
 		<th><?php echo direction("Status","الحاله") ?></th>
 	</tr>
 </thead>
@@ -210,7 +219,7 @@ $totalIntInvoices = 0;
 		$address = json_decode($orderIds[$i]["address"],true);
 		$items = json_decode($orderIds[$i]["items"],true);
 		for( $y = 0; $y < sizeof($items); $y++ ){
-			$item = selectDB("attributes_products","`id` = '{$items[$y]["attributeId"]}'");
+			$item = selectDB("attributes_products","`id` = '{$items[$y]["subId"]}'");
 			$cost[] = (isset($item[0]["cost"]) && $item[0]["cost"] != 0) ? $item[0]["cost"]*$items[$y]["quantity"] : 0;
 		}
 		$profit = $orderIds[$i]["price"] - array_sum($cost);
@@ -232,15 +241,15 @@ $totalIntInvoices = 0;
 		<td><?php echo $orderIds[$i]["date"] ?></td>
 		<td class="txt-dark"><a href="?v=Order&orderId=<?php echo $orderIds[$i]["orderId"] ?>" target="_blank"><?php echo $orderIds[$i]["orderId"] ?></a></td>
 		<td class="txt-dark"><?php echo $info["phone"] ?></td>
-		<td><?php echo $voucher[0]["voucher"] ?></td>
-		<td><?php echo numTo3Float($voucher[0]["percentage"]) . ( $voucher[0]["discountType"] != 2 ? "%" : "KD" ) ?></td>
+		<td><?php echo $voucher["voucher"] ?></td>
+		<td><?php echo $voucher["percentage"] ?>%</td>
 		<td><?php echo numTo3Float($address["shipping"]) . $defaultCurr?></td>
 		<td><?php
-			if( $orderIds[$i]["paymentMethod"] == 2 ){
-				echo direction("Cash","كاش");
-			}else{
-				echo direction("Online","أونلاين");
-			}
+		if( $paymentMethod = selectDB("p_methods","`paymentId` = '{$orderIds[$i]["paymentMethod"]}'") ){
+			echo $method = direction($paymentMethod[0]["enTitle"],$paymentMethod[0]["arTitle"]);
+		}else{
+			echo $method = "";
+		}
 		?></td>
 		<td><?php echo numTo3Float($profit) . $defaultCurr?></td>
 		<td><?php echo numTo3Float(array_sum($cost)) . $defaultCurr?></td>
@@ -310,6 +319,22 @@ $totalIntInvoices = 0;
 </div>
 
 <script>
+$(function(){
+	$('.productId').on('change',function(e){
+		e.preventDefault();
+		var mainProduct = $(this).val()
+			$.ajax({
+			type:"POST",
+			url: "../api/functions.php",
+			data: {
+				productValue: mainProduct,
+			},
+			success:function(result){
+				$('.sizes').html(result);
+			}
+		});
+	});
+})
 
 $(function(){
 $('.printMeNow').on('click',function(e){

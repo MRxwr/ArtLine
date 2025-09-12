@@ -1,10 +1,10 @@
 <?php 
 if( isset($_POST["attributeId"]) ){
 	for( $i = 0; $i < sizeof($_POST["attributeId"]); $i++ ){
-		if( updateDB("attributes_products", array("quantity" => $_POST["quantity"][$i], "price" => $_POST["price"][$i]) , "`id` = '{$_POST["attributeId"][$i]}'") ){
+		if( updateDB("attributes_products", array("quantity" => $_POST["quantity"][$i]) , "`id` = '{$_POST["attributeId"][$i]}'") ){
 		}
 	}
-	header("LOCATION: ?v=Inventory&id={$_GET["id"]}");die();
+	header("LOCATION: ?v=Inventory");die();
 }
 ?>
 <div class="row">		
@@ -18,20 +18,19 @@ if( isset($_POST["attributeId"]) ){
 </div>
 <div class="panel-wrapper collapse in">
 <div class="panel-body">
-	<form class="" method="GET" action="" enctype="multipart/form-data">
+	<form class="" method="POST" action="" enctype="multipart/form-data">
 		<div class="row m-0">
 			<div class="col-md-6">
 				<label><?php echo direction("Categories","الأقسام") ?></label>
-				<input type="hidden" name="v" value="<?php echo $_GET["v"] ?>">
-				<select name="id" class="form-control" onchange="this.form.submit()">
+				<select name="categoryId" class="form-control" onchange="this.form.submit()">
 					<?php
-					if( !isset($_GET["id"]) ){
+					if( !isset($_POST["categoryId"]) ){
 						echo "<option selected disabled value='0'>".direction("Please select a category","الرجاء إختيار قسم")."</option>";
 					}
 					if( $categories = selectDB("categories","`status` = '0'") ){
 						for( $i = 0; $i < sizeof($categories); $i++ ){
 							$categoryTitle = direction($categories[$i]["enTitle"],$categories[$i]["arTitle"]);
-							if( $_GET["id"] == $categories[$i]["id"] ){
+							if( $_POST["categoryId"] == $categories[$i]["id"] ){
 								echo "<option selected value='{$categories[$i]["id"]}'>{$categoryTitle}</option>";
 							}else{
 								echo "<option value='{$categories[$i]["id"]}'>{$categoryTitle}</option>";
@@ -48,8 +47,8 @@ if( isset($_POST["attributeId"]) ){
 </div>
 </div>
 <?php
-if( isset($_GET["id"]) && !empty($_GET["id"]) ){
-	$listOfProducts = selectDB("category_products","`categoryId` = '{$_GET["id"]}'");
+if( isset($_POST["categoryId"]) && !empty($_POST["categoryId"]) ){
+	$listOfProducts = selectDB("category_products","`categoryId` = '{$_POST["categoryId"]}'");
 ?>
 				<!-- Bordered Table -->
 <div class="col-sm-12">
@@ -71,8 +70,6 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
 				<th><?php echo direction("Logo","الصورة") ?></th>
 				<th><?php echo direction("Title","الإسم") ?></th>
 				<th><?php echo direction("Quantity","الكمية") ?></th>
-				<th><?php echo direction("Cost","التكلفه") ?></th>
-				<th><?php echo direction("Price","السعر") ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -87,13 +84,9 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
 						?>
 					<tr>
 						<td><img src='../logos/<?php echo "b{$image[0]["imageurl"]}" ?>' style="width:50px;height:50px"></td>
-						<td><a target="_blank" class="titleLink" data-link="<?php echo "{$produtTitle} {$attributeTitle}" ?>"><?php echo "{$produtTitle} {$attributeTitle}" ?></a></td>
+						<td><?php echo "{$produtTitle} {$attributeTitle}" ?></td>
 						<td>
 							<input type="number" name="quantity[]" value="<?php echo $attributes[$y]["quantity"] ?>" class="form-control">
-						</td>
-						<td><?php echo numTo3Float($attributes[$y]["cost"]) ?></td>
-						<td>
-							<input type="number" min="0" step="any" name="price[]" value="<?php echo numTo3Float($attributes[$y]["price"]) ?>" class="form-control" style="width:100px">
 							<input type="hidden" name="attributeId[]" value="<?php echo $attributes[$y]["id"] ?>">
 						</td>
 					</tr>
@@ -116,23 +109,3 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
 }
 ?>
 </div>
-<script>
-	$(document).ready(function () {
-    $(".titleLink").on("click", function (e) {
-		var link = $(this).attr("data-link");
-		// replace spaces with -
-		var link2 = link.replace(/\s/g, "-");
-		var link3 = link2.slice(0, -1);
-        e.preventDefault(); // Prevent default action if it's a link
-
-        // Open the first website
-        window.open("https://www.google.com/search?q="+link+" kuwait", "_blank");
-
-        // Open the second website
-        window.open("https://babapckw.com/product/"+link2, "_blank");
-
-		// Open the second website
-        window.open("https://www.nextstore.com.kw/"+link3+".html", "_blank");
-    });
-});
-</script>

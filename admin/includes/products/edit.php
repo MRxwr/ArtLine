@@ -8,8 +8,6 @@ $enTitle = escapeStringDirect($_POST["enTitle"]);
 $arDetails = escapeStringDirect($_POST["arDetails"]);
 $enDetails = escapeStringDirect($_POST["enDetails"]);
 $categoryId = $_POST["categoryId"];
-$brandId = $_POST["brandId"];
-$shopId = $_POST["shopId"];
 $price = $_POST["price"];
 $cost = $_POST["cost"];
 $preorder = $_POST["preorder"];
@@ -27,7 +25,7 @@ $isImage = $_POST["isImage"];
 $sizeChart = $_POST["sizeChart"];
 $sku = $_POST["sku"];
 $quantity = $_POST["quantity"];
-if( isset($_POST["extras"]) && $_POST["extras"] != "null" && $extras = json_encode($_POST["extras"]) ){
+if( $extras = json_encode($_POST["extras"]) ){
 	$extras = json_encode($_POST["extras"]);
 }else{
 	$extras = json_encode(array());
@@ -48,11 +46,7 @@ $i = 0;
 while ( $i < sizeof($_FILES['logo']['tmp_name']) ){
 	if( is_uploaded_file($_FILES['logo']['tmp_name'][$i]) ){
 		$filenewname = uploadImageFreeImageHost($_FILES["logo"]["tmp_name"][$i]);
-		/*
-		$ext = pathinfo($_FILES['logo']['name'][$i], PATHINFO_EXTENSION);
-		$filenewname = imageUpload("logos",$_FILES["logo"]["tmp_name"][$i],$ext);
-		*/
-		$sql = "INSERT INTO `images`(`id`, `productId`, `imageurl`, `imageurl2`, `imageurl3`) VALUES (NULL,'{$id}','{$filenewname}','{$filenewname}','{$filenewname}')";
+		$sql = "INSERT INTO `images`(`id`, `productId`, `imageurl`) VALUES (NULL,'{$id}','{$filenewname}')";
 		$result = $dbconnect->query($sql);
 	}
 	$i++;
@@ -62,8 +56,6 @@ $sql = "UPDATE
 		`products` 
 		SET 
 		`categoryId`='$categoryId[0]',
-		`brandId`='$brandId',
-		`shopId`='$shopId',
 		`arTitle`='$arTitle',
 		`enTitle`='$enTitle',
 		`arDetails`='$arDetails',
@@ -114,7 +106,7 @@ if( $product[0]["type"] == 1 ){
 	);
 	insertDB("attributes_products",$dataInsert);
 	$newId = selectDB("attributes_products","`productId` = '{$id}'");
-	updateDB("cart",array("attributeId" => $newId[0]["id"]),"`attributeId` = '{$oldId[0]["id"]}'");
+	updateDB("cart",array("subId" => $newId[0]["id"]),"`subId` = '{$oldId[0]["id"]}'");
 }
 header("LOCATION: ../../index.php?v=Product");
 

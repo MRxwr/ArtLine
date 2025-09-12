@@ -38,6 +38,30 @@ if ( isset($_POST["noAddress"]) ){
 if ( isset($_POST["noAddressDelivery"]) ){
 	updateDB("s_media",array('noAddressDelivery' => $_POST["noAddressDelivery"]),"`id` = '3'");
 }
+if ( isset($_POST["enableInvoiceImage"]) ){
+	updateDB("s_media",array('enableInvoiceImage' => $_POST["enableInvoiceImage"]),"`id` = '3'");
+}
+
+if ( isset($_POST["enAbout"]) ){
+	updateDB("s_media",array('enAbout' => $_POST["enAbout"]),"`id` = '3'");
+}
+if ( isset($_POST["arAbout"]) ){
+	updateDB("s_media",array('arAbout' => $_POST["arAbout"]),"`id` = '3'");
+}
+
+if ( isset($_POST["enPrivacy"]) ){
+	updateDB("s_media",array('enPrivacy' => $_POST["enPrivacy"]),"`id` = '3'");
+}
+if ( isset($_POST["arPrivacy"]) ){
+	updateDB("s_media",array('arPrivacy' => $_POST["arPrivacy"]),"`id` = '3'");
+}
+
+if ( isset($_POST["enReturn"]) ){
+	updateDB("s_media",array('enReturn' => $_POST["enReturn"]),"`id` = '3'");
+}
+if ( isset($_POST["arReturn"]) ){
+	updateDB("s_media",array('arReturn' => $_POST["arReturn"]),"`id` = '3'");
+}
 
 if ( isset($_POST["internationalDelivery"]) ){
 	updateDB("s_media",array(
@@ -66,7 +90,14 @@ $switchKent = $options[2]["knet"];
 $emailOpt = $options[2]["emailOpt"];
 $giftCard = $options[2]["giftCard"];
 $currency = $options[2]["currency"];
+$enAbout = $options[2]["enAbout"];
+$arAbout = $options[2]["arAbout"];
+$enPrivacy = $options[2]["enPrivacy"];
+$arPrivacy = $options[2]["arPrivacy"];
+$enReturn = $options[2]["enReturn"];
+$arReturn = $options[2]["arReturn"];
 $userDiscount = $options[3]["userDiscount"];
+$enableInvoiceImage = $options[3]["enableInvoiceImage"];
 
 $maintenance = selectDB("maintenance","`id` = '1'"); 
 $mainSwitch = $maintenance[0]["status"];
@@ -473,4 +504,161 @@ $row = $result->fetch_assoc();
 		</div>
 	</div>
 
+	<div class="col-md-3">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Enable invoice image","تفعيل صورة فاتورة") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="radio">
+						<input type="radio" class="form-control"  name="enableInvoiceImage" id="radio19" value="1" <?php if ( $enableInvoiceImage == 1 ) { echo 'checked=""'; } ?>>
+						<label for="radio19"> <?php echo $On ?> </label>
+					</div>
+					<div class="radio">
+						<input type="radio" class="form-control"  name="enableInvoiceImage" id="radio19" value="0" <?php if ( $enableInvoiceImage == 0 ) { echo 'checked=""'; } ?>>
+						<label for="radio19"> <?php echo $Off ?> </label>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("About US English","معلومات عنا الانجليزية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="enAbout" name="enAbout" class="tinymce"><?php echo $enAbout ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("About US Arabic","معلومات عنا العربية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="arAbout" name="arAbout" class="tinymce"><?php echo $arAbout ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Privacy Policy English","سياسة الخصوصية الانجليزية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="enPrivacy" name="enPrivacy" class="tinymce"><?php echo $enPrivacy ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Privacy Policy Arabic","سياسة الخصوصية العربية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="arPrivacy" name="arPrivacy" class="tinymce"><?php echo $arPrivacy ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Terms & Conditions English","الشروط والأحكام الانجليزية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="enReturn" name="enReturn" class="tinymce"><?php echo $enReturn ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="panel panel-default card-view">
+			<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Terms & Conditions Arabic","الشروط والأحكام العربية") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-12"><textarea id="arReturn" name="arReturn" class="tinymce"><?php echo $arReturn ?></textarea></div>
+					</div>
+					<input type="submit" class="form-control btn btn-default"  value="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
+<!-- Tinymce JavaScript -->
+<script src="../vendors/bower_components/tinymce/tinymce.min.js"></script>
+					
+<!-- Tinymce Wysuhtml5 Init JavaScript -->
+<script src="dist/js/tinymce-data.js"></script>

@@ -7,7 +7,6 @@ function deleteDB($table, $where){
     $sql = "DELETE FROM `" . $table . "` WHERE " . $where;
     if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
-            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -35,7 +34,6 @@ function deleteDBNew($table, $params, $where){
     $sql = "DELETE FROM `" . $table . "` WHERE " . $where;
     if (isset($_GET["v"]) && !empty($_GET["v"])) {
         $array = array(
-            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -75,48 +73,6 @@ function selectDBNew($table, $placeHolders, $where, $order){
     }
     if( $table == "employees" && strstr($where,"email") ){
         $array = array(
-            "id" => null, // Let DB auto-increment handle this
-            "userId" => 0,
-            "username" => 0,
-            "module" => "Login",
-            "action" => "Select",
-            "sqlQuery" => json_encode(array("table"=>$table,"data"=>$placeHolders,"where"=>$where)),
-        );
-        LogsHistory($array);
-    }
-    if($stmt = $dbconnect->prepare($sql)) {
-        $types = str_repeat('s', count($placeHolders));
-        $stmt->bind_param($types, ...$placeHolders);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $array = array();
-        while ($row = $result->fetch_assoc()) {
-            $array[] = $row;
-        }
-        if(isset($array) && is_array($array)) {
-            return $array;
-        }else{
-            return 0;
-        }
-    }else{
-        return 0;
-    }
-}
-
-function selectDB2New($select, $table, $placeHolders, $where, $order){
-    GLOBAL $dbconnect;
-    $check = [';', '"'];
-    $where = str_replace($check, "", $where);
-    $sql = "SELECT {$select} FROM `{$table}`";
-    if(!empty($where)) {
-        $sql .= " WHERE {$where}";
-    }
-    if(!empty($order)) {
-        $sql .= " ORDER BY {$order}";
-    }
-    if( $table == "employees" && strstr($where,"email") ){
-        $array = array(
-            "id" => null, // Let DB auto-increment handle this
             "userId" => 0,
             "username" => 0,
             "module" => "Login",
@@ -236,48 +192,6 @@ function selectJoinDB($table, $joinData, $where){
     }
 }
 
-function selectJoinDBNew($table, $joinData, $placeHolders, $where){
-    global $dbconnect;
-    global $date;
-    $check = [';', '"'];
-    $where = str_replace($check,"",$where);
-    $sql = "SELECT ";
-    for($i = 0 ; $i < sizeof($joinData["select"]) ; $i++ ){
-        $sql .= $joinData["select"][$i];
-        if ( $i+1 != sizeof($joinData["select"]) ){
-            $sql .= ", ";
-        }
-    }
-    $sql .=" FROM `$table` as t ";
-    for($i = 0 ; $i < sizeof($joinData["join"]) ; $i++ ){
-        $counter = $i+1;
-        $sql .= " JOIN `".$joinData["join"][$i]."` as t{$counter} ";
-        if( isset($joinData["on"][$i]) && !empty($joinData["on"][$i]) ){
-            $sql .= " ON ".$joinData["on"][$i]." ";
-        }
-    }
-    if ( !empty($where) ){
-        $sql .= " WHERE " . $where;
-    }
-    if($stmt = $dbconnect->prepare($sql)){
-        $types = str_repeat('s', count($placeHolders));
-        $stmt->bind_param($types, ...$placeHolders);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        while($row = $result->fetch_assoc() ){
-            $array[] = $row;
-        }
-        if ( isset($array) AND is_array($array) ){
-            return $array;
-        }else{
-            return 0;
-        }
-    }else{
-        $error = array("msg"=>"select table error");
-        return 0;
-    }
-}
-
 function insertDB($table, $data){
     GLOBAL $dbconnect, $userID, $empUsername, $_GET;
     $check = [';', '"'];
@@ -295,9 +209,8 @@ function insertDB($table, $data){
     $stmt = $dbconnect->prepare($sql);
     $types = str_repeat('s', count($data));
     $stmt->bind_param($types, ...array_values($data));
-    if( isset($_GET["v"]) && !empty($_GET["v"]) && isset($userID) ){
+    if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
-            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -337,7 +250,6 @@ function updateDB($table, $data, $where) {
     
     if( isset($_GET["v"]) && !empty($_GET["v"]) ){
         $array = array(
-            "id" => null, // Let DB auto-increment handle this
             "userId" => $userID,
             "username" => $empUsername,
             "module" => $_GET["v"],
@@ -374,12 +286,7 @@ function escapeStringDirect($data){
 function insertLogDB($table,$data){
     GLOBAL $dbconnect;
     $check = [';', '"'];
-    
-    // Make sure we don't try to insert an explicit ID with value 0
-    if(isset($data["id"]) && $data["id"] === 0) {
-        unset($data["id"]); // Let the auto_increment handle this
-    }
-    
+    //$data = escapeString($data);
     $keys = array_keys($data);
     $sql = "INSERT INTO `{$table}`(";
     $placeholders = "";
@@ -390,28 +297,18 @@ function insertLogDB($table,$data){
     $sql = rtrim($sql, ",");
     $placeholders = rtrim($placeholders, ",");
     $sql .= ") VALUES ({$placeholders})";
-    
-    try {
-        $stmt = $dbconnect->prepare($sql);
-        $types = str_repeat('s', count($data));
-        $stmt->bind_param($types, ...array_values($data));
-        if($stmt->execute()){
-            return 1;
-        }else{
-            $error = array("msg"=>"insert table error: " . $stmt->error);
-            return 0;
-        }
-    } catch (Exception $e) {
-        $error = array("msg"=>"insert table error: " . $e->getMessage());
+    $stmt = $dbconnect->prepare($sql);
+    $types = str_repeat('s', count($data));
+    $stmt->bind_param($types, ...array_values($data));
+    if($stmt->execute()){
+        return 1;
+    }else{
+        $error = array("msg"=>"insert table error");
         return 0;
     }
 }
 
 function LogsHistory($array){
-    // Add an ID field to prevent duplicate primary key issues
-    if(!isset($array["id"])) {
-        $array["id"] = null; // Let the database auto-increment handle this
-    }
     insertLogDB("logs",$array);
 }
 

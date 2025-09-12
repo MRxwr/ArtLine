@@ -1,8 +1,8 @@
 <?php
-function uploadImageFreeImageHostAPI($imageUrl){
+function uploadImageThroughAPI($imageLocation){
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-	  CURLOPT_URL => 'https://api.imgbb.com/1/upload?expiration=600&key=d4aba98558417ca912f2669f469950c7',
+	  CURLOPT_URL => 'https://api.imgur.com/3/upload',
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => '',
 	  CURLOPT_MAXREDIRS => 10,
@@ -10,15 +10,30 @@ function uploadImageFreeImageHostAPI($imageUrl){
 	  CURLOPT_FOLLOWLOCATION => true,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS => array('image'=> $imageUrl),
+	  CURLOPT_POSTFIELDS => array('image'=> new CURLFILE($imageLocation)),
+	  CURLOPT_HTTPHEADER => array(
+		'Authorization: Client-ID 386563124e58e6c'
+	  ),
 	));
 	$response = json_decode(curl_exec($curl),true);
 	curl_close($curl);
 	if( isset($response["success"]) && $response["success"] == true ){
-		file_put_contents("../../logos/{$response["data"]["id"]}.{$response["data"]["image"]["extension"]}", file_get_contents($response["data"]["image"]["url"]));
-		file_put_contents("../../logos/m{$response["data"]["id"]}.{$response["data"]["image"]["extension"]}", file_get_contents($response["data"]["medium"]["url"]));
-		file_put_contents("../../logos/b{$response["data"]["id"]}.{$response["data"]["image"]["extension"]}", file_get_contents($response["data"]["thumb"]["url"]));
-		return "{$response["data"]["id"]}.{$response["data"]["image"]["extension"]}"; 
+		$imageSizes = ["","b","m"];
+		for( $i = 0; $i < sizeof($imageSizes); $i++ ){
+			// Your file
+			$file = $response["data"]["link"];
+			$newFile = str_lreplace(".","{$imageSizes[$i]}.",$file);
+			//get File Name
+			$fileTitle = str_replace("https://i.imgur.com/","",$newFile);
+			$fileTitle = str_replace("{$imageSizes[$i]}.",".",$fileTitle);
+			// Open the file to get existing content
+			$data = file_get_contents($newFile);
+			// New file
+			$new = "../../logos/{$imageSizes[$i]}".$fileTitle;
+			// Write the contents back to a new file
+			file_put_contents($new, $data);
+		}
+		return $fileTitle; 
 	}else{
 		return "";
 	}
@@ -26,60 +41,14 @@ function uploadImageFreeImageHostAPI($imageUrl){
 
 if( isset($_GET["action"]) ){
     if( $_GET["action"] == "add" ){
-        if( !isset($_POST["enTitle"]) || empty($_POST["enTitle"]) ){
-            echo outputError(array("msg" => "English title is required"));
-            exit;
-        }
-        if( !isset($_POST["arTitle"]) || empty($_POST["arTitle"]) ){
-            echo outputError(array("msg" => "Arabic title is required"));
-            exit;
-        }
-        if( !isset($_POST["enDetails"]) || empty($_POST["enDetails"]) ){
-            echo outputError(array("msg" => "English details are required"));
-            exit;
-        }
-        if( !isset($_POST["arDetails"]) || empty($_POST["arDetails"]) ){
-            echo outputError(array("msg" => "Arabic details are required"));
-            exit;
-        }
-        if( !isset($_POST["categoryId"]) || empty($_POST["categoryId"]) ){
-            echo outputError(array("msg" => "Category is required"));
-            exit;
-        }
-        if( !isset($_POST["brandId"]) || empty($_POST["brandId"]) ){
-            echo outputError(array("msg" => "Brand is required"));
-            exit;
-        }
-        if( !isset($_POST["price"]) || empty($_POST["price"]) ){
-            echo outputError(array("msg" => "Price is required"));
-            exit;
-        }
-        if( !isset($_POST["quantity"]) || empty($_POST["quantity"]) ){
-            echo outputError(array("msg" => "Quantity is required"));
-            exit;
-        }
-        if( !isset($_POST["sku"]) || empty($_POST["sku"]) ){
-            echo outputError(array("msg" => "SKU is required"));
-            exit;
-        }
-        if( !isset($_POST["cost"]) || empty($_POST["cost"]) ){
-            echo outputError(array("msg" => "Cost is required"));
-            exit;
-        }
-        if( !isset($_POST["image"]) || empty($_POST["image"]) || !is_array($_POST["image"]) ){
-            echo outputError(array("msg" => "At least one image is required"));
-            exit;
-        }
         $data = $_POST;
+
         $product = array(
             "enTitle" => $data["enTitle"],
             "arTitle" => $data["arTitle"],
             "enDetails" => $data["enDetails"],
             "arDetails" => $data["arDetails"],
             "categoryId" => $data["categoryId"],
-            "brandId" => $data["brandId"],
-            "hidden" => 1,
-            "type" => 1, 
             "extras" => "null",
         );
         if(insertDB("products",$product)){
@@ -96,41 +65,49 @@ if( isset($_GET["action"]) ){
         }else{
             echo outputError(array("msg" => "Failed to add product category"));
         }
-        $variant = array(
-            "productId" => $productId,
-            "enTitle" => "",
-            "arTitle" => "",
-            "attribute" => "",
-            "price" => $data["price"],
-            "quantity" => $data["quantity"],
-            "sku" => $data["sku"],
-            "cost" => $data["cost"]
-        );
-        if( insertDB("attributes_products",$variant) ){
-        }else{
-            echo outputError(array("msg" => "Failed to add product variant"));
+
+        if( $_POST["sizeType"] == 1 ){
+            $sizes = ["S","M","L","XL","XXL","XXXL","XXXXL","XXXXXL"];
+        }elseif( $_POST["sizeType"] == 2 ){
+            $sizes = ["XS","S","M","L","XL","XXL"];
+        }elseif( $_POST["sizeType"] == 3 ){
+            $sizes = ["Free Size"];
+        }elseif( $_POST["sizeType"] == 4 ){
+            $sizes = ["1 Year","2 Years","3 Years","4 Years","5 Years","6 Years","7 Years","8 Years","9 Years"];
+        }elseif( $_POST["sizeType"] == 5 ){
+            $sizes = ["3 Months","6 Months","9 Months","12 Months","15 Months","18 Months","21 Months","24 Months"];
         }
+
+        for( $i = 0; $i < sizeof($sizes); $i++ ){
+            $variant = array(
+                "productId" => $productId,
+                "enTitle" => "{$sizes[$i]}",
+                "arTitle" => "{$sizes[$i]}",
+                "attribute" => "_{$sizes[$i]}_",
+                "price" => $data["price"],
+                "quantity" => 100
+            );
+            if( insertDB("attributes_products",$variant) ){
+            }else{
+                echo outputError(array("msg" => "Failed to add product variant"));
+            }
+        }
+        
         $i = 0;
-        while ( $i < sizeof($data['image']) ){
-            if( !empty($data['image'][$i]) ){
-                $filenewname = uploadImageFreeImageHostAPI($data["image"][$i]);
+        while ( $i < sizeof($_FILES['logo']['tmp_name']) ){
+            if( is_uploaded_file($_FILES['logo']['tmp_name'][$i]) ){
+                $filenewname = uploadImageThroughAPI($_FILES["logo"]["tmp_name"][$i]);
                 $image = array(
                     "productId" => $productId,
                     "imageurl" => $filenewname
                 );
                 if( insertDB("images",$image) ){
-                }else{
-                    echo outputError(array("msg" => "Failed to add product image"));
-                    exit;
                 }
             }
             $i++;
         }
+
         echo outputData(array("msg" => "Product added successfully"));
-    }else{
-        echo outputError(array("msg" => "Failed to find action"));
     }
-}else{
-    echo outputError(array("msg" => "please set action"));
 }
 ?>

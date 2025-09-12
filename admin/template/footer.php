@@ -15,9 +15,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	
-	<!-- Only include Select2 JS which is missing from template -->
-	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 	<!-- Data table JavaScript -->
 	<script src="../vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 	<script src="dist/js/productorders-data.js"></script>
@@ -45,9 +42,6 @@
 	<script src="../vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="dist/js/sweetalert-data.js"></script>
 	
-	<!-- Moment.js is required by Bootstrap Datetimepicker -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-	
 	<!-- Bootstrap Datetimepicker JavaScript -->
 	<script type="text/javascript" src="../vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
@@ -56,12 +50,6 @@
 	
 	<!-- Fancy Dropdown JS -->
 	<script src="dist/js/dropdown-bootstrap-extended.js"></script> 
-
-	<!-- Tinymce JavaScript -->
-	<script src="../vendors/bower_components/tinymce/tinymce.min.js"></script>
-					
-	<!-- Tinymce Wysuhtml5 Init JavaScript -->
-	<script src="dist/js/tinymce-data.js"></script>
 		
 	<!-- Init JavaScript -->
 	<script src="dist/js/init.js?x=1"></script>

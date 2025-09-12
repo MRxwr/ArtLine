@@ -1,18 +1,18 @@
 <?php 
 if( isset($_GET["hide"]) && !empty($_GET["hide"]) ){
-	if( updateDB("categories",array('hidden'=> '2'),"`id` = '{$_GET["hide"]}'") ){
+	if( updateDB('categories',array('hidden'=> '2'),"`id` = '{$_GET["hide"]}'") ){
 		header("LOCATION: ?v=Categories");
 	}
 }
 
 if( isset($_GET["show"]) && !empty($_GET["show"]) ){
-	if( updateDB("categories",array('hidden'=> '1'),"`id` = '{$_GET["show"]}'") ){
+	if( updateDB('categories',array('hidden'=> '1'),"`id` = '{$_GET["show"]}'") ){
 		header("LOCATION: ?v=Categories");
 	}
 }
 
 if( isset($_GET["delId"]) && !empty($_GET["delId"]) ){
-	if( updateDB("categories",array('status'=> '1'),"`id` = '{$_GET["delId"]}'") ){
+	if( updateDB('categories',array('status'=> '1'),"`id` = '{$_GET["delId"]}'") ){
 		header("LOCATION: ?v=Categories");
 	}
 }
@@ -29,17 +29,13 @@ if( isset($_POST["arTitle"]) ){
 	unset($_POST["update"]);
 	if ( $id == 0 ){
 		if (is_uploaded_file($_FILES['imageurl']['tmp_name'])) {
-			$ext = pathinfo($_FILES['imageurl']['name'], PATHINFO_EXTENSION);
 			$_POST["imageurl"] = uploadImageBannerFreeImageHost($_FILES['imageurl']['tmp_name']);
-			$_POST["imageurl2"] = uploadImageBannerFreeImageHost($_FILES['imageurl']['tmp_name']);
 		} else {
 			$_POST["imageurl"] = "";
-			$_POST["imageurl2"] = "";
 		}
 		
 		if (is_uploaded_file($_FILES['header']['tmp_name'])) {
-			$ext = pathinfo($_FILES['header']['name'], PATHINFO_EXTENSION);
-			$_POST["header"] = uploadImageBannerFreeImageHost($_FILES['header']['tmp_name']);
+			$_POST["imageurl"] = uploadImageBannerFreeImageHost($_FILES['header']['tmp_name']);
 		} else {
 			$_POST["header"] = "";
 		}
@@ -56,19 +52,17 @@ if( isset($_POST["arTitle"]) ){
 		}
 	}else{
 		if (is_uploaded_file($_FILES['imageurl']['tmp_name'])) {
-			$ext = pathinfo($_FILES['imageurl']['name'], PATHINFO_EXTENSION);
 			$_POST["imageurl"] = uploadImageBannerFreeImageHost($_FILES['imageurl']['tmp_name']);
-			$_POST["imageurl2"] = uploadImageBannerFreeImageHost($_FILES['imageurl']['tmp_name']);
 		} else {
-			unset($_POST["imageurl"]);
-			unset($_POST["imageurl2"]);
+			$imageurl = selectDB("categories", "`id` = '{$id}'");
+			$_POST["imageurl"] = $imageurl[0]["imageurl"];
 		}
 		
 		if (is_uploaded_file($_FILES['header']['tmp_name'])) {
-			$ext = pathinfo($_FILES['header']['name'], PATHINFO_EXTENSION);
 			$_POST["header"] = uploadImageBannerFreeImageHost($_FILES['header']['tmp_name']);
 		} else {
-			unset($_POST["header"]);
+			$header = selectDB("categories", "`id` = '{$id}'");
+			$_POST["header"] = $header[0]["header"];
 		}
 		
 		if( updateDB("categories", $_POST, "`id` = '{$id}'") ){
@@ -116,12 +110,12 @@ if( isset($_POST["arTitle"]) ){
 			
 			<div class="col-md-6">
 			<label><?php echo direction("Logo","الشعار") ?></label>
-			<input type="file" name="imageurl" class="form-control" >
+			<input type="file" name="imageurl" class="form-control" required>
 			</div>
 			
 			<div class="col-md-6">
 			<label><?php echo direction("Header","الصورة الكبيرة") ?></label>
-			<input type="file" name="header" class="form-control" >
+			<input type="file" name="header" class="form-control" required>
 			</div>
 			
 			<div id="images" style="margin-top: 10px; display:none">
@@ -153,7 +147,7 @@ if( isset($_POST["arTitle"]) ){
 <div class="panel panel-default card-view">
 <div class="panel-heading">
 <div class="pull-left">
-<h6 class="panel-title txt-dark"><?php echo direction("Categories List","قائمة الأقسام") ?></h6>
+<h6 class="panel-title txt-dark"><?php echo $List_of_Categories ?></h6>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -168,11 +162,9 @@ if( isset($_POST["arTitle"]) ){
 		<thead>
 		<tr>
 		<th>#</th>
-		<th><?php echo direction("ID","الرقم") ?></th>
-		<th><?php echo direction("Logo","الشعار") ?></th>
-		<th><?php echo direction("English Title","العنوان بالإنجليزي") ?></th>
-		<th><?php echo direction("Arabic Title","العنوان بالعربي") ?></th>
-		<th class="text-nowrap"><?php echo direction("Actions","الخيارات") ?></th>
+		<th><?php echo $English_Title ?></th>
+		<th><?php echo $Arabic_Title ?></th>
+		<th class="text-nowrap"><?php echo $Action ?></th>
 		</tr>
 		</thead>
 		
@@ -196,8 +188,6 @@ if( isset($_POST["arTitle"]) ){
 			<input name="rank[]" class="form-control" type="number" value="<?php echo $counter ?>">
 			<input name="id[]" class="form-control" type="hidden" value="<?php echo $categories[$i]["id"] ?>">
 			</td>
-			<td><?php echo $categories[$i]["id"] ?></td>
-			<td><img src="../logos/<?php echo $categories[$i]["imageurl2"] ?>" style="width: 75px; height: 75px;"></td>
 			<td id="enTitle<?php echo $categories[$i]["id"]?>" ><?php echo $categories[$i]["enTitle"] ?></td>
 			<td id="arTitle<?php echo $categories[$i]["id"]?>" ><?php echo $categories[$i]["arTitle"] ?></td>
 			<td class="text-nowrap">

@@ -2,14 +2,19 @@
 require ("includes/config.php");
 require ("includes/translate.php");
 
-if( isset($_COOKIE[$cookieSession."A"]) ){
+if ( isset($_COOKIE[$cookieSession."A"]) )
+{
 	header("Location: index");
 }
 
-if( isset ($_GET["error"]) ) {
-  if( $_GET["error"] === "p" ) { 
+if ( isset ($_GET["error"]) ) 
+{
+  if ( $_GET["error"] === "p" ) 
+  { 
     $errormsg = "Please enter details correctly.";
-  }elseif ($_GET["error"] === "e" ) { 
+  } 
+  elseif ($_GET["error"] === "e" ) 
+  { 
     $errormsg = "Please enter email correctly."; 
   } 
 } 
@@ -22,7 +27,7 @@ if( isset ($_GET["error"]) ) {
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title><?php echo $settingsTitle ?> - Dashboard</title>
+    <title>Create - CP</title>
     <meta
       name="description"
       content="Droopy is a Dashboard & Admin Site Responsive Template by hencework."
@@ -58,9 +63,9 @@ if( isset ($_GET["error"]) ) {
       <header class="sp-header">
         <div class="sp-logo-wrap pull-left">
           <a href="index">
-            <img class="brand-img mr-10" src="../logos/<?php echo $settingslogo ?>" alt="brand" style="width:50px;height:50px"/>
+            <img class="brand-img mr-10" src="#" alt="brand" />
             <span class="brand-text"
-              ><span style="font-size: 22px;"><?php echo $settingsTitle ?></span></span
+              ><span style="font-size: 22px;">Create</span></span
             >
           </a>
         </div>
@@ -78,9 +83,9 @@ if( isset ($_GET["error"]) ) {
                   <div class="col-sm-12 col-xs-12">
                     <div class="mb-30">
                       <h3 class="text-center txt-dark mb-10">
-                        Sign in to 
+                        Sign in to
                         <b>
-                        <?php echo $settingsTitle ?>
+                          Create Cpanel
                         </b>
                       </h3>
                       <h6 class="text-center nonecase-font txt-grey">

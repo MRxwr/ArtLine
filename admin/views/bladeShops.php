@@ -54,21 +54,6 @@ if( isset($_POST["enTitle"]) ){
 			<input type="text" name="arTitle" class="form-control" required>
 			</div>
 			
-			<div class="col-md-4">
-			<label><?php echo direction("Name","الإسم") ?></label>
-			<input type="text" name="name" class="form-control" >
-			</div>
-			
-			<div class="col-md-4">
-			<label><?php echo direction("Mobile","الهاتف") ?></label>
-			<input type="text" pattern="[0-9]{11}" maxlength="11" name="mobile" class="form-control" >
-			</div>
-
-			<div class="col-md-4">
-			<label><?php echo direction("Address","العنوان") ?></label>
-			<input type="text" name="address" class="form-control" >
-			</div>
-
 			<div class="col-md-6" style="margin-top:10px">
 			<input type="submit" class="btn btn-primary" value="<?php echo direction("Submit","أرسل") ?>">
 			<input type="hidden" name="update" value="0">
@@ -111,14 +96,13 @@ if( isset($_POST["enTitle"]) ){
 				<td id="enTitle<?php echo $shops[$i]["id"]?>" ><?php echo $shops[$i]["enTitle"] ?></td>
 				<td id="arTitle<?php echo $shops[$i]["id"]?>" ><?php echo $shops[$i]["arTitle"] ?></td>
 				<td class="text-nowrap">
-				<a href="?v=ShopItems&id=<?php echo $shops[$i]["id"] ?>" class="mr-25" data-toggle="tooltip" data-original-title="List"> <i class="fa fa-list text-inverse m-r-10"></i></a>
-				<a id="<?php echo $shops[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
-				<a href="<?php echo "?v={$_GET["v"]}&delId={$shops[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-close text-danger"></i></a>
-				<div style="display:none">
-				<label id="name<?php echo $shops[$i]["id"] ?>"><?php echo $shops[$i]["name"] ?></label>
-				<label id="mobile<?php echo $shops[$i]["id"] ?>"><?php echo $shops[$i]["mobile"] ?></label>
-				<label id="address<?php echo $shops[$i]["id"] ?>"><?php echo $shops[$i]["address"] ?></label>
-				</div>
+				
+				<a id="<?php echo $shops[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i>
+				</a>
+
+				<a href="<?php echo "?v={$_GET["v"]}&delId={$shops[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-close text-danger"></i>
+				</a>
+				
 				</td>
 				</tr>
 				<?php
@@ -126,6 +110,7 @@ if( isset($_POST["enTitle"]) ){
 		}
 		?>
 		</tbody>
+		
 	</table>
 </div>
 </div>
@@ -133,16 +118,14 @@ if( isset($_POST["enTitle"]) ){
 </div>
 </div>
 </div>
-
 </div>
 	<script>
 		$(document).on("click",".edit", function(){
 			var id = $(this).attr("id");
-			$("input[name=enTitle]").val($("#enTitle"+id).html());
-			$("input[name=arTitle]").val($("#arTitle"+id).html());
-			$("input[name=name]").val($("#name"+id).html());
-			$("input[name=mobile]").val($("#mobile"+id).html());
-			$("input[name=address]").val($("#address"+id).html());
+			var enTitle = $("#enTitle"+id).html();
+			var arTitle = $("#arTitle"+id).html();
+			$("input[name=enTitle]").val(enTitle);
+			$("input[name=arTitle]").val(arTitle);
 			$("input[name=update]").val(id);
 		})
 	</script>

@@ -37,7 +37,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 <div class="form-wrap">
 <form action="<?php echo $actionLink ?>" method="POST" enctype="multipart/form-data">
 <input name="onlineQuantity" type="hidden" class="form-control" value="<?php echo $onlineQuantity = (isset($product["onlineQuantity"])) ? $product["onlineQuantity"] : 0; ?>">
-<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-info-outline mr-10"></i><?php echo direction("Product Details","تفاصيل المنتج") ?></h6>
+<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-info-outline mr-10"></i><?php echo $about_product ?></h6>
 <hr class="light-grey-hr"/>
 <div class="row">
 
@@ -60,7 +60,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-6">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("English Title","العنوان الإنجليزي") ?></label>
+<label class="control-label mb-10"><?php echo $English_Title ?></label>
 <input type="text" name="enTitle" class="form-control" value="<?php echo $enTitle = (isset($product["enTitle"])) ? $product["enTitle"] : ""; ?>">
 </div>
 </div>
@@ -68,77 +68,41 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 <!--/span-->
 <div class="col-md-6">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Arabic Title","العنوان العربي") ?></label>
+<label class="control-label mb-10"><?php echo $Arabic_Title ?></label>
 <input type="text" name="arTitle" class="form-control" value="<?php echo $arTitle = (isset($product["arTitle"])) ? $product["arTitle"] : ""; ?>">
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-12">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Shop","المتجر") ?></label>
-<select name="shopId" class="selectpicker" data-style="form-control btn-default btn-outline" required>
-<?php
-	if( $shops = selectDB("shops", "`status` = '0'") ){
-		for( $i = 0; $i < sizeof($shops); $i++ ){
-			$checked = "";
-			$title = direction($shops[$i]["enTitle"],$shops[$i]["arTitle"]);
-			if( $shops[$i]["id"] == $product["shopId"] ){
-				$checked = "selected";
-			}
-			echo "<option value='{$shops[$i]["id"]}' {$checked}>{$title}</option>";
-		}
-	}
-?>
-</select>
-</div>
-</div>
-
-<div class="col-md-3">
-<div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Category","القسم") ?></label>
-<select name="categoryId[]" class="selectpicker" data-style="form-control btn-default btn-outline" multiple required>
+<label class="control-label mb-10"><?php echo $Category ?></label>
+<hr style="border-color:#c7c7c7" >
 <?php
 	if( $categories = selectDB("categories", "`status` = '0'") ){
 		for( $i = 0; $i < sizeof($categories); $i++ ){
 			$checked = "";
 			$title = direction($categories[$i]["enTitle"],$categories[$i]["arTitle"]);
 			if( isset($_GET["id"]) && selectDB("category_products","`categoryId` = '{$categories[$i]["id"]}' AND `productId` = '{$_GET["id"]}'") ){
-				$checked = "selected";
+				$checked = "checked";
 			}
-			echo "<option value='{$categories[$i]["id"]}' {$checked}>{$title}</option>";
+			echo "<div class='col-md-2'><input type='checkbox' name='categoryId[]' value='{$categories[$i]["id"]}' {$checked}> {$title}</div>";
 		}
 	}
- 
+
 ?>
-</select>
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-12">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Brand","الماركه") ?></label>
-<select name="brandId" class="selectpicker" data-style="form-control btn-default btn-outline" required>
-<?php
-	if( $brands = selectDB("brands", "`status` = '0' ORDER BY `rank` ASC") ){
-		for( $i = 0; $i < sizeof($brands); $i++ ){
-			$checked = "";
-			$title = direction($brands[$i]["enTitle"],$brands[$i]["arTitle"]);
-			if( $brands[$i]["id"] == $product["brandId"] ){
-				$checked = "selected";
-			}
-			echo "<option value='{$brands[$i]["id"]}' {$checked}>{$title}</option>";
-		}
-	}
-
-?>
-</select>
+<hr style="border-color:#c7c7c7" >
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-12">
 <div class="form-group">
 <label class="control-label mb-10"><?php echo direction("Add-ons","الإضافات") ?></label>
-<select name="extras[]" class="selectpicker" data-style="form-control btn-default btn-outline" multiple>
+<hr style="border-color:#c7c7c7" >
 <?php
 	if( $extras = selectDB("extras", "`status` = '0'") ){ 
 		for( $i = 0; $i < sizeof($extras); $i++ ){
@@ -146,14 +110,13 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 			$title = direction($extras[$i]["enTitle"],$extras[$i]["arTitle"]);
 			$productExtras = (isset($product["extras"]) && json_decode($product["extras"],true) ) ? json_decode($product["extras"],true): array() ;
 			if( in_array($extras[$i]["id"],$productExtras) ){
-				$checked = "selected";
+				$checked = "checked";
 			}
-			echo "<option value='{$extras[$i]["id"]}' {$checked}>{$title}</option>";
+			echo "<div class='col-md-2'><input type='checkbox' name='extras[]' value='{$extras[$i]["id"]}' {$checked}> {$title}</div>";
 		}
 	}
 
 ?>
-</select>
 </div>
 </div>
 
@@ -206,7 +169,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Price","السعر") ?></label>
+<label class="control-label mb-10"><?php echo $Price ?></label>
 <div class="input-group">
 <div class="input-group-addon"><i class="ti-money"></i></div>
 <input name="price" type="float" class="form-control" id="exampleInputuname" value="<?php echo $price ?>">
@@ -216,7 +179,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Cost","التكلفة") ?></label>
+<label class="control-label mb-10"><?php echo $Cost ?></label>
 <div class="input-group">
 <div class="input-group-addon"><i class="ti-money"></i></div>
 <input name="cost" type="float" class="form-control" id="exampleInputuname_1" value="<?php echo $cost ?>">
@@ -226,7 +189,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Quantity","الكمية") ?></label>
+<label class="control-label mb-10"><?php echo $quantityText ?></label>
 <div class="input-group">
 <div class="input-group-addon"><i class="ti-money"></i></div>
 <input name="quantity" type="number" class="form-control" id="exampleInputuname_1" value="<?php echo $quantity ?>">
@@ -265,14 +228,14 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-6">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Discount","الخصم") ?></label>
+<label class="control-label mb-10"><?php echo $Discount ?></label>
 <input name="discount" type="text" name="discount" class="form-control" max="100" min="0" step="1" value="<?php echo $discount = (isset($product["discount"])) ? $product["discount"] : ""; ?>">
 </div>
 </div>
 
 <div class="col-md-2">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Video Link","رابط الفيديو") ?> (YOUTUBE)</label>
+<label class="control-label mb-10"><?php echo $Video_Link ?> (YOUTUBE)</label>
 <input name="video" type="text" class="form-control"  value="<?php echo $video = (isset($product["video"])) ? $product["video"] : ""; ?>">
 </div>
 </div>
@@ -364,28 +327,28 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-sm-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Width","العرض") ?></label>
+<label class="control-label mb-10"><?php echo $widthTxt ?></label>
 <input name="width" type="float" class="form-control" value="<?php echo $width = (isset($product["width"])) ? $product["width"] : ""; ?>">
 </div>
 </div>
 
 <div class="col-sm-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Height","الطول") ?></label>
+<label class="control-label mb-10"><?php echo $heightTxt ?></label>
 <input name="height" type="float" class="form-control" value="<?php echo $height = (isset($product["height"])) ? $product["height"] : ""; ?>">
 </div>
 </div>
 
 <div class="col-sm-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Depth","العمق") ?></label>
+<label class="control-label mb-10"><?php echo $depthTxt ?></label>
 <input name="depth" type="float" class="form-control" value="<?php echo $depth = (isset($product["depth"])) ? $product["depth"] : ""; ?>">
 </div>
 </div>
 
 <div class="col-sm-3">
 <div class="form-group">
-<label class="control-label mb-10"><?php echo direction("Weight","الوزن") ?></label>
+<label class="control-label mb-10"><?php echo $weightTxt ?></label>
 <input name="weight" type="float" class="form-control" value="<?php echo $weight = (isset($product["weight"])) ? $product["weight"] : ""; ?>">
 </div>
 </div>
@@ -394,7 +357,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="row">
 <div class="col-md-6">
-<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-comment-text mr-10"></i><?php echo direction("English Description","وصف باللغة الانجليزية") ?></h6>
+<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-comment-text mr-10"></i><?php echo $English_Description ?></h6>
 <hr class="light-grey-hr"/>
 <div class="form-group">
 <textarea name="enDetails" class="tinymce"><?php echo $enDetails = (isset($product["enDetails"])) ? $product["enDetails"] : ""; ?></textarea>
@@ -402,7 +365,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 </div>
 
 <div class="col-md-6">
-<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-comment-text mr-10"></i><?php echo direction("Arabic Description","وصف باللغة العربية") ?></h6>
+<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-comment-text mr-10"></i><?php echo $Arabic_Description ?></h6>
 <hr class="light-grey-hr"/>
 <div class="form-group">
 <textarea name="arDetails" class="tinymce"><?php echo $arDetails = (isset($product["arDetails"])) ? $product["arDetails"] : ""; ?></textarea>
@@ -410,7 +373,7 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 </div>
 </div>
 <!--/row-->
-<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-collection-image mr-10"></i><?php echo direction("Images","الصور") ?></h6>
+<h6 class="txt-dark capitalize-font"><i class="zmdi zmdi-collection-image mr-10"></i><?php echo $upload_image ?></h6>
 <hr class="light-grey-hr"/>
 <div class="row">
 <div class="col-lg-12">
@@ -427,7 +390,7 @@ if ( isset($_GET["id"]) && $images = selectDB("images","`productId` = '{$_GET["i
 		</tr>
 		<tr>
 		<td class="btn btn-info btn-icon left-icon">
-		<a href="<?php echo "?v=ProductAction&id={$_GET["id"]}&imgdel={$images[$i]["id"]}" ?>" target="" style="text-decoration:none;color:white"><?php echo direction("Delete","حذف") ?></a>
+		<a href="<?php echo "?v=ProductAction&id={$_GET["id"]}&imgdel={$images[$i]["id"]}" ?>" target="" style="text-decoration:none;color:white"><?php echo $Delete ?></a>
 		</td>
 		</tr>
 		</table>
@@ -443,7 +406,7 @@ if ( isset($_GET["id"]) && $images = selectDB("images","`productId` = '{$_GET["i
 }
 ?>
 <div style="padding-top:10px"></div>
-<div class="fileupload btn btn-info btn-anim"><i class="fa fa-upload"></i><span class="btn-text"><?php echo direction("Upload","تحميل") ?></span>
+<div class="fileupload btn btn-info btn-anim"><i class="fa fa-upload"></i><span class="btn-text"><?php echo $Upload_new_image ?></span>
 <input type="file" name="logo[]" class="upload" multiple="multiple">
 </div>
 </div>
@@ -451,8 +414,8 @@ if ( isset($_GET["id"]) && $images = selectDB("images","`productId` = '{$_GET["i
 <hr class="light-grey-hr"/>
 
 <div class="form-actions">
-<button class="btn btn-success btn-icon left-icon mr-10 pull-left"> <i class="fa fa-check"></i> <span><?php echo direction("Save","حفظ") ?></span></button>
-<a href="?v=Product"><button type="button" class="btn btn-warning pull-left"><?php echo direction("Cancel","الغاء") ?></button></a>
+<button class="btn btn-success btn-icon left-icon mr-10 pull-left"> <i class="fa fa-check"></i> <span><?php echo $save ?></span></button>
+<a href="?v=Product"><button type="button" class="btn btn-warning pull-left"><?php echo $Return ?></button></a>
 <div class="clearfix"></div>
 </div>
 </form>

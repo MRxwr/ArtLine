@@ -5,23 +5,19 @@
 	if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) && $order = selectDB("orders2","`id` = '{$_GET["orderId"]}'") ){
 		$items = json_decode($order[0]["items"],true);
 		$voucher = json_decode($order[0]["voucher"],true);
-		$voucher = $voucher[0];
 		$giftCard = json_decode($order[0]["giftCard"],true);
 		$address = json_decode($order[0]["address"],true);
-		if( $delivery = selectDB("areas","`enTitle` LIKE '%{$address["area"]}%' OR `arTitle` LIKE '%{$address["area"]}%'") ){
-			$deliveryCharges = numTo3Float($delivery[0]["charges"]);
-		}else{
-			$deliveryCharges = numTo3Float(0);
-		}
 		$info = json_decode($order[0]["info"],true);
 		$date = timeZoneConverter($order[0]["date"]);
 		$orderId = $order[0]["id"];
 		$gatewayId = $order[0]["gatewayId"];
 		$creditTax = $order[0]["creditTax"];
 		$userDiscount = $order[0]["userDiscount"];
-		$price = $order[0]["price"];
+		$price = $order[0]["price"]+$address["shipping"];
 		$deliveryText = (isset($address["express"]) && $address["express"]) == 0 ? direction("Delivery","التوصيل") : direction("Express Delivery","التوصيل السريع");
-		$method = ( $order[0]["paymentMethod"] == 1 ) ? direction("Online Payment","دفع أونلاين") : direction("Cash Payment","دفع نقدي");
+		if( $paymentMethod = selectDB("p_methods","`paymentId` = '{$order[0]["paymentMethod"]}'") ){
+			$method = direction($paymentMethod[0]["enTitle"],$paymentMethod[0]["arTitle"]);
+		}
 		if( $voucher["discountType"] == 1 ){
 			$discountAmount = $voucher["discount"] . "%";
 		}elseif( $voucher["discountType"] == 2 ){
@@ -77,7 +73,6 @@ if ( $address["place"] != "3" ){
 	unset($address2["shipping"]);
 	unset($address2["place"]);
 	unset($address2["notes"]);
-	unset($address2["id"]);
 	$keys = array_keys($address2);
 	for( $i = 0; $i < sizeof($address2); $i++){
 		if( $address2["country"] == "KW" && $keys[$i] == "area" ){
@@ -129,11 +124,13 @@ if ( $emailOpt == 1 ){
 for ($i =0; $i < sizeof($items); $i++){
 	$output = "";
 	$product = selectDB("products","`id` = '{$items[$i]["productId"]}'");
-	$attribute = selectDB("attributes_products","`id` = '{$items[$i]["attributeId"]}'");
-	if( $items[$i]["discountType"] == 0 ){
-		$sale = $items[$i]["price"] * ((100 -$items[$i]["discount"])/100);
+	$attribute = selectDB("attributes_products","`id` = '{$items[$i]["subId"]}'");
+	if( $items[$i]["priceAfterVoucher"] != 0 ){
+		$sale = $items[$i]["priceAfterVoucher"];
+	}elseif( $items[$i]["discountPrice"] != $items[$i]["price"]){
+		$sale = $items[$i]["discountPrice"];
 	}else{
-		$sale = $items[$i]["price"] - $items[$i]["discount"];
+		$sale = $items[$i]["price"];
 	}
 	$output .= "<tr><td class='txt-dark' style='white-space: break-spaces;'>
 		{$items[$i]["quantity"]}x ";
@@ -141,7 +138,6 @@ for ($i =0; $i < sizeof($items); $i++){
 	if( isset($attribute[0]["enTitle"]) && isset($attribute[0]["arTitle"]) && !empty(direction($attribute[0]["enTitle"],$attribute[0]["arTitle"])) ){
 		$output .= " - " . direction($attribute[0]["enTitle"],$attribute[0]["arTitle"]);
 	}
-	/*
 	$collection = $items[$i]["collections"];
 	for( $y = 0; $y < sizeof($collection) ; $y++ ){
 		if ( !empty($collection[$y]) ){
@@ -173,8 +169,6 @@ for ($i =0; $i < sizeof($items); $i++){
 	if ( !empty($items[$i]["note"]) ){
 		$output .= "[{$items[$i]["note"]}]</span>";
 	}
-		*/
-	$extraPrice1[] = 0;
 	$output .= "</td><td><span class='Price txt-dark'>" . numTo3Float($sale). $defaultCurr ." </span></div></td></tr>";
 	echo $output;
 	$subTotal[] = numTo3Float($sale);
@@ -182,7 +176,7 @@ for ($i =0; $i < sizeof($items); $i++){
 	/*
 	<td style="margin-top:10px" colspan="2"><br></td>
 	*/
-	echo "<tr class='txt-dark'><td>".direction("Sub Total","المجموع الفرعي")."</td><td>".numTo3Float($order[0]["price"]-(float)$deliveryCharges).$defaultCurr."</td></tr>";
+	echo "<tr class='txt-dark'><td>".direction("Sub Total","المجموع الفرعي")."</td><td>".numTo3Float($order[0]["price"]).$defaultCurr."</td></tr>";
 	
 	if ( isset($extraPrice) && !empty($extraPrice1)){
 		echo "<tr class='txt-dark'><td>".direction("Add-ons","الإضافات")."</td><td>".numTo3Float(array_sum($extraPrice1)) . $defaultCurr ."</td></tr>";
@@ -212,7 +206,7 @@ for ($i =0; $i < sizeof($items); $i++){
 	?>
 	<tr class="txt-dark">
 		<td><?php echo $deliveryText ?></td>
-		<td><?php echo numTo3Float($deliveryCharges) . $defaultCurr; ?></td>
+		<td><?php echo numTo3Float($address["shipping"]) . $defaultCurr; ?></td>
 	</tr>
 
 	<tr class="txt-dark">

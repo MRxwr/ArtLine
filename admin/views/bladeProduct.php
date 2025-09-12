@@ -33,7 +33,7 @@ if ( isset($_POST["subId"]) ){
 						<h6 class="panel-title txt-dark"><?php echo direction("Products List","قائمة المنتجات") ?></h6>
 					</div>
 					<div class="col-xs-6 text-right">
-						<a href="?v=ProductAction" class="btn btn-primary"><?php echo direction("Add Product","اضافة منتج") ?></a>
+						<a href="?v=ProductAction" class="btn btn-primary"><?php echo $Add_Product ?></a>
 					</div>
 				</div>
 			</div>
@@ -43,18 +43,19 @@ if ( isset($_POST["subId"]) ){
 			<div class="panel-body row">
 			<div class="table-wrap">
 			<div class="table-responsive">
-			<table class="table display responsive product-overview mb-30" id="AjaxTable" <?php // id="myAjaxTable" ?>>
+			<table class="table display responsive product-overview mb-30" id="myAjaxTable">
 				<thead>
 					<tr>
 					<th>#</th>
-					<th><?php echo direction("ID","الرقم") ?></th>
-					<th><?php echo direction("Image","صورة") ?></th>
-					<th><?php echo direction("English Title","العنوان بالإنجليزي") ?></th>
-					<th><?php echo direction("Arabic Title","العنوان بالعربي") ?></th>
-					<th><?php echo direction("Action","الخيارات") ?></th>
+					<th><?php echo $orderText ?></th>
+					<th><?php echo $photo ?></th>
+					<th><?php echo $areaAr ?></th>
+					<th><?php echo $areaEn ?></th>
+					<th><?php echo $Actions ?></th>
 					</tr>
 				</thead>
 				<tbody>
+					
 				</tbody>
 			</table>
 			</div>
@@ -66,40 +67,24 @@ if ( isset($_POST["subId"]) ){
 	</div>
 	<input type="submit" value="submit" />
 </form>
-
 <script>
 	$(document).ready(function(){
-   $('#AjaxTable').DataTable({
-      'processing': true,
-      'serverSide': true,
-      "pageLength": 10,
-      'serverMethod': 'post',
-      'ajax': {
-          'url':'../api/getProducts.php?v=<?php echo $_GET["v"] ?>',
-          'dataSrc': function(json) {
-              console.log('Response:', json); // Log the response
-              if (!json.aaData) {
-                  console.error('Invalid JSON response:', json);
-                  return [];
-              }
-              return json.aaData; // Map aaData to data
-          },
-          'error': function(xhr, error, thrown) {
-              console.error('Error fetching data:', error, thrown);
-              console.error('Response:', xhr.responseText);
-          }
-      },
-      'order': [[0, 'desc']],
-      'columns': [
-         { data: '#' },
-         { data: 'order' },
-         { data: 'image' },
-         { data: 'english' },
-         { data: 'arabic' },
-         { data: 'action' },
-      ]
-   });
+	$('#myAjaxTable').DataTable({
+		'processing': true,
+		'serverSide': true,
+		'serverMethod': 'post',
+		'order': [[0, 'desc']],
+		'ajax': {
+			'url':'template/ajax/productAjax.php'
+		},
+		'columns': [
+			{ data: 'id'},
+			{ data: 'order'},
+			{ data: 'image'},
+			{ data: 'arTitle'},
+			{ data: 'enTitle'},
+			{ data: 'action' }
+		]
+	});
 });
-// add seach function to the data table
-
 </script>
