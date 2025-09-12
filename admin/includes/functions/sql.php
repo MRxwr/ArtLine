@@ -287,6 +287,15 @@ function insertLogDB($table,$data){
     GLOBAL $dbconnect;
     $check = [';', '"'];
     //$data = escapeString($data);
+    
+    // Check if table is 'logs' and ensure it has an id field with a proper value
+    if ($table === "logs") {
+        // Remove 'id' from the data if it exists and is 0 (to let auto-increment handle it)
+        if (isset($data['id']) && $data['id'] === '0') {
+            unset($data['id']);
+        }
+    }
+    
     $keys = array_keys($data);
     $sql = "INSERT INTO `{$table}`(";
     $placeholders = "";
@@ -303,17 +312,17 @@ function insertLogDB($table,$data){
     if($stmt->execute()){
         return 1;
     }else{
-        $error = array("msg"=>"insert table error");
+        $error = array("msg"=>"insert table error: " . $dbconnect->error);
         return 0;
     }
 }
 
 function LogsHistory($array){
-    // Never allow callers to set primary key id for logs; rely on AUTO_INCREMENT
-    if (isset($array["id"])) {
-        unset($array["id"]);
+    // Make sure we don't try to insert with ID=0
+    if (isset($array['id']) && $array['id'] === 0) {
+        unset($array['id']);
     }
-    insertLogDB("logs", $array);
+    insertLogDB("logs",$array);
 }
 
 function queryDB($sql){
