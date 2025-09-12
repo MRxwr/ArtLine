@@ -5,7 +5,7 @@ if( isset($_GET["delId"]) && !empty($_GET["delId"]) ){
 	}
 }
 
-if( isset($_POST["name"]) ){
+if( isset($_POST["title"]) ){
 	$id = $_POST["update"];
 	unset($_POST["update"]);
 	
@@ -38,7 +38,6 @@ if( isset($_POST["name"]) ){
 }
 
 // Get Countries for dropdown
-$countries = [];
 if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") ){
 	$countries = $listOfCountries;
 }
@@ -57,73 +56,205 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 <div class="panel-body">
 	<form class="" method="POST" action="" enctype="multipart/form-data">
 		<div class="row m-0">
+			<!-- system Title -->
 			<div class="col-md-4">
-			<label><?php echo direction("Store Name","إسم المتجر") ?></label>
-			<input type="text" name="name" class="form-control" required>
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Title","العنوان") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="text" name="title" placeholder="Store Name">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- system version -->
+			<div class="col-md-4">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Email","البريد الإلكتروني") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="email" name="email" placeholder="email@example.com">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
+			<!-- website description -->
 			<div class="col-md-4">
-			<label><?php echo direction("Email","البريد الإلكتروني") ?></label>
-			<input type="email" name="email" class="form-control" required>
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Description","الوصف") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="text" name="OgDescription" placeholder="Store description">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+
+			<!-- default country -->
 			<div class="col-md-4">
-			<label><?php echo direction("Phone","رقم الهاتف") ?></label>
-			<input type="text" name="phone" class="form-control" required>
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Country", "الدولة") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<select class="form-control" type="text" name="country">
+									<option value=""><?php echo direction("Select Country","إختر الدولة") ?></option>
+									<?php
+									if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") ){
+										for ($i = 0; $i < sizeof($listOfCountries); $i++) {
+											echo "<option value='{$listOfCountries[$i]["CountryCode"]}'>{$listOfCountries[$i]["CountryName"]}</option>";
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+
+			<!-- system cookie -->
 			<div class="col-md-4">
-			<label><?php echo direction("Country","الدولة") ?></label>
-			<select name="country" class="form-control" required>
-				<option value=""><?php echo direction("Select Country","إختر الدولة") ?></option>
-				<?php
-				foreach ($countries as $country) {
-					echo "<option value='{$country["CountryCode"]}'>{$country["CountryName"]}</option>";
-				}
-				?>
-			</select>
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Phone","رقم الهاتف") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="text" name="phone" placeholder="+1234567890">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+
+			<!-- default currency -->
 			<div class="col-md-4">
-			<label><?php echo direction("Address","العنوان") ?></label>
-			<input type="text" name="address" class="form-control" required>
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Currency", "العملة") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<select class="form-control" name="currency">
+									<?php
+									if ($currency = selectDB("currency", "`status` = '0' AND `hidden` = '1'")) {
+										foreach ($currency as $key) {
+											echo "<option value='{$key["short"]}'>{$key["short"]}</option>";
+										}
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-md-4">
-			<label><?php echo direction("Website","الموقع الإلكتروني") ?></label>
-			<input type="text" name="website" class="form-control">
+
+			<!-- system main website -->
+			<div class="col-md-6">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Website","الموقع الإلكتروني") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="text" name="website" placeholder="https://example.com">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-md-4">
-			<label><?php echo direction("Store Type","نوع المتجر") ?></label>
-			<select name="type" class="form-control" required>
-				<option value="0"><?php echo direction("Retail","تجزئة") ?></option>
-				<option value="1"><?php echo direction("Wholesale","جملة") ?></option>
-				<option value="2"><?php echo direction("Both","كلاهما") ?></option>
-			</select>
+
+			<!-- Default language -->
+			<div class="col-md-6">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Language", "اللغة") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<select class="form-control" type="text" name="language">
+									<?php
+									$languageValue = [0, 1];
+									$languages = [direction("English", "الإنجليزية"), direction("Arabic", "العربية")];
+									for ($i = 0; $i < sizeof($languageValue); $i++) {
+										echo "<option value='{$languageValue[$i]}'>{$languages[$i]}</option>";
+									}
+									?>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
-			<div class="col-md-4">
-			<label><?php echo direction("Active","نشط") ?></label>
-			<select name="active" class="form-control" required>
-				<option value="0"><?php echo direction("No","لا") ?></option>
-				<option value="1"><?php echo direction("Yes","نعم") ?></option>
-			</select>
-			</div>
-			
-			<div class="col-md-4">
-			<label><?php echo direction("Logo","الشعار") ?></label>
-			<input type="file" name="logo" class="form-control">
+
+			<!-- uplaod store logo -->
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+					<div class="panel-heading">
+						<div class="pull-left">
+							<h6 class="panel-title txt-dark"><?php echo direction("Upload Logo", "أرفق الشعار") ?></h6>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body">
+							<div class="text">
+								<input class="form-control" type="file" name="logo">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-md-12" style="margin-top:10px">
-			<label><?php echo direction("Description","الوصف") ?></label>
-			<textarea name="description" class="form-control" rows="4"></textarea>
-			</div>
-			
-			<div class="col-md-6" style="margin-top:10px">
-			<input type="submit" class="btn btn-primary" value="<?php echo direction("Submit","أرسل") ?>">
-			<input type="hidden" name="update" value="0">
+				<input type="submit" class="btn btn-primary" value="<?php echo direction("Submit","أرسل") ?>">
+				<input type="hidden" name="update" value="0">
 			</div>
 		</div>
 	</form>
@@ -148,12 +279,12 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 	<table class="table display responsive product-overview mb-30" id="myTable">
 		<thead>
 		<tr>
-		<th><?php echo direction("Store Name","إسم المتجر") ?></th>
+		<th><?php echo direction("Title","العنوان") ?></th>
 		<th><?php echo direction("Email","البريد الإلكتروني") ?></th>
 		<th><?php echo direction("Phone","رقم الهاتف") ?></th>
 		<th><?php echo direction("Country","الدولة") ?></th>
-		<th><?php echo direction("Type","النوع") ?></th>
-		<th><?php echo direction("Active","نشط") ?></th>
+		<th><?php echo direction("Website","الموقع الإلكتروني") ?></th>
+		<th><?php echo direction("Language","اللغة") ?></th>
 		<th class="text-nowrap"><?php echo direction("Actions","الخيارات") ?></th>
 		</tr>
 		</thead>
@@ -163,16 +294,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		if( $stores = selectDB("stores","`status` = '0'") ){
 			for( $i = 0; $i < sizeof($stores); $i++ ){
 				$counter = $i + 1;
-				$storeType = "";
-				if($stores[$i]["type"] == 0){
-					$storeType = direction("Retail","تجزئة");
-				}elseif($stores[$i]["type"] == 1){
-					$storeType = direction("Wholesale","جملة");
-				}else{
-					$storeType = direction("Both","كلاهما");
-				}
-				
-				$activeStatus = $stores[$i]["active"] == 0 ? direction("No","لا") : direction("Yes","نعم");
 				
 				// Get country name
 				$countryName = $stores[$i]["country"];
@@ -180,14 +301,16 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					$countryName = $countryDetails[0]["CountryName"];
 				}
 				
+				// Get language
+				$languageText = $stores[$i]["language"] == 0 ? direction("English","الإنجليزية") : direction("Arabic","العربية");
 				?>
 				<tr>
-				<td id="name<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["name"] ?></td>
+				<td id="title<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["title"] ?></td>
 				<td id="email<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["email"] ?></td>
 				<td id="phone<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["phone"] ?></td>
 				<td id="countryName<?php echo $stores[$i]["id"]?>" ><?php echo $countryName ?><label id="country<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["country"] ?></label></td>
-				<td><?php echo $storeType ?><label id="type<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["type"] ?></label></td>
-				<td><?php echo $activeStatus ?><label id="active<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["active"] ?></label></td>
+				<td id="website<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["website"] ?></td>
+				<td><?php echo $languageText ?><label id="language<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["language"] ?></label></td>
 				<td class="text-nowrap">
 				
 				<a id="<?php echo $stores[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="<?php echo direction("Edit","تعديل") ?>"> <i class="fa fa-pencil text-inverse m-r-10"></i>
@@ -200,9 +323,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				
 				<!-- Hidden data for edit -->
 				<div style="display:none">
-					<label id="website<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["website"] ?></label>
-					<label id="address<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["address"] ?></label>
-					<label id="description<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["description"] ?></label>
+					<label id="OgDescription<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["OgDescription"] ?></label>
+					<label id="currency<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["currency"] ?></label>
 					<label id="logo<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["logo"] ?></label>
 				</div>
 				<?php
@@ -222,25 +344,23 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 <script>
 	$(document).on("click",".edit", function(){
 		var id = $(this).attr("id");
-		var name = $("#name"+id).html();
+		var title = $("#title"+id).html();
 		var email = $("#email"+id).html();
 		var phone = $("#phone"+id).html();
 		var country = $("#country"+id).html();
-		var type = $("#type"+id).html();
-		var active = $("#active"+id).html();
 		var website = $("#website"+id).html();
-		var address = $("#address"+id).html();
-		var description = $("#description"+id).html();
+		var language = $("#language"+id).html();
+		var currency = $("#currency"+id).html();
+		var OgDescription = $("#OgDescription"+id).html();
 		
-		$("input[name=name]").val(name);
+		$("input[name=title]").val(title);
 		$("input[name=email]").val(email);
 		$("input[name=phone]").val(phone);
 		$("select[name=country]").val(country);
-		$("select[name=type]").val(type);
-		$("select[name=active]").val(active);
 		$("input[name=website]").val(website);
-		$("input[name=address]").val(address);
-		$("textarea[name=description]").val(description);
+		$("select[name=language]").val(language);
+		$("select[name=currency]").val(currency);
+		$("input[name=OgDescription]").val(OgDescription);
 		$("input[name=update]").val(id);
 		
 		// Scroll to the top form
