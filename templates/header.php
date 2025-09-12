@@ -21,7 +21,7 @@ if( isset($_GET["curr"]) && !empty($_GET["curr"]) ){
 	?>
 	<script>
 		window.location.href = "<?php echo str_replace("?curr={$_GET["curr"]}", "" ,str_replace("&curr={$_GET["curr"]}", "", $_SERVER['REQUEST_URI'])) ?>";
-	</script>
+	</script> 
 	<?php
 }
 

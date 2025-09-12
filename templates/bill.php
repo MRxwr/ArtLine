@@ -10,7 +10,7 @@ if (isset($_POST["paymentMethod"]) AND $_POST["paymentMethod"] == "2"){
 
 $getCartId = json_decode($_COOKIE[$cookieSession."activity"],true);
 if ( $cart = selectDBNew("cart",[$getCartId["cart"]],"`cartId` = ?","") ){
-	$items = $cart;
+	$items = $cart; 
 	for( $i = 0; $i < sizeof($items); $i++ ){
 		unset($items[$i]["collections"]);
 		unset($items[$i]["extras"]);
