@@ -309,12 +309,11 @@ function insertLogDB($table,$data){
 }
 
 function LogsHistory($array){
-    // Remove id field if it exists and is null or 0 to avoid AUTO_INCREMENT conflicts
-    // Let MySQL handle the auto-increment for the PRIMARY KEY
-    if(isset($array["id"]) && ($array["id"] === null || $array["id"] === 0 || $array["id"] === "0")) {
+    // Never allow callers to set primary key id for logs; rely on AUTO_INCREMENT
+    if (isset($array["id"])) {
         unset($array["id"]);
     }
-    insertLogDB("logs",$array);
+    insertLogDB("logs", $array);
 }
 
 function queryDB($sql){
