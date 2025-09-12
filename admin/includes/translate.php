@@ -68,7 +68,7 @@ if (  isset($_COOKIE["CREATEkwLANG"]) && $_COOKIE["CREATEkwLANG"] == "AR" ){
 	$save ="الحفظ";
 	$Return ="العودة";
 	$Add_Product ="اضافة منتج";
-	$Category ="القسم";
+	$Category ="القسم"; 
 	$Video_Link ="رابط الفيديو";
 	$Discount = "نسبة الخصم";
 	$Price ="السعر";
