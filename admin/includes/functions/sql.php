@@ -309,6 +309,10 @@ function insertLogDB($table,$data){
 }
 
 function LogsHistory($array){
+    // Remove id field if it exists and is null to avoid AUTO_INCREMENT conflicts
+    if(isset($array["id"]) && $array["id"] === null) {
+        unset($array["id"]);
+    }
     insertLogDB("logs",$array);
 }
 
