@@ -5,6 +5,9 @@ header("Pragma: no-cache"); // HTTP 1.0.
 header("Expires: 0");
 if( !isset($_GET["storeCode"]) || empty($_GET["storeCode"]) ){
 	header ("LOCATION: default.php");die();
+}else{
+	$storeCode = isset($_GET['storeCode']) ? $_GET['storeCode'] : (isset($_REQUEST['storeCode']) ? $_REQUEST['storeCode'] : '');
+	$storePrefix = !empty($storeCode) ? "/{$storeCode}" : '';
 }
 require ('admin/includes/config.php');
 require ('admin/includes/functions.php');

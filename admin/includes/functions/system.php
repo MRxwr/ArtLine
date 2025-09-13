@@ -55,13 +55,9 @@ function forgetPass($data){
 
 //categories
 function getCategories(){
-	GLOBAL $showCategoryTitle, $categoryView;
+	GLOBAL $showCategoryTitle, $categoryView, $storePrefix;
 	$output = "";
 	if($categories = selectDB("categories","`status` = '0' AND `hidden` = '1' ORDER BY `rank` ASC")){
-	    // Get current store code from URL or parameter
-	    $storeCode = isset($_GET['storeCode']) ? $_GET['storeCode'] : (isset($_REQUEST['storeCode']) ? $_REQUEST['storeCode'] : '');
-	    $storePrefix = !empty($storeCode) ? "/{$storeCode}" : '';
-	    
 	    for ($i =0; $i < sizeof($categories); $i++){
 			$categoryShape = ( $categoryView == 0 ) ? "product-box-img" : "product-box-img-rect" ;
     		$output .= "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6' style='text-align: -webkit-center!important'>

@@ -61,7 +61,7 @@ if( isset($_POST["id"]) ){
 					}
 					$output .= "</span>";
 				}
-			$output .= "<a href='product.php?id={$cpLink["productId"]}' class='img-fluid {$productShape}' ><img src='".encryptImage("logos/m{$cpLink["imageurl"]}")."' style='width: 100%;' alt='{$cpLink["ProductNameEn"]}'></a>
+			$output .= "<a href='{$storePrefix}/product.php?id={$cpLink["productId"]}' class='img-fluid {$productShape}' ><img src='".encryptImage("logos/m{$cpLink["imageurl"]}")."' style='width: 100%;' alt='{$cpLink["ProductNameEn"]}'></a>
 				<div class='product-text'>
 				<h6 class='product-title' style='height:50px; overflow-y:auto'>
 				";
