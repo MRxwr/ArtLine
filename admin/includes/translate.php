@@ -1,21 +1,4 @@
 <?php
-$sql = "SELECT * FROM `s_media` WHERE `id` LIKE '3'";
-$result = $dbconnect->query($sql);
-$settings[0] = $result->fetch_assoc();
-$emailOpt = $settings[0]["emailOpt"];
-$giftCard = $settings[0]["giftCard"];
-
-$settings = selectDB("settings","`id` = '1'");
-$settingsDTime = $settings[0]["dTime"];
-$settingsDTimeAr = $settings[0]["dTimeArabic"];
-$cookieSession = $settings[0]["cookie"];
-$settingsWebsite = $settings[0]["website"];
-$PaymentAPIKey = $settings[0]["PaymentAPIKey"];
-$settingsOgDescription = $settings[0]["OgDescription"];
-$SettingsServiceCharge = $settings[0]["serviceCharge"];
-$googleCode = urldecode($settings[0]["google"]);
-$pixilCode = urldecode($settings[0]["pixil"]);
-
 if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","") ){
 	$storeID = $storeDetails[0]["id"];
 	$headerButton = $storeDetails[0]["headerButton"];
@@ -37,6 +20,20 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 	header ("LOCATION: default.php");die();
 }
 
+$s_mdeia = selectDB("socialmedia","`id` = '3'");
+$emailOpt = $s_mdeia[0]["emailOpt"];
+$giftCard = $s_mdeia[0]["giftCard"];
+
+$settings = selectDB("settings","`id` = '1'");
+$settingsDTime = $settings[0]["dTime"];
+$settingsDTimeAr = $settings[0]["dTimeArabic"];
+$cookieSession = $settings[0]["cookie"];
+$settingsWebsite = $settings[0]["website"];
+$PaymentAPIKey = $settings[0]["PaymentAPIKey"];
+$settingsOgDescription = $settings[0]["OgDescription"];
+$SettingsServiceCharge = $settings[0]["serviceCharge"];
+$googleCode = urldecode($settings[0]["google"]);
+$pixilCode = urldecode($settings[0]["pixil"]);
 
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];
