@@ -43,7 +43,6 @@ if ( isset($_GET["order"]) && !empty($_GET["order"]) ){
 $joinArray["select"] = ["t.productId","t.categoryId","MIN(t1.price) as price","SUM(t1.quantity) as totalQuan","t2.preorder","t2.preorderText","t2.preorderTextAr","t2.discount","t2.discountType","t4.imageurl","t2.enTitle AS ProductNameEn","t2.arTitle AS ProductNameAr","t3.enTitle AS CategoryNameEn","t3.arTitle AS CategoryNameAr"];
 $joinArray["join"] = ["attributes_products", "products", "categories", "images"];
 $joinArray["on"] = ["t.productId = t1.productId", "t.productId = t2.id", "t.categoryId = t3.id", "t2.id = t4.productId"];
-$settings = selectDB("settings","`id` = '1'"); 
 $productShape = ( $settings[0]["productView"] == 0 ) ? "product-box-img" : "product-box-img-rect" ;
 
 if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND t1.hidden = '0' AND t1.status = '0' AND t2.hidden = '0' GROUP BY t.productId ORDER BY {$getOrder}") ){
