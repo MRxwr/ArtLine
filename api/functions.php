@@ -1,8 +1,8 @@
 <?php
 SESSION_START();
 require ('../admin/includes/config.php');
-require ('../admin/includes/translate.php');
 require ('../admin/includes/functions.php');
+require ('../admin/includes/translate.php');
 require ('../includes/checksouthead.php');
 
 // get areas of the selected country \\
