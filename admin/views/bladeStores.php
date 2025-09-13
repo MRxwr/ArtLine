@@ -650,6 +650,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="currency<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["currency"] ?></label>
 					<label id="language<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["language"] ?></label>
 					<label id="logo<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["logo"] ?></label>
+					<label id="bgImage<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["bgImage"] ?></label>
 					<label id="package<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["package"] ?></label>
 					<label id="startDate<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["startDate"] ?></label>
 					<label id="amount<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["amount"] ?></label>
