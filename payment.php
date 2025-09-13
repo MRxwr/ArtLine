@@ -5,6 +5,11 @@ require("admin/includes/functions.php");
 require("admin/includes/translate.php");
 require("includes/checksouthead.php");
 
+//get storeId from store code
+$storeId = 0;
+if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","") ){
+	$storeId = $storeDetails[0]["id"];
+}
 ini_set( 'precision', 4 );
 ini_set( 'serialize_precision', -1 );
 // get user info \\
@@ -165,7 +170,8 @@ $data = array(
 	"price" 		=> $price,
 	"userDiscount"	=> $userDiscount,
 	"voucher"		=> json_encode($voucher,JSON_UNESCAPED_UNICODE),
-	"items"			=> json_encode($items,JSON_UNESCAPED_UNICODE)
+	"items"			=> json_encode($items,JSON_UNESCAPED_UNICODE),
+	"storeId"		=> $storeId
 );
 //print_r($data);print_r($postMethodLines);print_r($resultMY);die();
 
