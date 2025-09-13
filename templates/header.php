@@ -94,6 +94,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 		border-radius: 6px;
 	}
 </style>
+<?php echo file_get_contents("css/Untitled-1.php"); ?>
 <body class="rtl <?php echo $directionBODY ?>" id="body">
 
 <div class="loading-screen">
