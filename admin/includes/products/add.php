@@ -1,6 +1,8 @@
 <?php
-require ("../config.php");
-require ("../functions.php");
+require_once("../config.php");
+require_once("../functions.php");
+require_once("../translate.php");
+require_once("../checksouthead.php");
 
 if ( isset($_POST["type"]) ){
     $type = $_POST["type"];
@@ -46,9 +48,9 @@ if ( isset($_POST["weight"]) ){
 
 $sql = "INSERT INTO 
 		`products`
-		(`categoryId`, `arTitle`, `enTitle`, `arDetails`, `enDetails`, `price`, `cost`, `video`, `storeQuantity`, `onlineQuantity`,`discount`,`discountType`, `weight`, `width`, `height`,`depth`, `preorder`, `preorderText`, `preorderTextAr`, `type`, `oneTime`, `collection`, `isImage`,`extras`, `giftCard`, `sizeChart`) 
+		(`categoryId`, `storeId`, `arTitle`, `enTitle`, `arDetails`, `enDetails`, `price`, `cost`, `video`, `storeQuantity`, `onlineQuantity`,`discount`,`discountType`, `weight`, `width`, `height`,`depth`, `preorder`, `preorderText`, `preorderTextAr`, `type`, `oneTime`, `collection`, `isImage`,`extras`, `giftCard`, `sizeChart`) 
 		VALUES
-		('{$categoryId[0]}','{$artitle}','{$entitle}','{$arDetails}','{$enDetails}', '{$price}', '{$cost}','{$videoLink}','{$storeQuantity}','{$onlineQuantity}', '{$discount}', '{$discountType}','{$weight}','{$width}','{$height}', '{$depth}', '{$preorder}', '{$preorderText}', '{$preorderTextAr}', '{$type}', '{$oneTime}', '{$collection}', '{$isImage}', '{$extras}', '{$giftCard}', '{$sizeChart}')";
+		('{$categoryId[0]}','{$storeId}','{$artitle}','{$entitle}','{$arDetails}','{$enDetails}', '{$price}', '{$cost}','{$videoLink}','{$storeQuantity}','{$onlineQuantity}', '{$discount}', '{$discountType}','{$weight}','{$width}','{$height}', '{$depth}', '{$preorder}', '{$preorderText}', '{$preorderTextAr}', '{$type}', '{$oneTime}', '{$collection}', '{$isImage}', '{$extras}', '{$giftCard}', '{$sizeChart}')";
 $result = $dbconnect->query($sql);
 
 $sql = "SELECT * FROM `products` WHERE `enTitle` LIKE '{$entitle}' AND `arTitle` LIKE '{$artitle}'";
@@ -60,6 +62,7 @@ for( $i =0; $i < sizeof($categoryId) ; $i++ ){
 	$data = array(
 		"productId" => $productID,
 		"categoryId" => $categoryId[$i],
+		"storeId" => $storeId
 	);
 	insertDB("category_products",$data);
 }
@@ -71,9 +74,9 @@ if ( $type == 1){
 
 	$sql = "INSERT INTO 
 			`attributes_products` 
-			(`productId`, `quantity`,`price`,`cost`,`sku`) 
+			(`productId`, `storeId`, `quantity`,`price`,`cost`,`sku`) 
 			VALUES 
-			('{$productId}','{$quantity}','{$price}','{$cost}', '{$sku}'); 
+			('{$productId}','{$storeId}','{$quantity}','{$price}','{$cost}', '{$sku}'); 
 			";
 	$result = $dbconnect->query($sql);
 }

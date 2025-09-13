@@ -25,6 +25,7 @@ if( isset($_POST["updateRank"]) ){
 }
 
 if( isset($_POST["title"]) ){
+	$_POST["storeId"] = $storeId;
 	$id = $_POST["update"];
 	unset($_POST["update"]);
 	if ( $id == 0 ){

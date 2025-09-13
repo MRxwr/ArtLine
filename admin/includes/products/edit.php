@@ -56,6 +56,7 @@ $sql = "UPDATE
 		`products` 
 		SET 
 		`categoryId`='$categoryId[0]',
+		`storeId`='$storeId',
 		`arTitle`='$arTitle',
 		`enTitle`='$enTitle',
 		`arDetails`='$arDetails',
@@ -90,6 +91,7 @@ for( $i =0; $i < sizeof($categoryId) ; $i++ ){
 	$data = array(
 		"productId" => $id,
 		"categoryId" => $categoryId[$i],
+		"storeId" => $storeId
 	);
 	insertDB("category_products",$data);
 }
@@ -102,7 +104,8 @@ if( $product[0]["type"] == 1 ){
 		"price" => $price,
 		"cost" => $cost,
 		"quantity" => $quantity,
-		"sku" => $sku
+		"sku" => $sku,
+		"storeId" => $storeId
 	);
 	insertDB("attributes_products",$dataInsert);
 	$newId = selectDB("attributes_products","`productId` = '{$id}'");

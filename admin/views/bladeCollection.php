@@ -1,5 +1,6 @@
 <?php 
 if( isset($_POST["checked"]) ){
+	$_POST["storeId"] = $storeId;
 	$sql = "DELETE FROM `collections` WHERE `productId` = '{$_GET["id"]}'";
 	$result = $dbconnect->query($sql);
 	for( $i = 0 ; $i < sizeof($_POST["checked"]); $i++ ){

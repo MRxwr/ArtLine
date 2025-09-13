@@ -11,6 +11,7 @@ if ( isset($_COOKIE[$cookieSession."A"]) && !empty($_COOKIE[$cookieSession."A"])
 		$username = $user[0]["fullName"];
 		$empUsername = $user[0]["fullName"];
 		$userType = $user[0]["empType"];
+		$storeId = $user[0]["storeId"];
 		$_SESSION[$cookieSession."A"] = $email;	
 	}else{
 		header("Location: logout.php");die();

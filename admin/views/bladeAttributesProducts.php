@@ -215,7 +215,8 @@ if( isset($_POST["step"]) && $_POST["step"] == 2 ){
 		"attributeId" => $_POST["id"][$i],
 		"productId" => $_POST["productId"][$i],
 		"enTitle" => $_POST["enTitle"][$i],
-		"arTitle" => $_POST["arTitle"][$i]
+		"arTitle" => $_POST["arTitle"][$i],
+		"storeId" => $storeId
 		);
 		insertDB("attributes_variants", $dataInsert);
 	}
