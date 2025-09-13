@@ -879,6 +879,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 <script>
 	$(document).on("click",".edit", function(){
 		var id = $(this).attr("id");
+        $("input[name=update]").val(id);
 		// Basic info
 		var title = $("#title"+id).html();
 		var email = $("#email"+id).html();
