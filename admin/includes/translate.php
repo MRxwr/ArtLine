@@ -1,4 +1,5 @@
 <?php
+$storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","");
 $headerButton = $storeDetails[0]["headerButton"];
 $websiteColor = $storeDetails[0]["websiteColor"];
 $settingsEmail = $storeDetails[0]["email"];
