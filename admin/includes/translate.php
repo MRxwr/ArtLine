@@ -1,5 +1,5 @@
 <?php
-$s_mdeia = selectDB("socialmedia","`id` = '3'");
+$s_mdeia = selectDB("s_media","`id` = '3'");
 $emailOpt = $s_mdeia[0]["emailOpt"];
 $giftCard = $s_mdeia[0]["giftCard"];
 
