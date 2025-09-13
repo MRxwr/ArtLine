@@ -1,10 +1,10 @@
 <?php
 $sql = "SELECT * FROM `s_media` WHERE `id` LIKE '3'";
 $result = $dbconnect->query($sql);
-$row = $result->fetch_assoc();
-$emailOpt = $row["emailOpt"];
-$giftCard = $row["giftCard"];
-$theme = $row["theme"];
+$settings[0] = $result->fetch_assoc();
+$emailOpt = $settings[0]["emailOpt"];
+$giftCard = $settings[0]["giftCard"];
+$theme = $settings[0]["theme"];
 
 $settings = selectDB("settings","`id` = '1'");
 $settingsDTime = $settings[0]["dTime"];
@@ -252,7 +252,7 @@ if (  isset($_COOKIE["CREATEkwLANG"]) && $_COOKIE["CREATEkwLANG"] == "AR" ){
 	$contactText ="اتصل بنا";
 	$inStoreText = "الإستلام من المتجر";
 	$pleaseFillForGiftsText = "كرت الهدية (إختياري)";
-	$settingsDTime = $row["dTimeArabic"];
+	$settingsDTime = $settings[0]["dTimeArabic"];
 	$fromText = "من";
 	$toText = "إلى";
 	$msgText = "الرسالة";
@@ -268,7 +268,7 @@ if (  isset($_COOKIE["CREATEkwLANG"]) && $_COOKIE["CREATEkwLANG"] == "AR" ){
 	$fromText = "From";
 	$toText = "To";
 	$msgText = "Message";
-	$settingsDTime = $row["dTime"];
+	$settingsDTime = $settings[0]["dTime"];
 	$pleaseFillForGiftsText = "Gift card (Optional)";
 	$inStoreText = "Pick up";
 	$showText = "Show";
