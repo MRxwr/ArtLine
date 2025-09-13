@@ -1,7 +1,6 @@
 RewriteEngine On
 
 # Redirect old format to new clean URLs
-# Redirect /details.php?storeCode=artline&other=params to /artline/details?other=params
 RewriteCond %{QUERY_STRING} ^(.*)storeCode=([^&]+)(.*)$
 RewriteRule ^([^/]+)\.php$ /%2/$1?%1%3 [R=301,L]
 
