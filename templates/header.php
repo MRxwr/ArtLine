@@ -39,6 +39,12 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<?php 
+	// Get store-specific colors
+	$storeColors = getStoreColors();
+	$websiteColor = $storeColors["websiteColor"];
+	$headerButton = $storeColors["headerButton"];
+	?>
 	<meta name="theme-color" content="<?php echo $websiteColor ?>" />
     <link href="<?php echo encryptImage("logos/{$settingslogo}") ?>" rel="shortcut icon" />
     <title><?php echo $settingsTitle ?></title>
@@ -57,6 +63,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
     <link href="css/animate.min.css?<?php echo randLetter() . "=" . rand(0,9) ?>" rel="stylesheet">
 	<link href="css/jquery.fancybox.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
+	<link href="css/store-styles.php?v=<?php echo time(); ?>" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 	<?php echo $fontLink ?>
 	<link rel="manifest" href="manifest.json">
@@ -83,13 +90,14 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 </head>
 <style>
 	<?php echo $fontImport ?>
+    <?php echo getStoreColorCSS(); ?>
     body {
 		font-family: <?php echo $fontFamily ?>;
 		padding:0 !important;
     }
     .join-btn {
-		background: <?php echo $headerButton ?>;
-		color: <?php echo $websiteColor ?>;
+		background: var(--header-button-color);
+		color: var(--website-color);
 		padding: 0.4rem 1.2rem;
 		border-radius: 6px;
 	}
@@ -102,12 +110,12 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 
 <div class="v-body">
 
-<div class="header fixme d-md-block d-sm-none d-none" style="background-color: <?php echo $websiteColor ?>;border: 1px solid <?php echo $websiteColor ?>;">
+<div class="header fixme d-md-block d-sm-none d-none" style="background-color: var(--website-color);border: 1px solid var(--website-color);">
     <div class="container-fluid">
         <div class="row d-flex align-items-center">
             <div class="col-md-2 mt-3 mb-3" style="white-space:nowrap">
 				<form method="post" action="index.php">
-                <input type="submit" style="color: <?php echo $websiteColor ?>;font-size: 22px;background: <?php echo $headerButton ?>;padding: 10px;border-radius: 6px;border: 0px;" value="<?php echo $settingsTitle ?>">
+                <input type="submit" style="color: var(--website-color);font-size: 22px;background: var(--header-button-color);padding: 10px;border-radius: 6px;border: 0px;" value="<?php echo $settingsTitle ?>">
 				</form>
             </div>
             <div class="col-md-10 text-left">
@@ -151,7 +159,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
     </div>
 </div>
 
-<div class="mobile-header fixme d-md-none d-sm-block d-block" style="background-color: <?php echo $websiteColor ?>; padding: 0px!important;">
+<div class="mobile-header fixme d-md-none d-sm-block d-block" style="background-color: var(--website-color); padding: 0px!important;">
     <nav role='navigation' style="direction: rtl !important; float:right !important; width: 100%;">
         
         
@@ -178,7 +186,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 			
 			<div class="col-10 <?php echo "text-center" //direction("text-right","text-left") ?> mt-2">
 				<form method="post" action="index.php">
-                <input type="submit" style="color:<?php echo $headerButton ?>; font-size:24px;white-space: nowrap;background: transparent;border: 0px;direction: ltr;" value="<?php echo $settingsTitle ?>">
+                <input type="submit" style="color:var(--header-button-color); font-size:24px;white-space: nowrap;background: transparent;border: 0px;direction: ltr;" value="<?php echo $settingsTitle ?>">
 				</form>
 			</div>
 			
@@ -257,7 +265,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 										echo "
 										<li style='padding: 10px;'>
 											<a style='font-size: 20px;height: 36px;width: 36px;' href='{$smURL[$i]}{$socialMedia[0][$smIndex[$i]]}' aria-label='{$smIndex[$i]}'>
-												<span class='{$smIcon[$i]}' style='height: 15px; background: {$websiteColor}'></span>
+												<span class='{$smIcon[$i]}' style='height: 15px; background: var(--website-color)'></span>
 											</a>
 										</li>";
 									}
