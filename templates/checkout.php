@@ -402,7 +402,7 @@ $(function(){
 
 	$('.CountryClick').change(function(e){
 		$('#mainView').attr('style','display:none');
-		$('#loader').attr('style','display:block');
+		$('.loading-screen').attr('style','display:flex');
 		e.preventDefault();
 		var countryName = $(this).val()
 		if ( countryName != "<?php echo $defaultCountry ?>" ){
@@ -442,7 +442,7 @@ $(function(){
 			},
 			success:function(result){
 				$('.getAreas').html(result);
-				$('#loader').attr('style','display:none');
+				$('.loading-screen').attr('style','display:none');
 				$('#mainView').attr('style','display:block');
 			}
 		});
