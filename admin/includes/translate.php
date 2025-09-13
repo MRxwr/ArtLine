@@ -6,18 +6,16 @@ $emailOpt = $row["emailOpt"];
 $giftCard = $row["giftCard"];
 $theme = $row["theme"];
 
-$sql = "SELECT * FROM `settings` WHERE `id` LIKE '1'";
-$result = $dbconnect->query($sql);
-$row = $result->fetch_assoc();
-$settingsDTime = $row["dTime"];
-$settingsDTimeAr = $row["dTimeArabic"];
-$cookieSession = $row["cookie"];
-$settingsWebsite = $row["website"];
-$PaymentAPIKey = $row["PaymentAPIKey"];
-$settingsOgDescription = $row["OgDescription"];
-$SettingsServiceCharge = $row["serviceCharge"];
-$googleCode = urldecode($dashbaords[0]["google"]);
-$pixilCode = urldecode($dashbaords[0]["pixil"]);
+$settings = selectDB("settings","`id` = '1'");
+$settingsDTime = $settings[0]["dTime"];
+$settingsDTimeAr = $settings[0]["dTimeArabic"];
+$cookieSession = $settings[0]["cookie"];
+$settingsWebsite = $settings[0]["website"];
+$PaymentAPIKey = $settings[0]["PaymentAPIKey"];
+$settingsOgDescription = $settings[0]["OgDescription"];
+$SettingsServiceCharge = $settings[0]["serviceCharge"];
+$googleCode = urldecode($settings[0]["google"]);
+$pixilCode = urldecode($settings[0]["pixil"]);
 
 $storeDetails = selectDB("stores","`id` = '1'");
 $headerButton = $storeDetails[0]["headerButton"];
