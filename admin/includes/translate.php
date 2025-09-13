@@ -16,7 +16,7 @@ $SettingsServiceCharge = $settings[0]["serviceCharge"];
 $googleCode = urldecode($settings[0]["google"]);
 $pixilCode = urldecode($settings[0]["pixil"]);
 
-$storeDetails = selectDB("stores","`id` = '1'");
+$storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`id` = ?","");
 $headerButton = $storeDetails[0]["headerButton"];
 $websiteColor = $storeDetails[0]["websiteColor"];
 $settingsEmail = $storeDetails[0]["email"];
