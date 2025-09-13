@@ -23,6 +23,7 @@ $storeDetails = selectDB("stores","`id` = '1'");
 $headerButton = $storeDetails[0]["headerButton"];
 $websiteColor = $storeDetails[0]["websiteColor"];
 $settingsEmail = $storeDetails[0]["email"];
+$settingsPhone = $storeDetails[0]["phone"];
 $settingsTitle = $storeDetails[0]["title"];
 $settingsImage = $storeDetails[0]["bgImage"];
 $settingslogo = $storeDetails[0]["logo"];
