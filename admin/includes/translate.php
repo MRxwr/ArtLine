@@ -17,7 +17,6 @@ $PaymentAPIKey = $row["PaymentAPIKey"];
 $settingsOgDescription = $row["OgDescription"];
 $SettingsServiceCharge = $row["serviceCharge"];
 
-
 $storeDetails = selectDB("stores","`id` = '1'");
 $headerButton = $storeDetails[0]["headerButton"];
 $websiteColor = $storeDetails[0]["websiteColor"];
