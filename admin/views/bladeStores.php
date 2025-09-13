@@ -679,6 +679,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="productView<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["productView"] ?></label>
 					<label id="showCategoryTitle<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["showCategoryTitle"] ?></label>
 					<label id="shippingMethod<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["shippingMethod"] ?></label>
+					<label id="storeCode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["storeCode"] ?></label>
 				</div>
 				<?php
 			}
@@ -700,6 +701,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
         $("input[name=update]").val(id);
 		// Basic info
 		var title = $("#title"+id).html();
+		var storeCode = $("#storeCode"+id).html();
 		var email = $("#email"+id).html();
 		var phone = $("#phone"+id).html();
 		var country = $("#country"+id).html();
@@ -730,6 +732,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		
 		// Fill form fields
 		$("input[name=title]").val(title);
+		$("input[name=storeCode]").val(storeCode);
 		$("input[name=email]").val(email);
 		$("input[name=phone]").val(phone);
 		$("select[name=country]").val(country);
