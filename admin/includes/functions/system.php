@@ -224,7 +224,7 @@ function uploadImageBanner($imageLocation){
 
 function showLogo(){
 	GLOBAL $showLogo;
-	$output = $showLogo[0]["showLogo"] == '0' ? "" : "display:none";
+	$output = $showLogo == '0' ? "" : "display:none";
 	return $output;
 }
 
