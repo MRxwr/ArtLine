@@ -16,7 +16,7 @@ $settingsWebsite = $row["website"];
 $PaymentAPIKey = $row["PaymentAPIKey"];
 $settingsOgDescription = $row["OgDescription"];
 $SettingsServiceCharge = $row["serviceCharge"];
-$settingsLang = (isset($row["language"]) && $row["language"] == "0") ? "ENG" : "AR";
+
 
 $storeDetails = selectDB("stores","`id` = '1'");
 $headerButton = $storeDetails[0]["headerButton"];
@@ -27,6 +27,7 @@ $settingsImage = $storeDetails[0]["bgImage"];
 $settingslogo = $storeDetails[0]["logo"];
 $settingsShippingMethod = $storeDetails[0]["shippingMethod"];
 $defaultCountry = $storeDetails[0]["country"];
+$settingsLang = (isset($storeDetails[0]["language"]) && $storeDetails[0]["language"] == "0") ? "ENG" : "AR";
 
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];
