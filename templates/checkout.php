@@ -402,7 +402,7 @@ $(function(){
 
 	$('.CountryClick').change(function(e){
 		$('#mainView').attr('style','display:none');
-		$('#loader').attr('style','display:flex');
+		$('#loader').attr('style','display:block');
 		e.preventDefault();
 		var countryName = $(this).val()
 		if ( countryName != "<?php echo $defaultCountry ?>" ){
