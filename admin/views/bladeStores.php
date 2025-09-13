@@ -98,43 +98,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								</div>
 							</div>
 
-							<!-- system version -->
-							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Version", "النسخة") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="version" placeholder="1.0">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<!-- website description -->
-							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">OG: Description</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="OgDescription" placeholder="Store description">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+
 
 							<!-- default international shipping -->
 							<div class="col-md-4">
@@ -218,24 +182,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								</div>
 							</div>
 
-							<!-- system cookie -->
-							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">Cookie</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="cookie" placeholder="Store-Cookie">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+
 
 							<!-- default currency -->
 							<div class="col-md-4">
@@ -302,24 +249,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								</div>
 							</div>
 
-							<!-- system url -->
-							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">Website URL ( no slash at the end )</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="website" placeholder="https://example.com">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -337,43 +267,9 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 
-					<!-- payapi token -->
-					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark">PayAPI Token</h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<input class="form-control" type="text" name="PaymentAPIKey" placeholder="API-KEY">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<!-- Create Pay Reffrence -->
-					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark">CreatePay Refference</h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<input class="form-control" type="text" name="refference" placeholder="ref0035">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
+
 
 					<!-- system package -->
 					<div class="col-md-4">
@@ -442,7 +338,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 					<div class="panel-body">
 						<!-- whatsapp status -->
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
 									<div class="pull-left">
@@ -462,72 +358,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 											}
 											?>
 										</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- whatsapp Language -->
-						<div class="col-md-6">
-							<div class="panel panel-default card-view">
-								<div class="panel-heading">
-									<div class="pull-left">
-										<h6 class="panel-title txt-dark"><?php echo direction("Language","اللغة") ?></h6>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="panel-wrapper collapse in">
-									<div class="panel-body">
-										<div class="text">
-										<select class="form-control" name="whatsappNoti[lang]" >
-											<?php 
-											$wStatus = ["en","ar"];
-											$wTitle = [direction("English","الإنجليزية"),direction("Arabic","العربية")];
-											for( $i = 0; $i < sizeof($wStatus); $i++){
-												echo "<option value='{$wStatus[$i]}'>{$wTitle[$i]}</option>";
-											}
-											?>
-										</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<!-- whatsapp Details -->
-						<div class="col-md-12">
-							<div class="panel panel-default card-view">
-								<div class="panel-heading">
-									<div class="pull-left">
-										<h6 class="panel-title txt-dark"><?php echo direction("Details","التفاصيل") ?></h6>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="panel-wrapper collapse in">
-									<div class="panel-body">
-										<div class="col-md-3">
-										<div class="text">
-										<input class="form-control" name="whatsappNoti[name]" placeholder="<?php echo direction("Website Name","إسم الموقع") ?>">
-										</div>
-										</div>
-
-										<div class="col-md-3">
-										<div class="text">
-										<input class="form-control" name="whatsappNoti[domain_token]" placeholder="<?php echo direction("Automate Domain Token","رمز الموقع من أوتوميت") ?>">
-										</div>
-										</div>
-
-										<div class="col-md-3">
-										<div class="text">
-										<input class="form-control" name="whatsappNoti[to]" placeholder="<?php echo direction("Orders Phone","هاتف الطلبات") ?>">
-										</div>
-										</div>
-
-										<div class="col-md-3">
-										<div class="text">
-										<input class="form-control" name="whatsappToken" placeholder="<?php echo direction("Ultra Msg Token","رمز Ultra Msg") ?>">
-										</div>
 										</div>
 									</div>
 								</div>
@@ -841,19 +671,13 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				
 				<!-- Hidden data for edit -->
 				<div style="display:none">
-					<label id="OgDescription<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["OgDescription"] ?></label>
 					<label id="currency<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["currency"] ?></label>
 					<label id="language<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["language"] ?></label>
 					<label id="logo<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["logo"] ?></label>
-					<label id="version<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["version"] ?></label>
-					<label id="cookie<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["cookie"] ?></label>
-					<label id="PaymentAPIKey<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["PaymentAPIKey"] ?></label>
-					<label id="refference<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["refference"] ?></label>
 					<label id="package<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["package"] ?></label>
 					<label id="startDate<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["startDate"] ?></label>
 					<label id="amount<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["amount"] ?></label>
 					<label id="whatsappNoti<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["whatsappNoti"] ?></label>
-					<label id="whatsappToken<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["whatsappToken"] ?></label>
 					<label id="showLogo<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["showLogo"] ?></label>
 					<label id="websiteColor<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["websiteColor"] ?></label>
 					<label id="headerButton<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["headerButton"] ?></label>
@@ -885,16 +709,10 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var email = $("#email"+id).html();
 		var phone = $("#phone"+id).html();
 		var country = $("#country"+id).html();
-		var website = $("#website"+id).html();
 		var language = $("#language"+id).html();
 		var currency = $("#currency"+id).html();
-		var OgDescription = $("#OgDescription"+id).html();
-		var version = $("#version"+id).html();
-		var cookie = $("#cookie"+id).html();
 		
 		// Payment
-		var PaymentAPIKey = $("#PaymentAPIKey"+id).html();
-		var refference = $("#refference"+id).html();
 		var package = $("#package"+id).html();
 		var startDate = $("#startDate"+id).html();
 		var amount = $("#amount"+id).html();
@@ -910,7 +728,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var shippingMethod = $("#shippingMethod"+id).html();
 		
 		// WhatsApp
-		var whatsappToken = $("#whatsappToken"+id).html();
 		var whatsappNoti = $("#whatsappNoti"+id).html();
 		
 		// Images
@@ -922,16 +739,10 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("input[name=email]").val(email);
 		$("input[name=phone]").val(phone);
 		$("select[name=country]").val(country);
-		$("input[name=website]").val(website);
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
-		$("input[name=OgDescription]").val(OgDescription);
-		$("input[name=version]").val(version);
-		$("input[name=cookie]").val(cookie);
 		
 		// Payment
-		$("input[name=PaymentAPIKey]").val(PaymentAPIKey);
-		$("input[name=refference]").val(refference);
 		$("select[name=package]").val(package);
 		$("input[name=startDate]").val(startDate ? startDate.substring(0, 10) : "");
 		$("input[name=amount]").val(amount);
@@ -947,7 +758,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=shippingMethod]").val(shippingMethod);
 		
 		// WhatsApp - handle if it's stored as JSON string
-		$("input[name=whatsappToken]").val(whatsappToken);
 		
 		// If whatsappNoti is available and not empty
 		if (whatsappNoti) {
@@ -955,24 +765,9 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				// Try to parse as JSON if it's stored as a JSON string
 				var whatsappData = JSON.parse(whatsappNoti);
 				
+				// Only handle the status (on/off)
 				if (whatsappData.status) {
 					$("select[name='whatsappNoti[status]']").val(whatsappData.status);
-				}
-				
-				if (whatsappData.lang) {
-					$("select[name='whatsappNoti[lang]']").val(whatsappData.lang);
-				}
-				
-				if (whatsappData.name) {
-					$("input[name='whatsappNoti[name]']").val(whatsappData.name);
-				}
-				
-				if (whatsappData.domain_token) {
-					$("input[name='whatsappNoti[domain_token]']").val(whatsappData.domain_token);
-				}
-				
-				if (whatsappData.to) {
-					$("input[name='whatsappNoti[to]']").val(whatsappData.to);
 				}
 			} catch (e) {
 				// If parsing fails, it's not a valid JSON string
