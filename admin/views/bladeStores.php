@@ -304,6 +304,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					</div>
 				</div>
 			</div>
+			</div>
 
 			<!-- Payment section -->
 			<div class="col-md-12">
