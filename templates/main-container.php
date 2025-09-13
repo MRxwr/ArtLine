@@ -136,7 +136,7 @@ if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND
 
 <script type="text/javascript">
 $(".product-category, .product-category-mobile").click(function() {
-	$('.loading-screen').attr('style','display:block');
+	$('.loading-screen').css('display', 'flex');
 	$.ajax({
 		type:"POST",
 		url: "api/listofItems.php",
@@ -146,7 +146,7 @@ $(".product-category, .product-category-mobile").click(function() {
 		},
 		success:function(result){
 			$("#listOfItems").html(result);
-			$('.loading-screen').attr('style','display:none');
+			$('.loading-screen').css('display', 'none');
 		}
 	});
 });
