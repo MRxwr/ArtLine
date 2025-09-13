@@ -8,6 +8,11 @@ if( !isset($_GET["storeCode"]) || empty($_GET["storeCode"]) ){
 }
 require ('admin/includes/config.php');
 require ('admin/includes/functions.php');
+if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","") ){
+	$storeID = $storeDetails[0]["id"];
+}else{
+	header ("LOCATION: default.php");die();
+}
 require ('admin/includes/translate.php');
 require ('includes/checksouthead.php');
 $maintenace = selectDB("maintenance","`id` = '1'");
