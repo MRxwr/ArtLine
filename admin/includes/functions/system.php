@@ -61,7 +61,7 @@ function getCategories(){
 	    for ($i =0; $i < sizeof($categories); $i++){
 			$categoryShape = ( $categoryView == 0 ) ? "product-box-img" : "product-box-img-rect" ;
     		$output .= "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6' style='text-align: -webkit-center!important'>
-    		<a href='/list.php?id={$categories[$i]["id"]}'>
+    		<a href='{$_GET["storeCode"]}/list.php?id={$categories[$i]["id"]}'>
     		<img src='".encryptImage("logos/{$categories[$i]["imageurl"]}")."' class='img-fluid {$categoryShape} rounded' alt='{$categories[$i]["enTitle"]}'>";
     		if ( $showCategoryTitle == 0 ){
 				$output .= "<span style='font-weight: 600;font-size: 18px;'>";
