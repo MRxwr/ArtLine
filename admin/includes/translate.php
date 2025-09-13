@@ -13,6 +13,7 @@ $settingsOgDescription = $settings[0]["OgDescription"];
 $SettingsServiceCharge = $settings[0]["serviceCharge"];
 $googleCode = urldecode($settings[0]["google"]);
 $pixilCode = urldecode($settings[0]["pixil"]);
+$settingsEmail = $settings[0]["email"];
 
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];
