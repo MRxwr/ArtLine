@@ -31,7 +31,7 @@ $defaultCountry = $storeDetails[0]["country"];
 $settingsLang = (isset($storeDetails[0]["language"]) && $storeDetails[0]["language"] == "0") ? "ENG" : "AR";
 $productView = $storeDetails[0]["productView"];
 $showCategoryTitle = $storeDetails[0]["showCategoryTitle"];
-$settings[0]["categoryView"] = $storeDetails[0]["categoryView"];
+$categoryView = $storeDetails[0]["categoryView"];
 
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];

@@ -55,15 +55,15 @@ function forgetPass($data){
 
 //categories
 function getCategories(){
-	GLOBAL $settings;
+	GLOBAL $showCategoryTitle, $categoryView;
 	$output = "";
 	if($categories = selectDB("categories","`status` = '0' AND `hidden` = '1' ORDER BY `rank` ASC")){
 	    for ($i =0; $i < sizeof($categories); $i++){
-			$categoryShape = ( $settings[0]["categoryView"] == 0 ) ? "product-box-img" : "product-box-img-rect" ;
+			$categoryShape = ( $categoryView == 0 ) ? "product-box-img" : "product-box-img-rect" ;
     		$output .= "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6' style='text-align: -webkit-center!important'>
     		<a href='list.php?id={$categories[$i]["id"]}'>
     		<img src='".encryptImage("logos/{$categories[$i]["imageurl"]}")."' class='img-fluid {$categoryShape} rounded' alt='{$categories[$i]["enTitle"]}'>";
-    		if ( $settings[0]["showCategoryTitle"] == 0 ){
+    		if ( $showCategoryTitle == 0 ){
 				$output .= "<span style='font-weight: 600;font-size: 18px;'>";
 				$output .= direction($categories[$i]["enTitle"],$categories[$i]["arTitle"]);
 				$output .= "</span>";
