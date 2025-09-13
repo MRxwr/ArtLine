@@ -55,6 +55,7 @@ function forgetPass($data){
 
 //categories
 function getCategories(){
+	GLOBAL $settings;
 	$output = "";
 	if($categories = selectDB("categories","`status` = '0' AND `hidden` = '1' ORDER BY `rank` ASC")){
 	    for ($i =0; $i < sizeof($categories); $i++){
