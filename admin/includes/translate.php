@@ -15,6 +15,9 @@ $googleCode = urldecode($settings[0]["google"]);
 $pixilCode = urldecode($settings[0]["pixil"]);
 $settingsEmail = $settings[0]["email"];
 
+$storeCode = isset($_GET['storeCode']) ? $_GET['storeCode'] : (isset($_REQUEST['storeCode']) ? $_REQUEST['storeCode'] : '');
+$storePrefix = !empty($storeCode) ? "/{$storeCode}" : '';
+
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];
 	if ( in_array($_GET["lang"], $arrayLangs) ){
