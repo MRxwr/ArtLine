@@ -4,7 +4,6 @@ $result = $dbconnect->query($sql);
 $settings[0] = $result->fetch_assoc();
 $emailOpt = $settings[0]["emailOpt"];
 $giftCard = $settings[0]["giftCard"];
-$theme = $settings[0]["theme"];
 
 $settings = selectDB("settings","`id` = '1'");
 $settingsDTime = $settings[0]["dTime"];
@@ -32,6 +31,7 @@ $settingsLang = (isset($storeDetails[0]["language"]) && $storeDetails[0]["langua
 $productView = $storeDetails[0]["productView"];
 $showCategoryTitle = $storeDetails[0]["showCategoryTitle"];
 $categoryView = $storeDetails[0]["categoryView"];
+$theme = $storeDetails[0]["theme"];
 
 if ( isset($_GET["lang"]) ){
 	$arrayLangs = ["ENG","AR"];
