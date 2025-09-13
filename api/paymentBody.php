@@ -20,7 +20,7 @@ $postMethodLines = array(
 	"CustomerEmail"			=> $settingsEmail,
 	"invoiceValue"			=> (float)$totalPrice,
 	"SourceInfo"			=> '',
-	"CallBackUrl"			=> $settingsWebsite.'/details.php',
+	"CallBackUrl"			=> $settingsWebsite.'/details.php?storeCode='.$_GET["storeCode"],
 	"ErrorUrl"				=> $settingsWebsite.'/checkout.php?error=3',
 	"ShippingMethod"		=> $settingsShippingMethod,
 	"invoiceItems" 			=> $itemList,
