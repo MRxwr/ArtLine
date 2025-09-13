@@ -15,6 +15,7 @@ $googleCode = urldecode($settings[0]["google"]);
 $pixilCode = urldecode($settings[0]["pixil"]);
 $settingsEmail = $settings[0]["email"];
 $settingslogo = $settings[0]["logo"];
+$settingsTitle = $settings[0]["title"];
 
 $storeCode = isset($_GET['storeCode']) ? $_GET['storeCode'] : (isset($_REQUEST['storeCode']) ? $_REQUEST['storeCode'] : '');
 $storePrefix = !empty($storeCode) ? "/{$storeCode}" : '';
