@@ -53,6 +53,11 @@ if ( isset($_GET["c"]) ){
 	}else{
 		$resultMY = json_decode($response, true);
 		$orderId = $resultMY["data"]["Data"]["InvoiceId"];
+		if( isset($resultMY["data"]["Data"]["InvoiceStatus"]) && !empty($resultMY["data"]["Data"]["InvoiceStatus"]) && $resultMY["data"]["Data"]["InvoiceStatus"] == "Paid" ){
+			$orderId = $resultMY["data"]["Data"]["InvoiceId"];
+		}else{
+			header("LOCATION: checkout.php?error=3");die();
+		}
 		if( $order = selectDBNew("orders2",[$orderId],"`gatewayId` = ?","") ){
 			$orderId = $order[0]["id"];
 		}else{
