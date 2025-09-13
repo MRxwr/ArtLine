@@ -75,9 +75,11 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script src="js/main.js?y=<?php echo md5(time()) ?>"></script>
 	<?php
-	if( $dashbaords = selectDB("settings","`id` = '1'") ){
-		echo urldecode($dashbaords[0]["google"]);
-		echo urldecode($dashbaords[0]["pixil"]);
+	if( isset($googleCode) && !empty($googleCode) ){
+		echo $googleCode;
+	}
+	if( isset($pixilCode) && !empty($pixilCode) ){
+		echo $pixilCode;
 	}
 	?>
 </head>
