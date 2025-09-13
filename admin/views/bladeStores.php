@@ -249,7 +249,57 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								</div>
 							</div>
 
+							<!-- system package -->
+							<div class="col-md-4">
+								<div class="panel panel-default card-view">
+									<div class="panel-heading">
+										<div class="pull-left">
+											<h6 class="panel-title txt-dark">Select Package</h6>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="panel-wrapper collapse in">
+										<div class="panel-body">
+											<div class="text">
+												<select class="form-control" name="package">
+													<?php
+													$packageValue = [0, 1, 2];
+													$packageName = [direction("Free", "مجاني"), direction("Monthly", "شهرية"), direction("Annually", "سنوية")];
+													for ($i = 0; $i < sizeof($packageValue); $i++) {
+														echo "<option value='$packageValue[$i]'>{$packageName[$i]}</option>";
+													}
+													?>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
+							<div class="col-md-4">
+							<div class="panel panel-default card-view">
+								<div class="panel-heading">
+									<div class="pull-left">
+										<h6 class="panel-title txt-dark"><?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body">
+										<div class="text">
+										<select class="form-control" name="whatsappNoti[status]" >
+											<?php 
+											$wStatus = [0,1];
+											$wTitle = [direction("No","لا"),direction("Yes","نعم")];
+											for( $i = 0; $i < sizeof($wStatus); $i++){
+												echo "<option value='{$wStatus[$i]}'>{$wTitle[$i]}</option>";
+											}
+											?>
+										</select>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -266,38 +316,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				</div>
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
-
-
-
-
-
-					<!-- system package -->
-					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark">Select Package</h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" name="package">
-											<?php
-											$packageValue = [0, 1, 2];
-											$packageName = [direction("Free", "مجاني"), direction("Monthly", "شهرية"), direction("Annually", "سنوية")];
-											for ($i = 0; $i < sizeof($packageValue); $i++) {
-												echo "<option value='$packageValue[$i]'>{$packageName[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
 					<!-- Package details -->
 					<div class="col-md-12">
 						<div class="panel panel-default card-view">
@@ -325,49 +343,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				</div>
 				</div>
 			</div>
-
-			<!-- WhatsApp Notification section -->
-			<div class="col-md-12">
-				<div class="panel panel-default card-view">
-				<div class="panel-heading">
-					<div class="pull-left">
-						<h6 class="panel-title txt-dark"><?php echo direction("Whatsapp Notification", "إشعار الواتساب") ?></h6>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="panel-wrapper collapse in">
-					<div class="panel-body">
-						<!-- whatsapp status -->
-						<div class="col-md-12">
-							<div class="panel panel-default card-view">
-								<div class="panel-heading">
-									<div class="pull-left">
-										<h6 class="panel-title txt-dark"><?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="panel-wrapper collapse in">
-									<div class="panel-body">
-										<div class="text">
-										<select class="form-control" name="whatsappNoti[status]" >
-											<?php 
-											$wStatus = [0,1];
-											$wTitle = [direction("No","لا"),direction("Yes","نعم")];
-											for( $i = 0; $i < sizeof($wStatus); $i++){
-												echo "<option value='{$wStatus[$i]}'>{$wTitle[$i]}</option>";
-											}
-											?>
-										</select>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				</div>
-			</div>
-
 			<!-- Theme section -->
 			<div class="col-md-12">
 				<div class="panel panel-default card-view">
