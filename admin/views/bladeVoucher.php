@@ -12,6 +12,7 @@ if( isset($_POST["items"]) && !empty($_POST["items"]) ){
 }
 
 if( isset($_POST["code"]) ){
+	$_POST["storeId"] = $storeId;
 	$id = $_POST["update"];
 	unset($_POST["update"]);
 	if ( $id == 0 ){

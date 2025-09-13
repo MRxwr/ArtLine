@@ -1,5 +1,6 @@
 <?php
 if ( isset($_POST["title"]) AND !empty($_POST["title"]) ){
+	$_POST["storeId"] = $storeId;
     insertDB('purchases',$_POST);
 	header ("LOCATION: ?v=Purchases");
 }
