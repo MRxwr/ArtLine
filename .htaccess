@@ -4,7 +4,20 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Remove .php extension from URLs
+# Handle store directories with PHP files (multi-store system)
+# If request is like /storename/file.php, rewrite to /file.php with storeCode parameter
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/(.+\.php)$ /$2?storeCode=$1 [L,QSA]
+
+# Handle store directories with other files
+# If request is like /storename/somepage, rewrite to /somepage.php with storeCode parameter
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$2.php -f
+RewriteRule ^([^/]+)/([^/]+)/?$ /$2.php?storeCode=$1 [L,QSA]
+
+# Remove .php extension from URLs (for direct access)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
@@ -14,4 +27,7 @@ RewriteRule ^default\.php$ - [L]
 
 # Rewrite any other requests with a parameter or redirect to default when there is nothing after the domain
 RewriteRule ^$ /default.php [L]
+# Single word requests become store codes (only if no file/directory exists)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^([^/]+)/?$ /?storeCode=$1 [L,QSA]
