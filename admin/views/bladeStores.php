@@ -80,6 +80,26 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<div class="panel-wrapper collapse in">
 						<div class="panel-body">
 							<!-- system Title -->
+
+							<div class="col-md-12">
+								<div class="panel panel-default card-view">
+									<div class="panel-heading">
+										<div class="pull-left">
+											<h6 class="panel-title txt-dark"><?php echo direction("Store URL Title", "عنوان المتجر") ?></h6>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="panel-wrapper collapse in">
+										<div class="panel-body">
+											<div class="text">
+												<input class="form-control" type="text" name="storeCode" placeholder="artline">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
 							<div class="col-md-4">
 								<div class="panel panel-default card-view">
 									<div class="panel-heading">
@@ -97,9 +117,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 									</div>
 								</div>
 							</div>
-
-
-
 							<!-- default international shipping -->
 							<div class="col-md-4">
 								<div class="panel panel-default card-view">
@@ -280,7 +297,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
 									<div class="pull-left">
-										<h6 class="panel-title txt-dark"><?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
+										<h6 class="panel-title txt-dark">Whatsapp Notification <?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
 									</div>
 									<div class="clearfix"></div>
 								</div>
