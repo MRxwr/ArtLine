@@ -209,18 +209,17 @@ function insertDB($table, $data){
     $stmt = $dbconnect->prepare($sql);
     $types = str_repeat('s', count($data));
     $stmt->bind_param($types, ...array_values($data));
-    if( isset($_GET["v"]) && !empty($_GET["v"]) ){
-        $array = array(
-            "userId" => $userID,
-            "username" => $empUsername,
-            "module" => $_GET["v"],
-            "action" => "Insert",
-            "sqlQuery" => json_encode(array("table"=>$table,"data"=>$data)),
-        );
-        LogsHistory($array);
-    }
-   
     if($stmt->execute()){
+        if( isset($_GET["v"]) && !empty($_GET["v"]) ){
+            $array = array(
+                "userId" => $userID,
+                "username" => $empUsername,
+                "module" => $_GET["v"],
+                "action" => "Insert",
+                "sqlQuery" => json_encode(array("table"=>$table,"data"=>$data)),
+            );
+            LogsHistory($array);
+        }
         return 1;
     }else{
         $error = array("msg"=>"insert table error");
@@ -247,20 +246,17 @@ function updateDB($table, $data, $where) {
     $stmt = $dbconnect->prepare($sql); 
     $values = array_values($data);
     $stmt->bind_param($params, ...$values);
-    
-    if( isset($_GET["v"]) && !empty($_GET["v"]) ){
-        $array = array(
-            "userId" => $userID,
-            "username" => $empUsername,
-            "module" => $_GET["v"],
-            "action" => "update",
-            "sqlQuery" => json_encode(array("table"=>$table,"data"=>$data,"where"=>$where)),
-        );
-        LogsHistory($array);
-    }
-    
-
     if ($stmt->execute()) {
+        if( isset($_GET["v"]) && !empty($_GET["v"]) ){
+            $array = array(
+                "userId" => $userID,
+                "username" => $empUsername,
+                "module" => $_GET["v"],
+                "action" => "update",
+                "sqlQuery" => json_encode(array("table"=>$table,"data"=>$data,"where"=>$where)),
+            );
+            LogsHistory($array);
+        }
         return 1;
     } else {
         $error = array("msg" => "update table error");
