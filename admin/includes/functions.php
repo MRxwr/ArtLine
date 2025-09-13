@@ -9,5 +9,4 @@ require_once("functions/system.php");
 require_once("functions/vouchers.php");
 require_once("functions/products.php");
 require_once("functions/currency.php");
-require_once("functions/storeColors.php");
 ?>
