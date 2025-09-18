@@ -1,7 +1,6 @@
 
     <?php
-    var_dump(selectDB("banner","`status` = '0' AND `hidden` = '1' AND `storeId` = '{$storeID}' ORDER BY `rank` ASC"));
-    if($banners = selectDB("banner","`status` = '0' AND `hidden` = '1' AND `storeId` = '{$storeID}' ORDER BY `rank` ASC")){
+    if( $banners = selectDB("banner","`status` = '0' AND `hidden` = '1' AND `storeId` = '{$storeID}' ORDER BY `rank` ASC") ){
     ?>
     <div class="mt-3">
     <div class="sec-pad">
@@ -27,5 +26,7 @@
     </div>
     </div>
     <?php
+    }else{
+        echo "<br> 00 ";
     }
     ?>
