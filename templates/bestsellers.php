@@ -1,5 +1,5 @@
 <?php
-if( $products = selectDB("products","`hidden` = '0' AND `bestSeller` = '1' ORDER BY `id` LIMIT 4") ){
+if( $products = selectDB("products","`hidden` = '0' AND `bestSeller` = '1' AND `status` = '0' AND `storeId` = '{$storeID}' ORDER BY `id` LIMIT 4") ){
 	?>
 	<div class="container">
 	<div class="row m-0 w-100">
@@ -10,7 +10,7 @@ if( $products = selectDB("products","`hidden` = '0' AND `bestSeller` = '1' ORDER
 	<?php
 	for ( $i =0 ; $i < sizeof($products); $i++ ){
 		$image = selectDB("images","`productId` = '{$products[$i]["id"]}'");
-		$category = selectDB("categories","`id` = '{$products[$i]["categoryId"]}'");
+		$category = selectDB("categories","`id` = '{$products[$i]["categoryId"]}' AND `hidden` = '0' AND `status` = '0' AND `storeId` = '{$storeID}'");
 		$subProduct = selectDB("attributes_products","`productId` = '{$products[$i]["id"]}' AND `hidden` = '0' AND `status` = '0' ORDER BY `price` ASC");
 		if( $products[$i]["discountType"] == 0 ){
 			$price = $subProduct[0]["price"] * (1 - ((float)$products[$i]["discount"]/100) );

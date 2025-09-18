@@ -24,7 +24,7 @@
 
 <!-- start here -->
 <?php 
-if( $categories = selectDB("categories","`status` = '0' AND `hidden` = '1' ORDER BY `rank` ASC") ){
+if( $categories = selectDB("categories","`status` = '0' AND `hidden` = '1' AND `storeId` = '{$storeID}' ORDER BY `rank` ASC") ){
 	for ( $i = 0; $i < sizeof($categories); $i++ ){
 	?>
 		<div class="card">
