@@ -82,9 +82,9 @@ if( isset($_POST["title"]) ){
 					<label class="control-label mb-10"><?php echo direction("Stores","المتاجر") ?></label>
 					<?php
 						if( $stores = selectDB("stores", "`status` = '0' AND `hidden` = '0'") ){
-							echo "<select name='stores' class='form-control' required style=''>";
+							echo "<select name='storeId' class='form-control' required style=''>";
+							echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
 							for( $i = 0; $i < sizeof($stores); $i++ ){
-								echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
 								echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
 							}
 							echo "</select>";

@@ -43,6 +43,22 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 
 <div class="col-md-12">
 	<div class="form-group">
+		<label class="control-label mb-10"><?php echo direction("Stores","المتاجر") ?></label>
+		<?php
+			if( $stores = selectDB("stores", "`status` = '0' AND `hidden` = '0'") ){
+				echo "<select name='storeId' class='form-control' required style=''>";
+				echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
+				for( $i = 0; $i < sizeof($stores); $i++ ){
+					echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
+				}
+				echo "</select>";
+			}
+		?>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="form-group">
 		<label class="control-label mb-10"><?php echo direction("Product Type","نوع المنتج")?></label>
 		<select name="type" class="form-control" <?php echo $typeDisabled ?>>
 		<?php

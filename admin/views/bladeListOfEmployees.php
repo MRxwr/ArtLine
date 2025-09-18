@@ -64,6 +64,22 @@ if( isset($_POST["fullName"]) ){
 <div class="panel-body">
 	<form class="" method="POST" action="" enctype="multipart/form-data">
 		<div class="row m-0">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="control-label mb-10"><?php echo direction("Stores","المتاجر") ?></label>
+					<?php
+						if( $stores = selectDB("stores", "`status` = '0' AND `hidden` = '0'") ){
+							echo "<select name='storeId' class='form-control' required style=''>";
+							echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
+							for( $i = 0; $i < sizeof($stores); $i++ ){
+								echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
+							}
+							echo "</select>";
+						}
+					?>
+				</div>
+			</div>
+			
 			<div class="col-md-6">
 			<label><?php echo direction("Name","الإسم") ?></label>
 			<input type="text" name="fullName" class="form-control" required>
