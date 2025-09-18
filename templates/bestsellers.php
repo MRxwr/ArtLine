@@ -1,5 +1,5 @@
 <?php
-if( $products = selectDB("products","`hidden` = '0' AND `bestSeller` = '1' AND `status` = '0' AND `storeId` = '{$storeID}' ORDER BY `id` LIMIT 4") ){
+if( $products = selectDB("products","`hidden` = '0' AND `bestSeller` = '1' AND `storeId` = '{$storeID}' ORDER BY `id` LIMIT 4") ){
 	?>
 	<div class="container">
 	<div class="row m-0 w-100">
