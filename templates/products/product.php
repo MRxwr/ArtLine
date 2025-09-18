@@ -1,5 +1,5 @@
 <?php
-if( $product = selectDBNew("products",[$_GET["id"]],"`id` LIKE ? AND `hidden` = '0'","") ){
+if( $product = selectDBNew("products",[$_GET["id"],$storeId],"`id` LIKE ? AND `hidden` = '0' AND `storeId` = ?","") ){
 	$price = 0;
 	$sku = 0;
 	$quantity = 1;
