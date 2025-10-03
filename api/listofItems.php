@@ -33,7 +33,7 @@ if( isset($_POST["id"]) ){
 	$joinArray["join"] = ["attributes_products", "products", "categories", "images"];
 	$joinArray["on"] = ["t.productId = t1.productId", "t.productId = t2.id", "t.categoryId = t3.id", "t2.id = t4.productId"];
 	$productShape = ( $productView == 0 ) ? "product-box-img" : "product-box-img-rect" ;
-	if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND t1.hidden = '0' AND t1.status = '0' AND t2.hidden = '0' GROUP BY t.productId ORDER BY {$getOrder}") ){
+	if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND t1.hidden = '0' AND t1.status = '0' AND t2.hidden = '0' AND t2.storeId = '{$_POST["storeId"]}' GROUP BY t.productId ORDER BY {$getOrder}") ){
 		foreach ($cpLinks as $cpLink) {
 			$output .= "<div class='col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 my-product'>
 				<table style='width:100%;direction:{$directionHTML}'>

@@ -143,6 +143,7 @@ $(".product-category, .product-category-mobile").click(function() {
 		data: {
 			id:$(this).attr('type'),
 			order:"<?php echo $requestOrder ?>",
+			storeId:"<?php echo $storeID ?>",
 		},
 		success:function(result){
 			$("#listOfItems").html(result);
