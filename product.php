@@ -1,5 +1,5 @@
 <?php include 'templates/header.php'; ?>
-<div style="padding-top:80px"></div>
+<div style="padding-top:20px"></div>
 <style>
 .preorder{
     font-family: 'Tajawal';
