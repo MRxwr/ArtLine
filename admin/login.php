@@ -1,15 +1,35 @@
 <?php
+session_start();
 require ("includes/config.php");
 require ("includes/functions.php");
 require ("includes/translate.php");
 
-if ( isset($_COOKIE[$cookieSession."A"]) )
-{
-	header("Location: index");
+if ( isset($_COOKIE[$cookieSession."A"]) ){
+	header("Location: index.php");die();
+}elseif( isset($_POST["email"]) && !empty($_POST["email"]) && isset($_POST["password"]) && !empty($_POST["password"]) ){
+  if( $employee = selectDBNew("employees",[$_POST["email"],sha1($_POST["password"])],"`email` LIKE ? AND `password` LIKE ? AND `hidden` != 2 AND `status` = 0","") ){
+    if( count($employee) > 1 ){
+      header("Location: ../login.php?error=tryAgain");die();
+    }else{
+      $GenerateNewCC = md5(rand());
+      if( updateDB("employees",array("keepMeAlive"=>$GenerateNewCC),"`id` = '{$employee[0]["id"]}'") ){
+        $_SESSION[$cookieSession."A"] = $email;
+        header("Location: ../index.php");
+        setcookie($cookieSession."A", $GenerateNewCC, time() + (86400*30 ), "/");die();
+      }else{
+        header("Location: ../login.php?error=cookiesNS");die();
+      }
+    }
+  }else{ 
+    header("Location: ../login.php?error=p");die();
+  }
+}else{
+  header("Location: ../login.php?error=p");die();
 }
 
-if ( isset ($_GET["error"]) ) 
-{
+
+
+if ( isset ($_GET["error"]) ) {
   if ( $_GET["error"] === "p" ) 
   { 
     $errormsg = "Please enter details correctly.";
@@ -104,7 +124,7 @@ if ( isset ($_GET["error"]) )
 												?>
                     </div>
                     <div class="form-wrap">
-                      <form action="includes/logindb.php" method="post">
+                      <form action="" method="post">
                         <div class="form-group">
                           <label
                             class="control-label mb-10"
