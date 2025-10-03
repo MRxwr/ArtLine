@@ -12,6 +12,7 @@ require ('admin/includes/translate.php');
 require ('includes/checksouthead.php');
 if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","") ){
 	$storeID = $storeDetails[0]["id"];
+	$storeCode = $storeDetails[0]["storeCode"];
 	$headerButton = $storeDetails[0]["headerButton"];
 	$websiteColor = $storeDetails[0]["websiteColor"];
 	$settingsEmail = $storeDetails[0]["email"];
@@ -131,7 +132,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
     <div class="container-fluid">
         <div class="row d-flex align-items-center">
             <div class="col-md-2 mt-3 mb-3" style="white-space:nowrap">
-				<form method="post" action="index.php">
+				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/" ?>">
                 <input type="submit" style="color: <?php echo $websiteColor ?>;font-size: 22px;background: <?php echo $headerButton ?>;padding: 10px;border-radius: 6px;border: 0px;" value="<?php echo $settingsTitle ?>">
 				</form>
             </div>
@@ -202,7 +203,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 			</div>
 			
 			<div class="col-10 <?php echo "text-center" //direction("text-right","text-left") ?> mt-2">
-				<form method="post" action="index.php">
+				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/" ?>">
                 <input type="submit" style="color:<?php echo $headerButton ?>; font-size:24px;white-space: nowrap;background: transparent;border: 0px;direction: ltr;" value="<?php echo $settingsTitle ?>">
 				</form>
 			</div>
