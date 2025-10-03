@@ -29,6 +29,7 @@ $preorderText = escapeStringDirect($_POST["preorderText"]);
 $preorderTextAr = escapeStringDirect($_POST["preorderTextAr"]);
 $isImage = $_POST["isImage"];
 $sizeChart = $_POST["sizeChart"];
+$storeId = $_POST["storeId"];
 if( $extras = json_encode($_POST["extras"]) ){
 	$extras = json_encode($_POST["extras"]);
 }else{

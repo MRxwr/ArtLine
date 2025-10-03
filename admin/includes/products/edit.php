@@ -25,6 +25,7 @@ $isImage = $_POST["isImage"];
 $sizeChart = $_POST["sizeChart"];
 $sku = $_POST["sku"];
 $quantity = $_POST["quantity"];
+$storeId = $_POST["storeId"];
 if( $extras = json_encode($_POST["extras"]) ){
 	$extras = json_encode($_POST["extras"]);
 }else{
