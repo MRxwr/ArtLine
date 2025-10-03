@@ -45,7 +45,7 @@ $joinArray["join"] = ["attributes_products", "products", "categories", "images"]
 $joinArray["on"] = ["t.productId = t1.productId", "t.productId = t2.id", "t.categoryId = t3.id", "t2.id = t4.productId"];
 $productShape = ( $productView == 0 ) ? "product-box-img" : "product-box-img-rect" ;
 
-if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND t1.hidden = '0' AND t1.status = '0' AND t2.hidden = '0' AND t2.storeId = '{$storeId}' GROUP BY t.productId ORDER BY {$getOrder}") ){
+if( $cpLinks = selectJoinDB("category_products",$joinArray,"{$getCategoryId} AND t1.hidden = '0' AND t1.status = '0' AND t2.hidden = '0' AND t2.storeId = '{$storeID}' GROUP BY t.productId ORDER BY {$getOrder}") ){
 	foreach ($cpLinks as $cpLink) {
 	?>
 		<div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-6 my-product <?php echo $cpLink["categoryId"] ?>-product">
