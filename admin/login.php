@@ -25,15 +25,10 @@ if ( isset($_COOKIE[$cookieSession."A"]) ){
   }
 }
 
-
-
 if ( isset ($_GET["error"]) ) {
-  if ( $_GET["error"] === "p" ) 
-  { 
+  if ( $_GET["error"] === "p" ){ 
     $errormsg = "Please enter details correctly.";
-  } 
-  elseif ($_GET["error"] === "e" ) 
-  { 
+  }elseif ($_GET["error"] === "e" ) { 
     $errormsg = "Please enter email correctly."; 
   } 
 } 
@@ -152,8 +147,7 @@ if ( isset ($_GET["error"]) ) {
                             >Password</label
                           >
                           <div class="clearfix">
-                            <?php if ( isset($_GET["error"]) AND $_GET["error"] == "p" )
-													{
+                            <?php if ( isset($_GET["error"]) AND $_GET["error"] == "p" ){
 														?>
                             <div style="color: red;">
                               <?php echo $errormsg ?>
@@ -162,14 +156,7 @@ if ( isset ($_GET["error"]) ) {
 													}
 													?>
                           </div>
-                          <input
-                            type="password"
-                            name="password"
-                            class="form-control"
-                            required=""
-                            id="exampleInputpwd_2"
-                            placeholder="Enter pwd"
-                          />
+                          <input type="password" name="password" class="form-control" required="" id="exampleInputpwd_2" placeholder="Enter pwd"/>
                         </div>
 
                         <div class="form-group">
