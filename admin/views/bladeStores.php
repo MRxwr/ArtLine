@@ -621,7 +621,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		<th><?php echo direction("Email","البريد الإلكتروني") ?></th>
 		<th><?php echo direction("Phone","رقم الهاتف") ?></th>
 		<th><?php echo direction("Country","الدولة") ?></th>
-		<th><?php echo direction("Website","الموقع الإلكتروني") ?></th>
 		<th><?php echo direction("Theme","التصميم") ?></th>
 		<th class="text-nowrap"><?php echo direction("Actions","الخيارات") ?></th>
 		</tr>
@@ -650,7 +649,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<td id="email<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["email"] ?></td>
 				<td id="phone<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["phone"] ?></td>
 				<td id="countryName<?php echo $stores[$i]["id"]?>" ><?php echo $countryName ?><label id="country<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["country"] ?></label></td>
-				<td id="website<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["website"] ?></td>
 				<td><?php echo $themeText ?><label id="theme<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["theme"] ?></label></td>
 				<td class="text-nowrap">
 				
