@@ -152,36 +152,7 @@
 }
 
 .product-cart {
-    height: auto;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
     background: <?php echo $headerButton ?>;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 21px 36px;
-    cursor: pointer;
-    position: fixed;
-    right: auto;
-    left: 0px;
-    top: 50%;
-    margin-top: -46px;
-    z-index: 9;
-    padding: 0px;
-    border-radius: 0px 6px 6px 0px;
-    border-width: 0px;
-    border-style: initial;
-    border-color: initial;
-    border-image: initial;
-    outline: 0px;
-}
-
-.left-to-right .product-cart {
-    right: 0px;
-    left: auto;
-    border-radius: 6px 0px 0px 6px;
 }
 
 .cart_price {
