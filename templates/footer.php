@@ -21,8 +21,7 @@
                 ?>
             </div>
                 <div class="col-12 text-center mb-5" dir="ltr" style="font-size: 12px">
-                    Powered with <img src="<?php echo encryptImage("img/heart-footer.svg") ?>" class="heart-footer" alt='Made with love By CreateKuwait.com' style="width: 15px;
-        height: 15px;"> by  Createkuwait.com <br>
+                    Powered with <img src="<?php echo encryptImage("img/heart-footer.svg") ?>" class="heart-footer" alt='Made with love By CreateKuwait.com' style="width: 15px;height: 15px;"> by  Createkuwait.com <br>
                     <img src="<?php echo encryptImage("img/payment-icons.webp") ?>" class="img-fluid payment-icons" alt='payment gateways createkuwait.com'>
                 </div>
             </div>
