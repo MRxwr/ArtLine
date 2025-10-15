@@ -698,8 +698,8 @@ $(function(){
 			url: "api/functions.php",
 			data: {
 				checkVoucherVal: voucher,
-				visaCardCheck: "",
-				userDiscountCheck: "",
+				visaCardCheck: <?php echo $VisaCard ?>,
+				userDiscountCheck: <?php echo $totals2 ?>,
 				totals2: <?php echo $totals2 ?>,
 				shippingChargesInput : stripLetters($(".ShoppingSpan").html()),
 				paymentMethodInput : <?php echo $_POST["paymentMethod"] ?>,
