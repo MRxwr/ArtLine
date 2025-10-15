@@ -20,14 +20,14 @@ $postMethodLines = array(
 	"CustomerEmail"			=> $settingsEmail,
 	"invoiceValue"			=> (float)$totalPrice,
 	"SourceInfo"			=> '',
-	"CallBackUrl"			=> $settingsWebsite."/{$_GET["storeCode"]}",
-	"ErrorUrl"				=> $settingsWebsite."/{$_GET["storeCode"]}",
+	"CallBackUrl"			=> $settingsWebsite."/{$_GET["storeCode"]}/",
+	"ErrorUrl"				=> $settingsWebsite."/{$_GET["storeCode"]}/",
 	"ShippingMethod"		=> $settingsShippingMethod,
 	"invoiceItems" 			=> $itemList,
 	"ShippingConsignee" 	=> $shippingInfo,
 	"CustomerAddress" 		=> $customerAddress
 );
-// echo json_encode($postMethodLines);die();
+ echo json_encode($postMethodLines);die();
 // try to get link for 10 times if not send user to check out page \\
 for( $i=0; $i < 10; $i++ ){
 	$curl = curl_init();

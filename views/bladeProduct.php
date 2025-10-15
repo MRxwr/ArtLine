@@ -117,8 +117,8 @@ if ( $theme == 1 ){
 					echo "<p  class='ft-18 c-grey mb-4' ><button id='sizeChart' data-toggle='modal' data-target='#sizeChartPopup' class='btn btn-default' >".direction("Size Chart","لوحة المقاسات")."</button></p>";
 				}
 				?>
-				<div class="row pt-2">
-					<form action="<?php echo $formAction ?>" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" style="width:100%"> 
+				<form action="<?php echo $formAction ?>" method="POST" enctype="multipart/form-data" accept-charset="UTF-8"> 
+					<div class="row pt-2">
 						<?php
 						if ( $product[0]["type"] == 0 ){
 						?>
@@ -304,8 +304,10 @@ if ( $theme == 1 ){
 						</div>
 
 						<input type="hidden" name="id" value="<?php echo $product[0]["id"] ?>">
-					</form>
+					</div>
+				</form>
 
+				<div class="row">
 					<div class="col-12 mt-3">
 						<hr>
 					</div>
