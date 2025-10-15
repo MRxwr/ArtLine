@@ -20,8 +20,8 @@ $postMethodLines = array(
 	"CustomerEmail"			=> $settingsEmail,
 	"invoiceValue"			=> (float)$totalPrice,
 	"SourceInfo"			=> '',
-	"CallBackUrl"			=> $settingsWebsite."/{$_GET["storeCode"]}/details.php",
-	"ErrorUrl"				=> $settingsWebsite."/{$_GET["storeCode"]}/checkout.php?error=3",
+	"CallBackUrl"			=> $settingsWebsite."/{$_GET["storeCode"]}",
+	"ErrorUrl"				=> $settingsWebsite."/{$_GET["storeCode"]}",
 	"ShippingMethod"		=> $settingsShippingMethod,
 	"invoiceItems" 			=> $itemList,
 	"ShippingConsignee" 	=> $shippingInfo,
@@ -54,6 +54,6 @@ for( $i=0; $i < 10; $i++ ){
 } 
 
 if( !isset($resultMY["data"]["InvoiceId"]) ){
-  header("LOCATION: checkout.php?error=4");die();
+  header("LOCATION: ?v=Checkout&error=4");die();
 }
 ?>

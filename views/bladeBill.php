@@ -36,7 +36,7 @@ if ( $cart = selectDBNew("cart",[$getCartId["cart"]],"`cartId` = ?","") ){
 			}
 		}else{
 			deleteDBNew("cart",[$cart[$i]["id"]],"`id` = ?");
-			header("LOCATION: checkout.php?error=5");die();
+			header("LOCATION: ?v=Checkout&error=5");die();
 		}
 	}
 }

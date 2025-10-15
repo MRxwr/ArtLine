@@ -180,13 +180,13 @@ if( insertDB("orders2",$data) ){
 	if ( $_POST["paymentMethod"] == 10 ){
 		$_SESSION["createKW"]["pMethod"] = $_POST["paymentMethod"];
 		$_SESSION["createKW"]["orderId"] = $gatewayId;
-		header("Location: details.php?c={$gatewayId}");
+		header("Location: ?v=Details&c={$gatewayId}");die();
 	}else{
 		$_SESSION["createKW"]["pMethod"] = $_POST["paymentMethod"];
 		$_SESSION["createKW"]["orderId"] = $resultMY["data"]["InvoiceId"];
-		header("Location: " . $resultMY["data"]["PaymentURL"]);
+		header("Location: " . $resultMY["data"]["PaymentURL"]);die();
 	}
 }else{
-	header("Location: checkout.php?error=1");die();
+	header("Location: ?v=Checkout&error=1");die();
 }
 ?>
