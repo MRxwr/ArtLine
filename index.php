@@ -1,4 +1,16 @@
-<?php session_start(); ?>
+<?php
+var_dump($_REQUEST);
+require_once("template/header.php");
+// get viewed page from pages folder \\
+if( isset($_GET["v"]) && searchFile("views","blade{$_GET["v"]}.php") ){
+	require_once("views/".searchFile("views","blade{$_GET["v"]}.php"));
+}else{
+	require_once("views/bladeHome.php");
+}
+require("templates/footer.php");
+
+
+/* session_start(); ?>
 <?php require 'templates/header.php'; ?>
 <?php require 'templates/saveOrder.php'; ?>
 <style>
@@ -126,4 +138,5 @@ if ( $theme == 1 ){
     require 'templates/categories.php';
 }
 require 'templates/footer.php'; 
+*/
 ?>
