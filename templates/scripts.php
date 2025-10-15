@@ -698,7 +698,7 @@ $(function(){
 			data: {
 				checkVoucherVal: voucher,
 				visaCardCheck: "",
-				userDiscountCheck: <?php echo $totals2 ?>,
+				userDiscountCheck: "",
 				totals2: <?php echo $totals2 ?>,
 				shippingChargesInput : stripLetters($(".ShoppingSpan").html()),
 				paymentMethodInput : <?php echo $_POST["paymentMethod"] ?>,
