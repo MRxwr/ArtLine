@@ -292,12 +292,14 @@ if ( $theme == 1 ){
 							<textarea name="productNote" class="form-control" style="height: 100px;" rows="3" ></textarea>
 						</div>
 						
-						<div class="row">
-							<div class="col-6 mt-2">
-								<div class="btn btn-theme-cust btn-large" id="wishlistBtn" ><span class="fa fa-heart"></span> <?php echo direction("Add to Whislist","أضف للمفضلة") ?></div>
-							</div>
-							<div class="col-6 mt-2">
-								<button class="btn btn-theme-cust btn-large" id="subminBtn" ><span class="fa fa-shopping-cart"></span> <?php echo direction("Add to cart","أضف للسلة") ?></button>
+						<div class="col-12">
+							<div class="row">
+								<div class="col-6 mt-2">
+									<div class="btn btn-theme-cust btn-large" id="wishlistBtn" ><span class="fa fa-heart"></span> <?php echo direction("Add to Whislist","أضف للمفضلة") ?></div>
+								</div>
+								<div class="col-6 mt-2">
+									<button class="btn btn-theme-cust btn-large" id="subminBtn" ><span class="fa fa-shopping-cart"></span> <?php echo direction("Add to cart","أضف للسلة") ?></button>
+								</div>
 							</div>
 						</div>
 
