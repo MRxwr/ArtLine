@@ -7,7 +7,7 @@ $(function(){
 			var msgError = "<?php echo direction('Please choose a number below ','الرجاء إختيار رقم أقل من ') ?>"
 			alert(msgError + qorder);
 			<?php
-		} 
+		}  
 	?>
 	$("body").on('click','#wishlistBtn',function(e){
 		e.preventDefault();
@@ -204,7 +204,7 @@ $(function(){
 		});
 	});
 	
-	$(body).on('click','#wishlistHeart,#wishlistHeartMobile,#wishlistHeartMenu',function(){
+	$("body").on('click','#wishlistHeart,#wishlistHeartMobile,#wishlistHeartMenu',function(){
 		$.ajax({
 			type:"POST",
 			url: "api/wishlist.php",
@@ -217,7 +217,7 @@ $(function(){
 		});
 	});
 	
-	$(body).on('load',function(){
+	$("body").on('load',function(){
 		if(approiateAPICALL.orientation == "landscape")
 		{
 			$('#myModal').modal('show');
@@ -226,7 +226,7 @@ $(function(){
 		}
 	});
 	
-	$(body).on("click",'.removeWishlist', function(){
+	$("body").on("click",'.removeWishlist', function(){
 		if ( confirm("<?php echo direction("Are you sure you want to remove product from wishlist?","هل أنت متأكد من إزالة المنتج من قائمة المفضلة؟") ?>") ){
 			var pos = $(this).attr("id");
 			var wishlistArray = JSON.parse($.cookie("<?php echo $cookieSession . "activity" ?>"));
