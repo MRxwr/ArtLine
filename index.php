@@ -1,5 +1,4 @@
 <?php
-var_dump($_REQUEST);
 require_once("template/header.php");
 // get viewed page from pages folder \\
 if( isset($_GET["v"]) && searchFile("views","blade{$_GET["v"]}.php") ){
