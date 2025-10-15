@@ -74,209 +74,140 @@ $info = array(
 );
 ?>
 <style>
-body{background-color:#fafafa}
+	body{
+		background-color:#fafafa
+	}
 </style>
 <div class="sec-pad grey-bg">
-<div class="container">
-<div class="row d-flex justify-content-center">
-<div class="col-lg-10 col-12">
-<div class="checkout-page">
-<div class="">
-<div class="make-me-sticky check-make-me-sticky">
-<h3 class="bold text-center mb-4 mt-3 pb-3"><?php echo $cartText ?></h3>
-<div class="checkoutsidebar">
-<?php
-if ( getCartItemsTotal() < 1 || !isset($_POST["address"]["place"]) ){
-	if ( isset($_SERVER['HTTP_REFERER']) ){
-		header('Location: ' . $_SERVER['HTTP_REFERER']);
-	}
-}else{
-	echo loadCartItems();
-}
-?>
-</div>
-<div class="checkoutsidebar-calculation">
+	<div class="container">
+		<div class="row d-flex justify-content-center">
+			<div class="col-lg-10 col-12">
+				<div class="checkout-page">
+					<div class="make-me-sticky check-make-me-sticky">
+						<h3 class="bold text-center mb-4 mt-3 pb-3"><?php echo $cartText ?></h3>
+						<div class="checkoutsidebar">
+							<?php
+							if ( getCartItemsTotal() < 1 || !isset($_POST["address"]["place"]) ){
+								if ( isset($_SERVER['HTTP_REFERER']) ){
+									header('Location: ' . $_SERVER['HTTP_REFERER']);
+								}
+							}else{
+								echo loadCartItems();
+							}
+							?>
+						</div>
+						<div class="checkoutsidebar-calculation">
 
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold subTotalPrice"><?php echo $subTotalPriceText ?></span>
-    <span class="calc-text bold SubTotal">
-    <?php echo getCartPrice(); ?>
-    </span>
-</div>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold subTotalPrice"><?php echo $subTotalPriceText ?></span>
+								<span class="calc-text bold SubTotal">
+								<?php echo getCartPrice(); ?>
+								</span>
+							</div>
 
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold subTotalPrice"><?php echo direction("Add-ons","الإضافات") ?></span>
-    <span class="calc-text bold addon">
-    <?php echo numTo3Float((float)substr(getExtarsTotal(),0,6)).selectedCurr() ?>
-    </span>
-</div>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold subTotalPrice"><?php echo direction("Add-ons","الإضافات") ?></span>
+								<span class="calc-text bold addon">
+								<?php echo numTo3Float((float)substr(getExtarsTotal(),0,6)).selectedCurr() ?>
+								</span>
+							</div>
 
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold"><?php echo $discountText ?></span>
-    <span class="calc-text bold DiscountSpan">
-    <?php echo 0 ; ?>%
-    </span>
-</div>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold"><?php echo $discountText ?></span>
+								<span class="calc-text bold DiscountSpan">
+								<?php echo 0 ; ?>%
+								</span>
+							</div>
 
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold"><?php echo $deliveryText ?></span>
-    <span class="calc-text bold ShoppingSpan">
-    <?php echo numTo3Float(priceCurr($userDelivery)) . selectedCurr();?>
-    </span>
-</div>
-<?php
-/*
-if( $VisaCard != 0 ){
-?>
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold"><?php echo "Visa/Master Tax" ?></span>
-    <span class="calc-text bold VisaSpan">
-    <?php echo numTo3Float((float)round(priceCurr($VisaCard), 2)) . selectedCurr(); ?>
-    </span>
-</div>
-<?php
-}
-*/
-?>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold"><?php echo $deliveryText ?></span>
+								<span class="calc-text bold ShoppingSpan">
+								<?php echo numTo3Float(priceCurr($userDelivery)) . selectedCurr();?>
+								</span>
+							</div>
 
-<?php
-if( isset($userID) ){
-?>
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold"><?php echo $userDiscountText ?></span>
-    <span class="calc-text bold UserDiscount">
-    <?php echo $userDiscount."%"; ?>
-    </span>
-</div>
-<?php
-}else{
-	$userDiscount = 0;
-}
-?>
+							<?php
+							if( isset($userID) ){
+							?>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold"><?php echo $userDiscountText ?></span>
+								<span class="calc-text bold UserDiscount">
+								<?php echo $userDiscount."%"; ?>
+								</span>
+							</div>
+							<?php
+							}else{
+								$userDiscount = 0;
+							}
+							?>
 
-<div class="calc-text-box d-flex justify-content-between">
-    <span class="calc-text bold"><?php echo $totalPriceText ?></span>
-    <span class="calc-text bold totalSpan">
-    <?php
-		if ( isset($userDiscount) && !empty($userDiscount) ){
-			$totals2 = (float)substr(getCartPrice(),0,6);
-			$totals2 = ((100-$userDiscount)/100)*$totals2;
-		}
-		$totals21 = $totals2 + priceCurr($userDelivery) + (float)substr(getExtarsTotal(),0,6); 
-		/*
-		if($VisaCard != 0){
-			$totals21 = $totals21 + numTo3Float(priceCurr($VisaCard)) ;
-			echo numTo3Float((float)$totals21) ;
-		}else{
-			echo numTo3Float((float)$totals21) ;
-		}
-		*/
-		echo numTo3Float((float)$totals21) . selectedCurr();
-		?>
-    </span>
-</div>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="calc-text bold"><?php echo $totalPriceText ?></span>
+								<span class="calc-text bold totalSpan">
+								<?php
+									if ( isset($userDiscount) && !empty($userDiscount) ){
+										$totals2 = (float)substr(getCartPrice(),0,6);
+										$totals2 = ((100-$userDiscount)/100)*$totals2;
+									}
+									$totals21 = $totals2 + priceCurr($userDelivery) + (float)substr(getExtarsTotal(),0,6); 
+									echo numTo3Float((float)$totals21) . selectedCurr();
+									?>
+								</span>
+							</div>
 
-<span style="color:red"><?php echo direction($settingsDTime,$settingsDTimeAr);  ?></span>
+							<span style="color:red"><?php echo direction($settingsDTime,$settingsDTimeAr);  ?></span>
 
-<?php
-if( $_POST["address"]["country"] == "KW" && $express = selectDB("settings","`id` = '1'") ){
-	$express = json_decode(stripslashes($express[0]["expressDelivery"]),true);
-	$expressOption = direction("Experss Delivery","توصيل سريع");
-	$expressPeriod = direction($express["English"],$express["arabic"]);
-	$expressPrice = numTo3Float(priceCurr($express["expressDeliveryCharge"])) . selectedCurr();
-	if( isset($express["status"]) && $express["status"] == 1 ){
-		echo "<div class='mt-3'><input name='express' type='checkbox' class=''> <span>{$expressOption} {$expressPeriod} - {$expressPrice}</span></div>";
-	}else{
-		$expressPrice = 0;
-	}
-}
-?>
+							<?php
+							if( $_POST["address"]["country"] == "KW" && $express = selectDB("settings","`id` = '1'") ){
+								$express = json_decode(stripslashes($express[0]["expressDelivery"]),true);
+								$expressOption = direction("Experss Delivery","توصيل سريع");
+								$expressPeriod = direction($express["English"],$express["arabic"]);
+								$expressPrice = numTo3Float(priceCurr($express["expressDeliveryCharge"])) . selectedCurr();
+								if( isset($express["status"]) && $express["status"] == 1 ){
+									echo "<div class='mt-3'><input name='express' type='checkbox' class=''> <span>{$expressOption} {$expressPeriod} - {$expressPrice}</span></div>";
+								}else{
+									$expressPrice = 0;
+								}
+							}
+							?>
 
-<div class="calc-text-box d-flex justify-content-between">
-<span class="bold voucherMsgS" style="color:red;font-size:18px"><b class="voucherMsg"></b></span>
-</div>
+							<div class="calc-text-box d-flex justify-content-between">
+								<span class="bold voucherMsgS" style="color:red;font-size:18px"><b class="voucherMsg"></b></span>
+							</div>
 
-<span class="PromoCode d-block text-right">
-    <button id="voucher_text" style="font-size:20px"><?php echo $doYouHaveAVoucherText ?></button>
-    <div class="cart_CouponBoxWrapper p-0" id="voucher_code">
-        <div class="CouponBoxWrapper" style="border-color: #a8a8a8;">
-            <div class="InputWrapper w-100">
-                <div class="inner-wrap">
-                    <input type="text" name="voucher" id="voucherInput" placeholder="" class="icon-left" value="" autocomplete="chrome-off">
-                </div>
-            </div>
-            <input type="submit" class="ButtonStyle btn-text sendVoucher" value="<?php echo $sendText ?>" >
-            </button>
-        </div>
-    </div>
-</span>
-</div>
-</div>
-</div>
+							<span class="PromoCode d-block text-right">
+								<button id="voucher_text" style="font-size:20px"><?php echo $doYouHaveAVoucherText ?></button>
+								<div class="cart_CouponBoxWrapper p-0" id="voucher_code">
+									<div class="CouponBoxWrapper" style="border-color: #a8a8a8;">
+										<div class="InputWrapper w-100">
+											<div class="inner-wrap">
+												<input type="text" name="voucher" id="voucherInput" placeholder="" class="icon-left" value="" autocomplete="chrome-off">
+											</div>
+										</div>
+										<input type="submit" class="ButtonStyle btn-text sendVoucher" value="<?php echo $sendText ?>" >
+										</button>
+									</div>
+								</div>
+							</span>
 
-<div>
-<form method="POST" action="payment" enctype="multipart/form-data">
-	<input type="hidden" class="form-control orderVoucherInput" name="voucher" value="">
-	<input type="hidden" name="paymentMethod" value="<?php echo $_POST["paymentMethod"] ?>">
-	<input type="hidden" name="creditTax" class="VisaClass" value="<?php echo $VisaCard ?>">
-	<input type="hidden" name="expressDelivery" id="expressDel" value="0">
-	<textarea style="display:none" name="info"><?php echo json_encode($info,JSON_UNESCAPED_UNICODE) ?></textarea>
-	<textarea style="display:none" name="giftCard"><?php echo json_encode($_POST["giftCard"],JSON_UNESCAPED_UNICODE) ?></textarea>
-	<textarea style="display:none" name="address"><?php echo json_encode($_POST["address"],JSON_UNESCAPED_UNICODE) ?></textarea>
-	<input type="submit" name="submit" class="btn btn-large" style="width:100%;background-color:<?php echo $websiteColor ?>; color:<?php echo $headerButton ?>" value="<?php echo $proceedToPaymentText ?>">
-</form>
-</div>
+						</div>
+					</div>
 
-<Script>
-$(function(){
-	function stripLetters(str) {
-		const numericString = str.replace(/[^0-9.]/g, '');
-		return parseFloat(numericString);
-	}
-	$("input[name=express]").change(function(){
-		var delivery = stripLetters("<?php echo $userDelivery ?>");
-		var expressDelivery = stripLetters("<?php echo $expressPrice ?>");
-		var cartTotal = stripLetters($(".totalSpan").html())-stripLetters($(".ShoppingSpan").html());
-		if ($(this).is(":checked")) {
-			$(".ShoppingSpan").html(parseFloat(expressDelivery).toFixed(3)+"<?php echo selectedCurr() ?>");
-			$(".totalSpan").html(parseFloat(cartTotal+expressDelivery).toFixed(3)+"<?php echo selectedCurr() ?>");
-			$("#expressDel").val(expressDelivery);
-		} else {
-			$(".ShoppingSpan").html(parseFloat(delivery).toFixed(3)+"<?php echo selectedCurr() ?>");
-			$(".totalSpan").html(parseFloat(cartTotal+delivery).toFixed(3)+"<?php echo selectedCurr() ?>");
-			$("#expressDel").val(0);
-		}
-	})
-	$('.sendVoucher').click(function(e){
-		e.preventDefault();
-		var voucher = $('#voucherInput').val()
-		$.ajax({
-			type:"POST",
-			url: "api/functions.php",
-			data: {
-				checkVoucherVal: voucher,
-				visaCardCheck: <?php echo $VisaCard ?>,
-				userDiscountCheck: <?php echo $totals2 ?>,
-				totals2: <?php echo $totals2 ?>,
-				shippingChargesInput : stripLetters($(".ShoppingSpan").html()),
-				paymentMethodInput : <?php echo $_POST["paymentMethod"] ?>,
-				userDiscountPercentage: <?php echo $userDiscount; ?>,
-			},
-			success:function(result){
-				console.log(result);
-				var data = result.split(',');
-				$('.totalSpan').text(data[0]+"<?php echo selectedCurr() ?>");
-				$('.ShoppingSpan').text(data[3]+"<?php echo selectedCurr() ?>");
-				$('.VisaSpan').text(data[5]+"<?php echo selectedCurr() ?>");
-				$('.UserDiscount').text(data[6]+"%");
-				$('.voucherMsg').html(data[1]);
-				$('.orderVoucherInput').val(data[2]);
-				$('.DiscountSpan').text(data[4]+"%");
-				$('.VisaClass').val(data[5]);
-				$('.SubTotal').text(data[7]+"<?php echo selectedCurr() ?>");
-				$('.addon').text(data[8]+"<?php echo selectedCurr() ?>");
-			}
-		});
-	});
-})
-</script>
+					<div>
+						<form method="POST" action="payment" enctype="multipart/form-data">
+							<input type="hidden" class="form-control orderVoucherInput" name="voucher" value="">
+							<input type="hidden" name="paymentMethod" value="<?php echo $_POST["paymentMethod"] ?>">
+							<input type="hidden" name="creditTax" class="VisaClass" value="<?php echo $VisaCard ?>">
+							<input type="hidden" name="expressDelivery" id="expressDel" value="0">
+							<textarea style="display:none" name="info"><?php echo json_encode($info,JSON_UNESCAPED_UNICODE) ?></textarea>
+							<textarea style="display:none" name="giftCard"><?php echo json_encode($_POST["giftCard"],JSON_UNESCAPED_UNICODE) ?></textarea>
+							<textarea style="display:none" name="address"><?php echo json_encode($_POST["address"],JSON_UNESCAPED_UNICODE) ?></textarea>
+							<input type="submit" name="submit" class="btn btn-large" style="width:100%;background-color:<?php echo $websiteColor ?>; color:<?php echo $headerButton ?>" value="<?php echo $proceedToPaymentText ?>">
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

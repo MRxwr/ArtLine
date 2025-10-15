@@ -1,6 +1,3 @@
-<style>
-body{background-color:#fafafa}
-</style>
 <?php
 date_default_timezone_set('Asia/Riyadh');
 $check = ["'",'"',")","(",";","?",">","<","~","!","#","$","%","^","&","*","-","_","=","+","/","|",":"];
@@ -97,84 +94,71 @@ if ( $order[0]["status"] == '0' ){
 	whatsappUltraMsg($order[0]["id"]);
 	sendOrderToAllowMENA($order[0]["id"]);
 }
-
 ?>
+<style>
+body{
+	background-color:#fafafa
+}
+</style>
 <div class="sec-pad grey-bg">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <div class="col-lg-9">
                 <div class="profile-box bordered-box">
                     <div class="profile-sec">
-                    <div style="text-align:left">
-                    <img src="<?php echo encryptImage("logos/{$settingslogo}") ?>" class="rounded" style="width:150px; height:150px">
-                    </div>
-                    <h5 class="page-title"><?php echo $OrderReceivedText ?></h5>
-                        <p class="mb-4"><?php echo $OrderReceivedMsgText ?></p>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $orderNumberText ?></p>
-                                <p><?php echo $orderId ?></p>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $dateText ?></p>
-                                <p><?php echo timeZoneConverter($order[0]["date"]); ?></p>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $Voucher ?></p>
-                                <p><?php echo $voucher1 ?></p>
-                            </div>
-							 <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $paymentMethodText ?></p>
-                                <p>
+						<div style="text-align:left">
+						<img src="<?php echo encryptImage("logos/{$settingslogo}") ?>" class="rounded" style="width:150px; height:150px">
+						</div>
+						<h5 class="page-title"><?php echo $OrderReceivedText ?></h5>
+						<p class="mb-4"><?php echo $OrderReceivedMsgText ?></p>
+						<div class="row">
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo $orderNumberText ?></p>
+								<p><?php echo $orderId ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo $dateText ?></p>
+								<p><?php echo timeZoneConverter($order[0]["date"]); ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo $Voucher ?></p>
+								<p><?php echo $voucher1 ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo $paymentMethodText ?></p>
+								<p>
 								<?php
 								if ( $paymentMethodId = selectDB("p_methods","`paymentId` = '{$order[0]["paymentMethod"]}'") ){
 									echo direction($paymentMethodId[0]["enTitle"],$paymentMethodId[0]["arTitle"]);
 								} 
 								?>
 								</p>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $discountText ?></p>
-                                <p><?php echo $voucherSign ?></p>
-                            </div>
+							</div>
 							<div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo direction("User Discount","خصم الأعضاء") ?></p>
-                                <p>%<?php echo $order[0]["userDiscount"] ?></p>
-                            </div>
+								<p class="bold"><?php echo $discountText ?></p>
+								<p><?php echo $voucherSign ?></p>
+							</div>
 							<div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo direction("Addons","الإضافات") ?></p>
-                                <p><?php echo $extras = priceCurr(getExtrasOrder($order[0]["id"])) . selectedCurr() ?></p>
-                            </div>
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo direction("Sub Total","المجموع الفرعي") ?></p>
-                                <p><?php echo numTo3Float(priceCurr($order[0]["price"])) . selectedCurr() ?></p>
-                            </div>
+								<p class="bold"><?php echo direction("User Discount","خصم الأعضاء") ?></p>
+								<p>%<?php echo $order[0]["userDiscount"] ?></p>
+							</div>
 							<div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo $deliveryText ?></p>
-                                <p><?php echo numTo3Float(priceCurr($address["shipping"])) . selectedCurr() ?></p>
-                            </div>
-							<?php
-								if( $order[0]["creditTax"] != 0 ){
-									/*
-									?>
-								<div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo "Visa/Master Tax" ?></p>
-                                <p>
-								
-								<?php
-									echo numTo3Float(priceCurr($order[0]["creditTax"])) . selectedCurr();
-									?>
-								</p>
-								</div>
-								<?php
-								*/
-								}
-							?>
-                            <div class="col-md-3 col-sm-6 col-6">
-                                <p class="bold"><?php echo direction("Total","المجموع") ?></p>
-                                <p><?php echo numTo3Float(priceCurr((float)$order[0]["price"]+(float)$address["shipping"]+(float)$extras)) . selectedCurr()?></p>
-                            </div>
-                        </div>
+								<p class="bold"><?php echo direction("Addons","الإضافات") ?></p>
+								<p><?php echo $extras = priceCurr(getExtrasOrder($order[0]["id"])) . selectedCurr() ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo direction("Sub Total","المجموع الفرعي") ?></p>
+								<p><?php echo numTo3Float(priceCurr($order[0]["price"])) . selectedCurr() ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo $deliveryText ?></p>
+								<p><?php echo numTo3Float(priceCurr($address["shipping"])) . selectedCurr() ?></p>
+							</div>
+							<div class="col-md-3 col-sm-6 col-6">
+								<p class="bold"><?php echo direction("Total","المجموع") ?></p>
+								<p><?php echo numTo3Float(priceCurr((float)$order[0]["price"]+(float)$address["shipping"]+(float)$extras)) . selectedCurr()?></p>
+							</div>
+						</div>
                     </div>
 
                     <div class="profile-sec">
@@ -271,19 +255,9 @@ if ( $order[0]["status"] == '0' ){
                     </div>
                     <div class="profile-sec">
                         <h5 class="page-title"><?php echo $productsText ?></h5>
-                            <div class="checkoutsidebar">
-							<?php
-							echo loadItems($order[0]["items"]);
-							?>
-                            </div>
-                            <div class="checkoutsidebar-calculation">
-                            </div>
-                            <button 
-                            type="button" 
-                            onclick="window.print()" 
-                            class="btn btn-dark">
-                            <?php echo $printText ?>
-                            </button>
+						<div class="checkoutsidebar"> <?php echo loadItems($order[0]["items"]); ?></div>
+						<div class="checkoutsidebar-calculation"></div>
+						<button type="button" onclick="window.print()" class="btn btn-dark"><?php echo $printText ?></button>
 					</div>
 				</div>
 			</div>

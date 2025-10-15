@@ -119,7 +119,7 @@ $fontImport = direction("@import url('https://fonts.googleapis.com/css2?family=S
 			border-radius: 6px;
 		}
 	</style>
-	<?php echo require_once("css/Untitled-1.php"); ?>
+	<?php echo require_once("css/storeColors.php"); ?>
 	<body class="rtl <?php echo $directionBODY ?>" id="body">
 
 	<div class="loading-screen">

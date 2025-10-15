@@ -44,13 +44,6 @@
     <?php require_once("templates/modals/minPrice.php"); ?>
     <?php require_once("templates/modals/ordersHistory.php"); ?>
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-
-
     <div class="h-body">
         <div class="row m-0 d-flex justify-content-center align-items-center h-100">
             <div class="col-12 p-0 text-center">

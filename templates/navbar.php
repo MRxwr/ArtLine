@@ -8,39 +8,29 @@
             </div>
             <div class="col-md-10 text-left">
                 <ul class="nav-links list-unstyled list-inline mb-0 pl-0">
-						<?php
-						$langParam = direction("lang=AR","lang=ENG");
-						//$flagClass = direction("flag-icon-arabic","flag-icon-us");
-						$flagClass = direction("العربية","English");
-                        ?>
-						<li class="list-inline-item ">
-							<a href="#" data-toggle="modal" data-target="#wishlist_popup" id="wishlistHeart"  aria-label="WishlistIcon">
-								<span class="fa fa-heart mr-1" style="color:white"><label style="font-size:7px" id="wishlistTotal">
-								<?php
-								if( isset($_COOKIE[$cookieSession."activity"]) ){
-									$total = json_decode($_COOKIE[$cookieSession."activity"],true);
-									echo sizeof($total["wishlist"]["id"]);
-								}else{
-									echo "0";
-								}
-								?>
-								</label></span>
-							</a>
-						</li>
-						<li class="list-inline-item ">
-							<a href="#" data-toggle="modal" data-target="#serch_popup" aria-label="Search">
-								<span class="fa fa-car mr-1" style="color:white"></span>
-							</a>
-						</li>
-						<li class="list-inline-item ">
-							<a href="<?php echo $_SERVER['REQUEST_URI'].getSign().$langParam ?>" aria-label="Langauge" style="color:white"><?php echo $flagClass ?></a>
-						</li>
-						<li class="list-inline-item ">
-							<?php echo currView() ?>
-						</li>
-						<li class="list-inline-item ">
-							<?php echo getLoginStatus(); ?>
-						</li>
+					<?php
+					$langParam = direction("lang=AR","lang=ENG");
+					//$flagClass = direction("flag-icon-arabic","flag-icon-us");
+					$flagClass = direction("العربية","English");
+					?>
+					<li class="list-inline-item ">
+						<a href="#" data-toggle="modal" data-target="#wishlist_popup" id="wishlistHeart"  aria-label="WishlistIcon">
+							<span class="fa fa-heart mr-1" style="color:white"><label style="font-size:7px" id="wishlistTotal">
+							<?php
+							if( isset($_COOKIE[$cookieSession."activity"]) ){
+								$total = json_decode($_COOKIE[$cookieSession."activity"],true);
+								echo sizeof($total["wishlist"]["id"]);
+							}else{
+								echo "0";
+							}
+							?>
+							</label></span>
+						</a>
+					</li>
+					<li class="list-inline-item "><a href="#" data-toggle="modal" data-target="#serch_popup" aria-label="Search"><span class="fa fa-car mr-1" style="color:white"></span></a></li>
+					<li class="list-inline-item "><a href="<?php echo $_SERVER['REQUEST_URI'].getSign().$langParam ?>" aria-label="Langauge" style="color:white"><?php echo $flagClass ?></a></li>
+					<li class="list-inline-item "><?php echo currView() ?></li>
+					<li class="list-inline-item "><?php echo getLoginStatus(); ?></li>
                 </ul>
             </div>
         </div>

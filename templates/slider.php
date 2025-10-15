@@ -17,22 +17,19 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
                  </p>
             </div>
             <div class="col-12 d-none">
-            <?php
-            if ( isset($_GET["error"]) AND $_GET["error"] == 1 )
-            {
+                <?php
+                if ( isset($_GET["error"]) AND $_GET["error"] == 1 ){
+                    echo "<p style='font-size:18px; color:red'>{$wrongOrderNumberPleaseCheckAgain}</p>";
+                }
                 ?>
-				<p style="font-size:18px; color:red"><?php echo $wrongOrderNumberPleaseCheckAgain ?></p>
-				<?php
-            }
-            ?>
                 <div class="search-box d-flex align-items-center">
                     <span class="cat"><?php echo $orderNumberText ?></span>
                     <div class="form-group mb-0">
-                    <form method="get" action="order">
-                        <input type="text" class="form-control" name="orderId" placeholder="" required>
+                        <form method="get" action="order">
+                            <input type="text" class="form-control" name="orderId" placeholder="" required>
+                            <button class="btn search-btn" style="padding: 0.8rem 45px;"><span class="fa fa-search mr-2"></span><?php echo $orderStatusText ?></button>
+                        </form>
                     </div>
-                    <button class="btn search-btn" style="padding: 0.8rem 45px;"><span class="fa fa-search mr-2"></span><?php echo $orderStatusText ?></button>
-                    </form>
                 </div>
             </div>
             <div class="col-12">

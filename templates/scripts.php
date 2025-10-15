@@ -1,5 +1,128 @@
 <script type="text/javascript">
 $(function(){
+	<?php
+		if( isset($_GET["e"]) ){
+			?>
+			var qorder =  "<?php echo $_GET['c'] ?>";
+			var msgError = "<?php echo direction('Please choose a number below ','الرجاء إختيار رقم أقل من ') ?>"
+			alert(msgError + qorder);
+			<?php
+		} 
+	?>
+	$("body").on('click','#wishlistBtn',function(e){
+		e.preventDefault();
+		if ( confirm("<?php echo direction("Are you sure you want to add this item to your wishlist?","هل انت متأكد من إنك تريد اضافة هذا المنتج لقائمة المفضلة؟") ?>") ){
+			var id = <?php echo $product[0]["id"] ?>;
+			var wishlistArray = JSON.parse($.cookie("<?php echo $cookieSession . "activity" ?>"));
+			wishlistArray["wishlist"]["id"].push(id)
+			$.cookie("<?php echo $cookieSession . "activity" ?>", JSON.stringify(wishlistArray));
+			$("#wishlistTotal").html(wishlistArray["wishlist"]["id"].length);
+			$("#wishlistTotal1").html(wishlistArray["wishlist"]["id"].length);
+			alert("<?php echo direction("Item has been added to your wishlist successfully.","تمت إضافة المنتج لقائمتك المفضلة بنجاح") ?>");
+		}
+	});
+	
+	$("body").on('change','.selectedOptions',function(e){
+		e.preventDefault();
+		var id = $(this).val();
+		$("#sku").html($("#sku"+id).html());
+		$("#price").html($("#price"+id).html()+"<?php echo selectedCurr() ?>");
+		$("#sale").html($("#priceBefore"+id).html()+"<?php echo selectedCurr() ?>");
+		$("input[name=qorder]").attr("max",$("#quantity"+id).html());
+		var quan = parseInt($("#quantity"+id).html());
+		if( quan <= 0 ){
+			$("#subminBtn").attr("disabled","disabled");
+			$("#subminBtn").html('<span class="fa fa-shopping-cart"></span> ' + "<?php echo direction("Sold Out","انتهت الكمية") ?>");
+		}else{
+			$("#subminBtn").removeAttr("disabled");
+			$("#subminBtn").html('<span class="fa fa-shopping-cart"></span> ' + "<?php echo direction("Add to cart","أضف للسلة") ?>");
+		}
+	});
+
+	$(document).ready(function(){
+		var maxQuantity = $("input[name=qorder]").attr("max");
+		if( maxQuantity <= 0 ){
+			$("#subminBtn").attr("disabled","disabled");
+			$("#subminBtn").html('<span class="fa fa-shopping-cart"></span> ' + "<?php echo direction("Sold Out","انتهت الكمية") ?>");
+		}
+	});
+
+
+	$('.input-number').focusin(function(){
+		$(this).data('oldValue', $(this).val());
+	});
+
+	$('.input-number').change(function(){
+		minValue =  parseInt($(this).attr('min'));
+		maxValue =  parseInt($(this).attr('max'));
+		valueCurrent = parseInt($(this).val());
+		name = $(this).attr('name');
+		if(valueCurrent >= minValue){
+			$(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+		}else{
+			alert('Sorry, the minimum value was reached');
+			$(this).val($(this).data('oldValue'));
+		}
+		if(valueCurrent <= maxValue){
+			$(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+		}else{
+			alert('Sorry, the maximum value was reached');
+			$(this).val($(this).data('oldValue'));
+		}
+
+
+	});
+	$(".input-number").keydown(function (e) {
+		// Allow: backspace, delete, tab, escape, enter and .
+		if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+			 // Allow: Ctrl+A
+			(e.keyCode == 65 && e.ctrlKey === true) || 
+			 // Allow: home, end, left, right
+			(e.keyCode >= 35 && e.keyCode <= 39)) {
+				 // let it happen, don't do anything
+				 return;
+		}
+		// Ensure that it is a number and stop the keypress
+		if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+			e.preventDefault();
+		}
+	});
+
+	if ( window.history.replaceState ) {
+		window.history.replaceState( null, null, window.location.href );
+	}
+});
+
+$(".img_producto_container").on("mouseover", function() {
+$(this).children(".img_producto").css({ transform: "scale(" + $(this).attr("data-scale") + ")" });
+}).on("mouseout", function() {
+$(this).children(".img_producto").css({ transform: "scale(1)" });
+}).on("mousemove", function(e) {
+$(this).children(".img_producto").css({
+	"transform-origin":
+		((e.pageX - $(this).offset().left) / $(this).width()) * 100 +
+		"% " +
+		((e.pageY - $(this).offset().top) / $(this).height()) * 100 +
+		"%"
+	});
+});
+
+$().fancybox({
+	selector : '.imglist .expand--img-popup',
+	hash   : false,
+	thumbs : {
+		autoStart : false
+	},
+	buttons : [
+		'fullScreen',
+		'zoom',
+		'download',
+		'share',
+		'close'
+
+	]
+});
+$(function(){
 	$('.LoginAj').click(function(e){
 		e.preventDefault();
 		var LoginEV = $('.LoginE').val();
@@ -546,5 +669,306 @@ $("#mobile-drop-cust-close .product-category-mobile").click(function() {
     window.history.replaceState( null, null, window.location.href );
     }
 })
+
+$(function(){
+	function stripLetters(str) {
+		const numericString = str.replace(/[^0-9.]/g, '');
+		return parseFloat(numericString);
+	}
+	$("input[name=express]").change(function(){
+		var delivery = stripLetters("<?php echo $userDelivery ?>");
+		var expressDelivery = stripLetters("<?php echo $expressPrice ?>");
+		var cartTotal = stripLetters($(".totalSpan").html())-stripLetters($(".ShoppingSpan").html());
+		if ($(this).is(":checked")) {
+			$(".ShoppingSpan").html(parseFloat(expressDelivery).toFixed(3)+"<?php echo selectedCurr() ?>");
+			$(".totalSpan").html(parseFloat(cartTotal+expressDelivery).toFixed(3)+"<?php echo selectedCurr() ?>");
+			$("#expressDel").val(expressDelivery);
+		} else {
+			$(".ShoppingSpan").html(parseFloat(delivery).toFixed(3)+"<?php echo selectedCurr() ?>");
+			$(".totalSpan").html(parseFloat(cartTotal+delivery).toFixed(3)+"<?php echo selectedCurr() ?>");
+			$("#expressDel").val(0);
+		}
+	})
+	$('.sendVoucher').click(function(e){
+		e.preventDefault();
+		var voucher = $('#voucherInput').val()
+		$.ajax({
+			type:"POST",
+			url: "api/functions.php",
+			data: {
+				checkVoucherVal: voucher,
+				visaCardCheck: <?php echo $VisaCard ?>,
+				userDiscountCheck: <?php echo $totals2 ?>,
+				totals2: <?php echo $totals2 ?>,
+				shippingChargesInput : stripLetters($(".ShoppingSpan").html()),
+				paymentMethodInput : <?php echo $_POST["paymentMethod"] ?>,
+				userDiscountPercentage: <?php echo $userDiscount; ?>,
+			},
+			success:function(result){
+				console.log(result);
+				var data = result.split(',');
+				$('.totalSpan').text(data[0]+"<?php echo selectedCurr() ?>");
+				$('.ShoppingSpan').text(data[3]+"<?php echo selectedCurr() ?>");
+				$('.VisaSpan').text(data[5]+"<?php echo selectedCurr() ?>");
+				$('.UserDiscount').text(data[6]+"%");
+				$('.voucherMsg').html(data[1]);
+				$('.orderVoucherInput').val(data[2]);
+				$('.DiscountSpan').text(data[4]+"%");
+				$('.VisaClass').val(data[5]);
+				$('.SubTotal').text(data[7]+"<?php echo selectedCurr() ?>");
+				$('.addon').text(data[8]+"<?php echo selectedCurr() ?>");
+			}
+		});
+	});
+})
+$(function(){
+	$(document).ready(function() {
+		$('.select2Country').select2({
+			theme: "classic"
+		});
+		$('.select2Area').select2({
+			theme: "classic"
+		});
+		<?php
+		if( isset($_GET["error"]) && !empty($_GET["error"]) ){
+			if( $_GET["error"] == 1 ){
+				?>
+				alert("<?php echo direction("Failed to process your order, Please try again.","لم نستطع تنفيذ طلبك ، الرجاء المحاولة مجددا") ?>");
+				<?php
+			}elseif($_GET["error"] == 2 ){
+				?>
+				alert("<?php echo direction("Failed to read your cart, Please try again.","حصل خطأ اثناء قراة سلتك الرجاء المحاولة مجددا") ?>");
+				<?php
+			}elseif($_GET["error"] == 3 ){
+				?>
+				alert("<?php echo direction("Failed payment, Please try agian.","عملية دفع فاشلة، الرجاء المحاولة مجددا") ?>");
+				<?php
+			}elseif($_GET["error"] == 4 ){
+				?>
+				alert("<?php echo direction("Could not connect to payment gateway, Please try again.","لم نستطع التواصل مع بوابة الدفع، الرجاء المحاولة مجددا") ?>");
+				<?php
+			}elseif($_GET["error"] == 5 ){
+				?>
+				alert("<?php echo direction("An item has been deleted from you cart, please change quantity and try again.","تم حذف منتج من سلتك ، حاول تغيير الكمية و المحاولة مجددا") ?>");
+				<?php
+			}
+		}
+		?>
+	});
+	$('.checkLetters').keyup(function() {
+		var countryName = $('.CountryClick').val()
+		if ( countryName != "KW" ){
+			var inputValue = $(this).val();
+			var englishLettersAndNumbersRegex = /^[a-zA-Z0-9\s]+$/;
+			// Check if the input matches the desired pattern
+			if (!englishLettersAndNumbersRegex.test(inputValue)) {
+				alert("<?php echo direction("Only english letters and numbers are allowed","مسموح فقط بالأحرف و الأرقام الإنجليزية") ?>");
+				$(this).val('');
+			}
+		}
+	});
+	$('.payBtnNow').on('click', function(event) {
+		var mobileNumber = $('input[name=phone]').val();
+		var countryName = $('.CountryClick').val();
+		var englishLettersAndNumbersRegex = /^[a-zA-Z0-9\s]+$/;
+		var isValid = true; // Flag variable to track validation status
+		if ($.isNumeric(mobileNumber)) {
+			if (mobileNumber.length <= 7) {
+				alert('<?php echo direction("Please enter your phone number correctly","الرجاء ادخال رقم الهاتف بالشكل الصحيح") ?>');
+				isValid = false;
+			}
+			if ($('#pMethod').val() == '') {
+				alert('<?php echo direction("Please select a payment method","الرجاء إختيار طريقة دفع") ?>');
+				isValid = false;
+			}
+		}else{
+			alert('<?php echo direction("Please enter your phone number correctly","الرجاء ادخال رقم الهاتف بالشكل الصحيح") ?>');
+			isValid = false;
+		}
+		$('.addressDiv').find('input:not(:hidden)').each(function() {
+			if (countryName != "KW") {
+				var inputValue = $(this).val();
+				var inputId = $(this).attr("id");
+				if (!englishLettersAndNumbersRegex.test(inputValue)) {
+					alert(inputId+". "+"<?php echo direction('Only English letters, numbers.','مسموح فقط بالأحرف والأرقام الإنجليزية.') ?>");
+					$(this).val('').focus();
+					isValid = false;
+				}
+			}
+		});
+		if (!isValid) {
+			event.preventDefault(); // Prevent form submission
+			return false;
+		}
+	});
+
+	$('.CountryClick').change(function(e){
+		$('#mainView').attr('style','display:none');
+		$('.loading-screen').attr('style','display:flex');
+		e.preventDefault();
+		var countryName = $(this).val()
+		if ( countryName != "<?php echo $defaultCountry ?>" ){
+			$("#10p_m").attr("style","display:none");
+			$('#pMethod').val('');
+		}else{
+			$("#10p_m").attr("style","display:block");
+		}
+		if ( countryName != "KW" ){
+			$('input[name="name"]').prop('required',true);
+			$('input[name="email"]').prop('required',true);
+			$('input[name="civilId"]').prop('required',true);
+			$('input[name="civilId"]').attr('type','text');
+			$('#payCash').hide();
+			$('#civilIdDiv').show();
+			var inputValue1 = $('input[name="name"]').val();
+			var englishLettersAndNumbersRegex1 = /^[a-zA-Z0-9\s]+$/;
+			// Check if the input matches the desired pattern
+			if (!englishLettersAndNumbersRegex1.test(inputValue1)) {
+				alert("<?php echo direction("Only english letters and numbers are allowed","مسموح فقط بالأحرف و الأرقام الإنجليزية") ?>");
+				$('input[name="name"]').val('');
+			}
+		}else{
+			$('input[name="name"]').removeAttr('required');
+			$('input[name="postalCode"]').removeAttr('required');
+			$('input[name="email"]').removeAttr('required');
+			$('input[name="civilId"]').removeAttr('required');
+			$('input[name="civilId"]').attr('type','hidden');
+			$('#payCash').show();
+			$('#civilIdDiv').hide();
+		}
+		$.ajax({
+			type:"POST",
+			url: "api/functions.php",
+			data: {
+				getAreasA: countryName,
+			},
+			success:function(result){
+				$('.getAreas').html(result);
+				$('.loading-screen').attr('style','display:none');
+				$('#mainView').attr('style','display:block');
+			}
+		});
+	});
+	$('.homeForm').click(function(e){
+		$('.homeFormDiv').attr("style","display:block");
+		$('.noAddressDiv').attr("style","display:none");
+		$('#block').prop('required',true);
+		$('#street').prop('required',true);
+		$('#avenue').prop('required',false);
+		$('#building').prop('required',true);
+		$('#floor').prop('required',false);
+		$('#apartment').prop('required',false);
+		$('#postalCode').prop('required',false);
+		$('#notes').prop('required',false);
+		$('#noAddressName').prop('required',false);
+		$('#noAddressPhone').prop('required',false);
+		$('.getAreas').prop('required',true);
+		$('#floor').attr("type","hidden");
+		$('#apartment').attr("type","hidden");
+		$('#homeFormId').addClass('active');
+		$('#apartmentFormId').removeClass('active');
+		$('#pickUpFROMid').removeClass('active');
+		$('#noAddressFROMid').removeClass('active');
+		$('.areaSelection').attr('style',"display:block");
+		$('#place').val('1');
+	});
+	$('.apartmentForm').click(function(e){
+		$('.homeFormDiv').attr("style","display:block");
+		$('.noAddressDiv').attr("style","display:none");
+		$('#block').prop('required',true);
+		$('#street').prop('required',true);
+		$('#avenue').prop('required',false);
+		$('#building').prop('required',true);
+		$('#floor').prop('required',true);
+		$('#apartment').prop('required',true);
+		$('#postalCode').prop('required',false);
+		$('#notes').prop('required',false);
+		$('#noAddressName').prop('required',false);
+		$('#noAddressPhone').prop('required',false);
+		$('.getAreas').prop('required',true);
+		$('#floor').attr("type","text");
+		$('#apartment').attr("type","text");
+		$('#apartmentFormId').addClass('active');
+		$('#homeFormId').removeClass('active');
+		$('#pickUpFROMid').removeClass('active');
+		$('#noAddressFROMid').removeClass('active');
+		$('.areaSelection').attr('style',"display:block");
+		$('#place').val('2');
+	});
+	$('.pickUpFROM').click(function(e){
+		$('.homeFormDiv').attr("style","display:none");
+		$('.noAddressDiv').attr("style","display:none");
+		$('#block').prop('required',false);
+		$('#street').prop('required',false);
+		$('#avenue').prop('required',false);
+		$('#building').prop('required',false);
+		$('#floor').prop('required',false);
+		$('#apartment').prop('required',false);
+		$('#postalCode').prop('required',false);
+		$('#notes').prop('required',false);
+		$('#noAddressName').prop('required',false);
+		$('#noAddressPhone').prop('required',false);
+		$('.getAreas').prop('required',false);
+		$('.areaSelection').attr('style',"display:none");
+		$('#pickUpFROMid').addClass('active');
+		$('#homeFormId').removeClass('active');
+		$('#apartmentFormId').removeClass('active');
+		$('#noAddressFROMid').removeClass('active');
+		$('#place').val('3');
+	}); 
+	$('.noAddressFROM').click(function(e){
+		$('.homeFormDiv').attr("style","display:none");
+		$('.noAddressDiv').attr("style","display:block");
+		$('#block').prop('required',false);
+		$('#street').prop('required',false);
+		$('#avenue').prop('required',false);
+		$('#building').prop('required',false);
+		$('#floor').prop('required',false);
+		$('#apartment').prop('required',false);
+		$('#postalCode').prop('required',false);
+		$('#notes').prop('required',false);
+		$('#noAddressName').prop('required',true);
+		$('#noAddressPhone').prop('required',true);
+		$('.getAreas').prop('required',false);
+		$('.areaSelection').attr('style',"display:none");
+		$('#noAddressFROMid').addClass('active');
+		$('#pickUpFROMid').removeClass('active');
+		$('#homeFormId').removeClass('active');
+		$('#apartmentFormId').removeClass('active');
+		$('#place').val('4');
+	}); 
+	<?php
+	if( $pMethods = selectDB("p_methods","`hidden` = '1' AND `status` = '0' ORDER BY `rank` ASC")){
+		for( $i  = 0; $i < sizeof($pMethods); $i++){
+			$paymentClassLabelId = str_replace("-","",str_replace("/","",str_replace(" ","",direction($pMethods[$i]["enTitle"],$pMethods[$i]["arTitle"]))));
+			?>
+			$('.<?php echo $paymentClassLabelId ?>').click(function(){
+				var payId = $(this).attr("id");
+				$('.pMethods').removeClass('active');
+				$('#pMethods'+payId).addClass('active');
+				$('#pMethod').val("<?php echo $pMethods[$i]["paymentId"] ?>");
+				//alert('<?php echo direction("Visa/Master Tax (2.5%) Will be add","سيتم اضافة 2.5% عمولة الفيزا/الماستر") ?>');
+			});
+			<?php
+		}
+	}
+	?>
+})
+$(".product-category, .product-category-mobile").click(function() {
+	$('.loading-screen').css('display', 'flex');
+	$.ajax({
+		type:"POST",
+		url: "api/listofItems.php",
+		data: {
+			id:$(this).attr('type'),
+			order:"<?php echo $requestOrder ?>",
+			storeId:"<?php echo $storeID ?>",
+		},
+		success:function(result){
+			$("#listOfItems").html(result);
+			$('.loading-screen').css('display', 'none');
+		}
+	});
+});
 </script>
 <script src="js/js.js?y=<?php echo md5(time()) ?>"></script>
