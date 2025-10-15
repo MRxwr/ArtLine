@@ -26,7 +26,7 @@ if( isset($_COOKIE[$cookieSession."activity"]) ){
 						<a id='{$i}' class='removeWishlist btn btn-default w-100'>X</a>
 					</div>
 					<div class='col-12 p-0'>
-						<a href='{$storePrefix}/product.php?id={$product[0]["id"]}' class='btn btn-theme-cust btn-large'>".direction("View","عرض")."</a>
+						<a href='{$storePrefix}/?v=Product&id={$product[0]["id"]}' class='btn btn-theme-cust btn-large'>".direction("View","عرض")."</a>
 					</div>
 					
 				</div>

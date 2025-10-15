@@ -1,24 +1,24 @@
 <?php
-if ( isset($_GET["c"]) ){
+if ( isset($_GET["c"]) && !empty($_GET["c"])){
 	$Key = $_GET["c"];
 	if( $order = selectDBNew("orders2",[$_GET["c"]],"`gatewayId` = ?","") ){
 		$orderId = $order[0]["id"];
 	}else{
-		header("LOCATION: checkout.php?error=3");die();
+		header("LOCATION: ?v=Checkout&error=3");die();
 	}
-}elseif ( isset($_GET["p"]) ){
+}elseif ( isset($_GET["p"]) && !empty($_GET["p"]) ){
 	$Key = $_GET["p"];
 	if( $order = selectDBNew("posorders",[$_GET["p"]],"`orderId` = ?","") ){
 		$orderId = $order[0]["orderId"];
 	}else{
-		header("LOCATION: index.php?error=3");die();
+		header("LOCATION: ?v=Home&error=3");die();
 	}
 }elseif( isset($_GET["requested_order_id"]) && !empty($_GET["requested_order_id"]) ){ 
 	$Key = $_GET["requested_order_id"];
 	if( $order = selectDBNew("orders2",[$_GET["requested_order_id"]],"`gatewayId` = ?","") ){
 		$orderId = $order[0]["id"];
 	}else{
-		header("LOCATION: checkout.php?error=3");die();
+		header("LOCATION: ?v=Checkout&error=3");die();
 	}
 }elseif( isset($_GET["paymentId"]) && !empty($_GET["paymentId"]) ){
 	$Key = $_GET["paymentId"];
@@ -56,12 +56,12 @@ if ( isset($_GET["c"]) ){
 		if( isset($resultMY["data"]["Data"]["InvoiceStatus"]) && !empty($resultMY["data"]["Data"]["InvoiceStatus"]) && $resultMY["data"]["Data"]["InvoiceStatus"] == "Paid" ){
 			$orderId = $resultMY["data"]["Data"]["InvoiceId"];
 		}else{
-			header("LOCATION: checkout.php?error=3");die();
+			header("LOCATION: ?v=Checkout&error=3");die();
 		}
 		if( $order = selectDBNew("orders2",[$orderId],"`gatewayId` = ?","") ){
 			$orderId = $order[0]["id"];
 		}else{
-			header("LOCATION: checkout.php?error=3");die();
+			header("LOCATION: ?v=Checkout&error=3");die();
 		}
 	}
 }elseif( isset($_GET["tap_id"]) && !empty($_GET["tap_id"]) ){
@@ -97,12 +97,10 @@ if ( isset($_GET["c"]) ){
 			if( $order = selectDBNew("orders2",[$orderId],"`gatewayId` = ?","") ){
 				$orderId = $order[0]["id"];
 			}else{
-				header("LOCATION: checkout.php?error=3");die();
+				header("LOCATION: ?v=Checkout&error=3");die();
 			}
 		}else{
-			header("LOCATION: checkout.php?error=3");die();
+			header("LOCATION: ?v=Checkout&error=3");die();
 		}
 	}
-}else{
-	header("LOCATION: checkout.php?error=3");die();
 }

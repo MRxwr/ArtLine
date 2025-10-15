@@ -1,8 +1,10 @@
 <?php
 date_default_timezone_set('Asia/Riyadh');
 $check = ["'",'"',")","(",";","?",">","<","~","!","#","$","%","^","&","*","-","_","=","+","/","|",":"];
-require('api/checkInvoice.php');
-$order = selectDB("orders2","`id` = '{$orderId}'");
+if( $order = selectDBNew("orders2",[$_GET["orderId"]],"`id` = ?","") ){
+}else{
+	echo "<script>window.location='?v=Home&error=1'</script>";die();
+}
 $info = json_decode($order[0]["info"],true);
 $address = json_decode($order[0]["address"],true);
 $giftCard = json_decode($order[0]["giftCard"],true);

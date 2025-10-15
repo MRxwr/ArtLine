@@ -31,9 +31,9 @@ if( $product = selectDBNew("products",[$_GET["id"],$storeID],"`id` LIKE ? AND `h
 	header("LOCATION: index.php");
 }
 if ( $theme == 1 ){
-	$formAction = "index.php";
+	$formAction = "?v=Home";
 }else{
-	$formAction = "list.php?id={$category[0]["id"]}";
+	$formAction = "?v=List&id={$category[0]["id"]}";
 }
 ?>
 

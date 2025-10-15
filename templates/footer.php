@@ -56,6 +56,6 @@
         </div>
     </div>
 
-    <?php require_once("templates/scripts.php"); ?>
+    <?php require_once("js/scripts.php"); ?>
     </body>
 </html> 
