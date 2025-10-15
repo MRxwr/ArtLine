@@ -118,7 +118,7 @@ if ( $theme == 1 ){
 				}
 				?>
 				<div class="row pt-2">
-					<form action="<?php echo $formAction ?>" method="POST" enctype="multipart/form-data" accept-charset="UTF-8"> 
+					<form action="<?php echo $formAction ?>" method="POST" enctype="multipart/form-data" accept-charset="UTF-8" style="width:100%"> 
 						<?php
 						if ( $product[0]["type"] == 0 ){
 						?>
