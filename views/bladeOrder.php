@@ -14,10 +14,10 @@ if( isset($orderUserEmail) && !empty($orderUserEmail) && $checkUser = selectDBNe
             $discountAmount = "";
         }
     }else{
-        header("LOCATION: index?error=1");die();
+        header("LOCATION: ?v=Home&error=1");die();
     }
 }else{
-    header("LOCATION: index?error=1");die();
+    header("LOCATION: ?v=Home&error=1");die();
 }
 ?>
 <div class="sec-pad">

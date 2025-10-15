@@ -28,7 +28,7 @@ if( $product = selectDBNew("products",[$_GET["id"],$storeID],"`id` LIKE ? AND `h
 	if( $images = selectDB("images","`productId` LIKE '{$product[0]["id"]}'")){
 	}
 }else{
-	header("LOCATION: index.php");
+	header("LOCATION: ?v=Home&error=");die();
 }
 if ( $theme == 1 ){
 	$formAction = "?v=Home";
