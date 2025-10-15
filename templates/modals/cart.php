@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <div class="items-wrapper">
-			<form action="checkout" method="post">
+			<form action="?v=Checkout" method="post">
                 <!-- start cart item -->
                 <?php
                 $getCartId = json_decode($_COOKIE[$cookieSession."activity"],true);

@@ -14,6 +14,7 @@ require_once("api/checkInvoice.php");
 if( isset($orderId) && !empty($orderId) ){
 	header("LOCATION: ?v=Details&orderId={$orderId}");die();
 }
+
 if( !isset($_GET["storeCode"]) || empty($_GET["storeCode"]) ){
 	header ("LOCATION: default.php");die();
 }
