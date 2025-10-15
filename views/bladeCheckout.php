@@ -36,7 +36,7 @@
 						</div>
 					</div>
 
-					<form method="post" action="bill">
+					<form method="post" action="?v=Bill">
 						<div class="content-section">
 							<?php
 							if ( isset($_GET["error"]) ){
