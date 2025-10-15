@@ -12,13 +12,49 @@ $(function(){
 	$("body").on('click','#wishlistBtn',function(e){
 		e.preventDefault();
 		if ( confirm("<?php echo direction("Are you sure you want to add this item to your wishlist?","هل انت متأكد من إنك تريد اضافة هذا المنتج لقائمة المفضلة؟") ?>") ){
+			<?php if(isset($product[0]["id"])): ?>
 			var id = <?php echo $product[0]["id"] ?>;
-			var wishlistArray = JSON.parse($.cookie("<?php echo $cookieSession . "activity" ?>"));
-			wishlistArray["wishlist"]["id"].push(id)
-			$.cookie("<?php echo $cookieSession . "activity" ?>", JSON.stringify(wishlistArray));
-			$("#wishlistTotal").html(wishlistArray["wishlist"]["id"].length);
-			$("#wishlistTotal1").html(wishlistArray["wishlist"]["id"].length);
-			alert("<?php echo direction("Item has been added to your wishlist successfully.","تمت إضافة المنتج لقائمتك المفضلة بنجاح") ?>");
+			<?php else: ?>
+			var id = 0;
+			<?php endif; ?>
+			
+			if (id == 0) {
+				alert("<?php echo direction("Product ID not found.","لم يتم العثور على معرف المنتج") ?>");
+				return false;
+			}
+			
+			try {
+				var cookieValue = $.cookie("<?php echo $cookieSession . "activity" ?>");
+				if (!cookieValue) {
+					alert("<?php echo direction("Session not initialized. Please refresh the page.","الجلسة غير مهيأة. يرجى تحديث الصفحة.") ?>");
+					location.reload();
+					return false;
+				}
+				
+				var wishlistArray = JSON.parse(cookieValue);
+				
+				if (!wishlistArray.wishlist) {
+					wishlistArray.wishlist = { id: [] };
+				}
+				if (!wishlistArray.wishlist.id) {
+					wishlistArray.wishlist.id = [];
+				}
+				
+				// Check if product already in wishlist
+				if (wishlistArray.wishlist.id.indexOf(id) !== -1) {
+					alert("<?php echo direction("Item is already in your wishlist.","المنتج موجود بالفعل في قائمتك المفضلة") ?>");
+					return false;
+				}
+				
+				wishlistArray["wishlist"]["id"].push(id);
+				$.cookie("<?php echo $cookieSession . "activity" ?>", JSON.stringify(wishlistArray), { path: '/' });
+				$("#wishlistTotal").html(wishlistArray["wishlist"]["id"].length);
+				$("#wishlistTotal1").html(wishlistArray["wishlist"]["id"].length);
+				alert("<?php echo direction("Item has been added to your wishlist successfully.","تمت إضافة المنتج لقائمتك المفضلة بنجاح") ?>");
+			} catch (error) {
+				console.error("Wishlist error:", error);
+				alert("<?php echo direction("Error adding to wishlist. Please try again.","خطأ في الإضافة للمفضلة. يرجى المحاولة مرة أخرى.") ?>");
+			}
 		}
 	});
 	
