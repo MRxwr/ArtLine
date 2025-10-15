@@ -689,6 +689,7 @@ $(function(){
 			$("#expressDel").val(0);
 		}
 	})
+	/*
 	$('.sendVoucher').click(function(e){
 		e.preventDefault();
 		var voucher = $('#voucherInput').val()
@@ -720,6 +721,7 @@ $(function(){
 			}
 		});
 	});
+	*/
 })
 $(function(){
 	$(document).ready(function() {
