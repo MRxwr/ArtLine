@@ -1,1 +1,4 @@
 admin/includes/config.php
+
+# VSCode settings
+.vscode/settings.json
