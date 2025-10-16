@@ -5,17 +5,17 @@
                 <?php
                 if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enAbout"]) || !empty($aboutPrivacy[0]["arAbout"])) ){
                     echo "<a data-toggle='modal' data-target='#about_popup' aria-label='about'>".direction("About us","من نحن")."</a>";
-                    if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enPrivacy"]) || !empty($aboutPrivacy[0]["arPrivacy"])) || (!empty($aboutPrivacy[0]["enReturn"]) || !empty($aboutPrivacy[0]["arReturn"])) ){
+                    if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enPrivacy"]) || !empty($aboutPrivacy[0]["arPrivacy"])) || (!empty($aboutPrivacy[0]["enTerms"]) || !empty($aboutPrivacy[0]["arTerms"])) ){
                         echo " | ";
                     }
                 }
                 if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enPrivacy"]) || !empty($aboutPrivacy[0]["arPrivacy"])) ){
                     echo "<a data-toggle='modal' data-target='#privacy_popup' aria-label='privacy'>".direction("Privacy Policy","سياسة الخصوصية")."</a>";
-                    if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enReturn"]) || !empty($aboutPrivacy[0]["arReturn"])) ){
+                    if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enTerms"]) || !empty($aboutPrivacy[0]["arTerms"])) ){
                         echo " | ";
                     }
                 }
-                if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enReturn"]) || !empty($aboutPrivacy[0]["arReturn"])) ){
+                if( isset($aboutPrivacy) && (!empty($aboutPrivacy[0]["enTerms"]) || !empty($aboutPrivacy[0]["arTerms"])) ){
                     echo "<a data-toggle='modal' data-target='#return_popup' aria-label='return'>".direction("Terms & Conditions","الشروط والأحكام")."</a>";
                 }
                 ?>
