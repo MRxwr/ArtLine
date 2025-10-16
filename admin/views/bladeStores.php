@@ -25,7 +25,14 @@ if( isset($_POST["title"]) ){
 	if(isset($_POST["whatsappNoti"]) && is_array($_POST["whatsappNoti"])) {
 		$_POST["whatsappNoti"] = json_encode($_POST["whatsappNoti"]);
 	}
-	
+	// Handle about and privacy encoding
+	$_POST["enAbout"] = urlencode($_POST["enAbout"]);
+	$_POST["arAbout"] = urlencode($_POST["arAbout"]);
+	$_POST["enPrivacy"] = urlencode($_POST["enPrivacy"]);
+	$_POST["arPrivacy"] = urlencode($_POST["arPrivacy"]);
+	$_POST["enTerms"] = urlencode($_POST["enTerms"]);
+	$_POST["arTerms"] = urlencode($_POST["arTerms"]);
+
 	if ( $id == 0 ){
 		if( insertDB("stores", $_POST) ){
 			header("LOCATION: ?v=Stores");
@@ -388,6 +395,63 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				</div>
 				</div>
 			</div>
+
+			<!-- privacy and terms and about section -->
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+				<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Pages", "صفحات") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<!-- Package details -->
+					<div class="col-md-12">
+						<div class="panel panel-default card-view">
+							<div class="panel-heading">
+								<div class="pull-left">
+									<h6 class="panel-title txt-dark">Package Details</h6>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body">
+									<div class="col-md-6">
+										<label><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></label>
+										<textarea id="enAbout" name="enAbout" class="tinymce"><?php echo $enAbout ?></textarea>
+									</div>
+									<div class="col-md-6">
+										<label><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></label>
+										<textarea id="arAbout" name="arAbout" class="tinymce"><?php echo $arAbout ?></textarea>
+									</div>
+									<div class="col-md-6">
+										<label><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></label>
+										<textarea id="enPrivacy" name="enPrivacy" class="tinymce"><?php echo $enPrivacy ?></textarea>
+									</div>
+									<div class="col-md-6">
+										<label><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></label>
+										<textarea id="arPrivacy" name="arPrivacy" class="tinymce"><?php echo $arPrivacy ?></textarea>
+									</div>
+									<div class="col-md-6">
+										<label><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></label>
+										<textarea id="enTerms" name="enTerms" class="tinymce"><?php echo $enTerms ?></textarea>
+									</div>
+									<div class="col-md-6">
+										<label><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></label>
+										<textarea id="arTerms" name="arTerms" class="tinymce"><?php echo $arTerms ?></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+			</div>
+
+
 			<!-- Theme section -->
 			<div class="col-md-12">
 				<div class="panel panel-default card-view">
@@ -713,6 +777,10 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="shippingMethod<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["shippingMethod"] ?></label>
 					<label id="storeCode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["storeCode"] ?></label>
 					<label id="maintenanceMode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["maintenanceMode"] ?></label>
+					<label id="enPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enPrivacy"]) ?></label>
+					<label id="arPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arPrivacy"]) ?></label>
+					<label id="enTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enTerms"]) ?></label>
+					<label id="arTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arTerms"]) ?></label>
 				</div>
 				<?php
 			}
@@ -741,7 +809,13 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var language = $("#language"+id).html();
 		var currency = $("#currency"+id).html();
 		var maintenanceMode = $("#maintenanceMode"+id).html();
-		
+		var enAbout = $("#enAbout"+id).html();
+		var arAbout = $("#arAbout"+id).html();
+		var enPrivacy = $("#enPrivacy"+id).html();
+		var arPrivacy = $("#arPrivacy"+id).html();
+		var enTerms = $("#enTerms"+id).html();
+		var arTerms = $("#arTerms"+id).html();
+
 		// Payment
 		var package = $("#package"+id).html();
 		var startDate = $("#startDate"+id).html();
@@ -788,7 +862,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=productView]").val(productView);
 		$("select[name=showCategoryTitle]").val(showCategoryTitle);
 		$("select[name=shippingMethod]").val(shippingMethod);
-		
+
+		// About and Policies
+		tinymce.get("enAbout").setContent(enAbout);
+		tinymce.get("arAbout").setContent(arAbout);
+		tinymce.get("enPrivacy").setContent(enPrivacy);
+		tinymce.get("arPrivacy").setContent(arPrivacy);
+		tinymce.get("enTerms").setContent(enTerms);
+		tinymce.get("arTerms").setContent(arTerms);
+
 		// WhatsApp - handle if it's stored as JSON string
 		
 		// If whatsappNoti is available and not empty
