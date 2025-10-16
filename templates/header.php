@@ -1,5 +1,5 @@
 <?php
-if( $aboutPrivacy = selectDB("s_media","`id` = '3'") ){}
+if( $aboutPrivacy = selectDBNew("stores",[$storeCode],"`storeCode` = ?","") ){}
 if( isset($_GET["curr"]) && !empty($_GET["curr"]) ){
 	setCurr($_GET["curr"]);
 	?>
