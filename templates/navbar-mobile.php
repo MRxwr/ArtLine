@@ -21,7 +21,7 @@
 			</div>
 			
 			<div class="col-10 <?php echo "text-center" //direction("text-right","text-left") ?> mt-2">
-				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/" ?>">
+				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/?v=Home" ?>">
                 <input type="submit" style="color:<?php echo $headerButton ?>; font-size:24px;white-space: nowrap;background: transparent;border: 0px;direction: ltr;" value="<?php echo $settingsTitle ?>">
 				</form>
 			</div>

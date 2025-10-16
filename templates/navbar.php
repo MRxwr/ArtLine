@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row d-flex align-items-center">
             <div class="col-md-2 mt-3 mb-3" style="white-space:nowrap">
-				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/" ?>">
+				<form method="post" action="<?php echo "{$settingsWebsite}/{$storeCode}/?v=Home" ?>">
                 <input type="submit" style="color: <?php echo $websiteColor ?>;font-size: 22px;background: <?php echo $headerButton ?>;padding: 10px;border-radius: 6px;border: 0px;" value="<?php echo $settingsTitle ?>">
 				</form>
             </div>
