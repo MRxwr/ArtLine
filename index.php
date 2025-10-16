@@ -43,9 +43,15 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 
 if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
 	if( $maintenace[0]["status"] == 1 ){
-		header ("LOCATION: ?v=Maintenance");die();
+		if( !isset($_GET["v"]) || ( isset($_GET["v"]) && $_GET["v"] != "Maintenance" ) ){
+			// Allow access to maintenance page only \\
+			header ("LOCATION: ?v=Maintenance");die();
+		}
 	}elseif ( $maintenace[0]["status"] == 2 ){
-		header ("LOCATION: ?v=Busy");die();
+		// Allow access to busy page only \\
+		if( !isset($_GET["v"]) || ( isset($_GET["v"]) && $_GET["v"] != "Busy" ) ){
+			header ("LOCATION: ?v=Busy");die();
+		}
 	}
 }
 
