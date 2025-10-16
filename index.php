@@ -13,7 +13,7 @@ require_once("templates/saveOrder.php");
 require_once("api/checkInvoice.php");
 
 // check Maintenace
-maintenanceMode();
+maintenanceMode($storeCode);
 
 require_once("templates/header.php");
 // get viewed page from pages folder \\

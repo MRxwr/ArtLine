@@ -54,10 +54,10 @@ function forgetPass($data){
 }
 
 //function Maintenance Mode 
-function maintenanceMode(){
-	if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
+function maintenanceMode($storeCode){
+	if ( $maintenace = selectDBNew("stores",[$storeCode],"`storeCode` = ?","") ){
 		$currentPage = isset($_GET["v"]) ? $_GET["v"] : "Home";
-		$maintenanceStatus = $maintenace[0]["status"];
+		$maintenanceStatus = $maintenace[0]["maintenanceMode"];
 		if( $maintenanceStatus == 1 && $currentPage != "Maintenance" ){
 			header("LOCATION: ?v=Maintenance");die();
 		}
