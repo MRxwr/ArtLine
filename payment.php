@@ -180,7 +180,7 @@ if( insertDB("orders2",$data) ){
 	if ( $_POST["paymentMethod"] == 10 ){
 		$_SESSION["createKW"]["pMethod"] = $_POST["paymentMethod"];
 		$_SESSION["createKW"]["orderId"] = $gatewayId;
-		header("Location: ?v=Details&c={$gatewayId}");die();
+		header("Location: index?v=Details&c={$gatewayId}");die();
 	}else{
 		$_SESSION["createKW"]["pMethod"] = $_POST["paymentMethod"];
 		$_SESSION["createKW"]["orderId"] = $resultMY["data"]["InvoiceId"];

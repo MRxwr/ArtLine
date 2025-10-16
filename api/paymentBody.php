@@ -53,6 +53,6 @@ for( $i=0; $i < 10; $i++ ){
 } 
 
 if( !isset($gatewayId) || empty($gatewayId) ){
-  header("LOCATION: ?v=Checkout&error=4");die();
+  header("LOCATION: index?v=Checkout&error=4");die();
 }
 ?>
