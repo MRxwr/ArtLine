@@ -47,16 +47,16 @@ if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
 	
 	// If maintenance mode is ON and not already on Maintenance page
 	if( $maintenanceStatus == 1 && $currentPage != "Maintenance" ){
-		header("LOCATION: ?v=Maintenance&storeCode={$storeCode}");die();
+		header("LOCATION: ?v=Maintenance");die();
 	}
 	// If busy mode is ON and not already on Busy page
 	elseif( $maintenanceStatus == 2 && $currentPage != "Busy" ){
-		header("LOCATION: ?v=Busy&storeCode={$storeCode}");die();
+		header("LOCATION: ?v=Busy");die();
 	}
 	// If maintenance/busy is OFF but user is on Maintenance or Busy page, redirect to Home
 	elseif( $maintenanceStatus == 0 && ($currentPage == "Maintenance" || $currentPage == "Busy") ){
-		header("LOCATION: ?v=Home&storeCode={$storeCode}");die();
-	}
+		header("LOCATION: ?v=Home");die();
+	} 
 }
 
 require_once("templates/header.php");
