@@ -53,6 +53,23 @@ function forgetPass($data){
 	}
 }
 
+//function Maintenance Mode 
+function maintenanceMode(){
+	if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
+		$currentPage = isset($_GET["v"]) ? $_GET["v"] : "Home";
+		$maintenanceStatus = $maintenace[0]["status"];
+		if( $maintenanceStatus == 1 && $currentPage != "Maintenance" ){
+			header("LOCATION: ?v=Maintenance");die();
+		}
+		elseif( $maintenanceStatus == 2 && $currentPage != "Busy" ){
+			header("LOCATION: ?v=Busy");die();
+		}
+		elseif( $maintenanceStatus == 0 && ($currentPage == "Maintenance" || $currentPage == "Busy") ){
+			header("LOCATION: ?v=Home");die();
+		} 
+	}
+}
+
 //categories
 function getCategories(){
 	GLOBAL $showCategoryTitle, $categoryView, $storePrefix, $storeID;

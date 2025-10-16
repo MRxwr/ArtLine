@@ -104,3 +104,7 @@ if ( isset($_GET["c"]) && !empty($_GET["c"])){
 		}
 	}
 }
+
+if( isset($orderId) && !empty($orderId) ){
+	header("LOCATION: ?v=Details&orderId={$orderId}");die();
+}

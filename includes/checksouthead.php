@@ -1,4 +1,11 @@
 <?php
+// Create store-specific cookie names - this makes each store have its own cart
+$storeCookieSession = $cookieSession . $storeCode . "_";
+// For backward compatibility, also keep the old cookie name accessible
+$cookieSessionOriginal = $cookieSession;
+// Override the global $cookieSession to use store-specific cookies
+$cookieSession = $storeCookieSession;
+
 if ( isset($_COOKIE[$cookieSession."Store"]) && !empty($_COOKIE[$cookieSession."Store"]) ){
 	$svdva = $_COOKIE[$cookieSession."Store"];
 	if ( $user = selectDBNew("users",[$svdva],"`keepMeAlive` LIKE ?","") ){
@@ -18,6 +25,7 @@ if ( isset($_COOKIE[$cookieSession."Store"]) && !empty($_COOKIE[$cookieSession."
 	}
 }else{
 	setcookie($cookieSession."Store", "", time() - (86400*30 ), "/");
+	$userDiscount = 0;
 }
 
 if( !isset($_COOKIE[$cookieSession."activity"]) ){
