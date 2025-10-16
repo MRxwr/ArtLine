@@ -885,8 +885,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		if (tinymce.get("arTerms")) {
 			tinymce.get("arTerms").setContent(arTerms || "");
 		}
-
-		// WhatsApp - handle if it's stored as JSON string
 		
 		// If whatsappNoti is available and not empty
 		if (whatsappNoti) {
