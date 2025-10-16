@@ -51,6 +51,8 @@ if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
 			header ("LOCATION: ?v=Busy");die();
 		}
 	}
+}elseif( isset($_GET["v"]) && ($_GET["v"] == "Maintenance" || $_GET["v"] == "Busy") ){
+	header ("LOCATION: ?v=Home");die();
 }
 
 require_once("templates/header.php");
