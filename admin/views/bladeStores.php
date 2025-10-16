@@ -81,7 +81,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						<div class="panel-body">
 							<!-- system Title -->
 
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="panel panel-default card-view">
 									<div class="panel-heading">
 										<div class="pull-left">
@@ -93,6 +93,33 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 										<div class="panel-body">
 											<div class="text">
 												<input class="form-control" type="text" name="storeCode" placeholder="artline">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- maintenance mode -->
+							<div class="col-md-6">
+								<div class="panel panel-default card-view">
+									<div class="panel-heading">
+										<div class="pull-left">
+											<h6 class="panel-title txt-dark"><?php echo direction("Maintenance Mode", "وضع الصيانة") ?></h6>
+										</div>
+										<div class="clearfix"></div>
+									</div>
+									<div class="panel-wrapper collapse in">
+										<div class="panel-body">
+											<div class="text">
+												<select class="form-control" type="text" name="maintenanceMode">
+													<?php
+													$maintenanceModesValue = [1,2,3];
+													$maintenanceModesText = [direction("Maintenance Mode", "وضع الصيانة"), direction("Busy Mode", "وضع مشغول"), direction("OFF", "إيقاف")];
+													for ($i = 0; $i < sizeof($maintenanceModesValue); $i++) {
+														echo "<option value='{$maintenanceModesValue[$i]}'>{$maintenanceModesText[$i]}</option>";
+													}
+													?>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -622,6 +649,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		<th><?php echo direction("Phone","رقم الهاتف") ?></th>
 		<th><?php echo direction("Country","الدولة") ?></th>
 		<th><?php echo direction("Theme","التصميم") ?></th>
+		<th><?php echo direction("Maintenance Mode","وضع الصيانة") ?></th>
 		<th class="text-nowrap"><?php echo direction("Actions","الخيارات") ?></th>
 		</tr>
 		</thead>
@@ -643,6 +671,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				
 				// Get theme
 				$themeText = $stores[$i]["theme"] == 0 ? direction("Categories","أقسام") : direction("Products","منتجات");
+
+				// maintenance mode 1 = maintenance , 2 = busy, 3 = off
+				if($stores[$i]["maintenanceMode"] == 1){
+					$maintenanceStatus = direction("Maintenance Mode","وضع الصيانة");
+				}elseif($stores[$i]["maintenanceMode"] == 2){
+					$maintenanceStatus = direction("Busy Mode","وضع مشغول");
+				}else{
+					$maintenanceStatus = direction("OFF","إيقاف");
+				}
 				?>
 				<tr>
 				<td id="title<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["title"] ?></td>
@@ -650,13 +687,10 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<td id="phone<?php echo $stores[$i]["id"]?>" ><?php echo $stores[$i]["phone"] ?></td>
 				<td id="countryName<?php echo $stores[$i]["id"]?>" ><?php echo $countryName ?><label id="country<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["country"] ?></label></td>
 				<td><?php echo $themeText ?><label id="theme<?php echo $stores[$i]["id"]?>" style="display:none"><?php echo $stores[$i]["theme"] ?></label></td>
+				<td><?php echo $maintenanceStatus ?></td>
 				<td class="text-nowrap">
-				
-				<a id="<?php echo $stores[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="<?php echo direction("Edit","تعديل") ?>"> <i class="fa fa-pencil text-inverse m-r-10"></i>
-				</a>
-				
-				<a href="<?php echo "?v={$_GET["v"]}&delId={$stores[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="<?php echo direction("Delete","حذف") ?>" onclick="return confirm('Delete entry?')" ><i class="fa fa-close text-danger"></i>
-				</a>			
+					<a id="<?php echo $stores[$i]["id"] ?>" class="mr-25 edit" data-toggle="tooltip" data-original-title="<?php echo direction("Edit","تعديل") ?>"> <i class="fa fa-pencil text-inverse m-r-10"></i></a>
+					<a href="<?php echo "?v={$_GET["v"]}&delId={$stores[$i]["id"]}" ?>" data-toggle="tooltip" data-original-title="<?php echo direction("Delete","حذف") ?>" onclick="return confirm('Delete entry?')" ><i class="fa fa-close text-danger"></i></a>			
 				</td>
 				</tr>
 				
@@ -678,6 +712,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="showCategoryTitle<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["showCategoryTitle"] ?></label>
 					<label id="shippingMethod<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["shippingMethod"] ?></label>
 					<label id="storeCode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["storeCode"] ?></label>
+					<label id="maintenanceMode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["maintenanceMode"] ?></label>
 				</div>
 				<?php
 			}
@@ -736,6 +771,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=country]").val(country);
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
+		$("select[name=maintenanceMode]").val(maintenanceMode);
 		
 		// Payment
 		$("select[name=package]").val(package);
