@@ -43,17 +43,11 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 
 if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
 	if( $maintenace[0]["status"] == 1 ){
-		if( !isset($_GET["v"]) || ( isset($_GET["v"]) && $_GET["v"] != "Maintenance" ) ){
-			header ("LOCATION: ?v=Maintenance");die();
-		}else{
-			header ("LOCATION: ?v=Home");die();
-		}
-	}elseif ( $maintenace[0]["status"] == 2 ){
-		if( !isset($_GET["v"]) || ( isset($_GET["v"]) && $_GET["v"] != "Busy" ) ){
-			header ("LOCATION: ?v=Busy");die();
-		}else{
-			header ("LOCATION: ?v=Home");die();
-		}
+		header ("LOCATION: ?v=Maintenance");die();
+	}elseif( $maintenace[0]["status"] == 2 ){
+		header ("LOCATION: ?v=Busy");die();
+	}elseif( isset($_GET["v"]) && ( $_GET["v"] == "Maintenance" || $_GET["v"] == "Busy" ) ){
+		header("LOCATION: ?v=Home");die();
 	}
 }
 
