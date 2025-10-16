@@ -420,27 +420,27 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								<div class="panel-body">
 									<div class="col-md-6">
 										<label><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></label>
-										<textarea id="enAbout" name="enAbout" class="tinymce"><?php echo $enAbout ?></textarea>
+										<textarea id="enAbout" name="enAbout" class="tinymce"></textarea>
 									</div>
 									<div class="col-md-6">
 										<label><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></label>
-										<textarea id="arAbout" name="arAbout" class="tinymce"><?php echo $arAbout ?></textarea>
+										<textarea id="arAbout" name="arAbout" class="tinymce"></textarea>
 									</div>
 									<div class="col-md-6">
 										<label><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></label>
-										<textarea id="enPrivacy" name="enPrivacy" class="tinymce"><?php echo $enPrivacy ?></textarea>
+										<textarea id="enPrivacy" name="enPrivacy" class="tinymce"></textarea>
 									</div>
 									<div class="col-md-6">
 										<label><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></label>
-										<textarea id="arPrivacy" name="arPrivacy" class="tinymce"><?php echo $arPrivacy ?></textarea>
+										<textarea id="arPrivacy" name="arPrivacy" class="tinymce"></textarea>
 									</div>
 									<div class="col-md-6">
 										<label><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></label>
-										<textarea id="enTerms" name="enTerms" class="tinymce"><?php echo $enTerms ?></textarea>
+										<textarea id="enTerms" name="enTerms" class="tinymce"></textarea>
 									</div>
 									<div class="col-md-6">
 										<label><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></label>
-										<textarea id="arTerms" name="arTerms" class="tinymce"><?php echo $arTerms ?></textarea>
+										<textarea id="arTerms" name="arTerms" class="tinymce"></textarea>
 									</div>
 								</div>
 							</div>
@@ -777,6 +777,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="shippingMethod<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["shippingMethod"] ?></label>
 					<label id="storeCode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["storeCode"] ?></label>
 					<label id="maintenanceMode<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["maintenanceMode"] ?></label>
+					<label id="enAbout<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enAbout"]) ?></label>
+					<label id="arAbout<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arAbout"]) ?></label>
 					<label id="enPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enPrivacy"]) ?></label>
 					<label id="arPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arPrivacy"]) ?></label>
 					<label id="enTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enTerms"]) ?></label>
@@ -863,13 +865,26 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=showCategoryTitle]").val(showCategoryTitle);
 		$("select[name=shippingMethod]").val(shippingMethod);
 
-		// About and Policies
-		tinymce.get("enAbout").setContent(enAbout);
-		tinymce.get("arAbout").setContent(arAbout);
-		tinymce.get("enPrivacy").setContent(enPrivacy);
-		tinymce.get("arPrivacy").setContent(arPrivacy);
-		tinymce.get("enTerms").setContent(enTerms);
-		tinymce.get("arTerms").setContent(arTerms);
+		// About and Policies - Set content using TinyMCE API
+		// Check if TinyMCE instances exist, if not they'll be populated when initialized
+		if (tinymce.get("enAbout")) {
+			tinymce.get("enAbout").setContent(enAbout || "");
+		}
+		if (tinymce.get("arAbout")) {
+			tinymce.get("arAbout").setContent(arAbout || "");
+		}
+		if (tinymce.get("enPrivacy")) {
+			tinymce.get("enPrivacy").setContent(enPrivacy || "");
+		}
+		if (tinymce.get("arPrivacy")) {
+			tinymce.get("arPrivacy").setContent(arPrivacy || "");
+		}
+		if (tinymce.get("enTerms")) {
+			tinymce.get("enTerms").setContent(enTerms || "");
+		}
+		if (tinymce.get("arTerms")) {
+			tinymce.get("arTerms").setContent(arTerms || "");
+		}
 
 		// WhatsApp - handle if it's stored as JSON string
 		

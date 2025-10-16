@@ -3,12 +3,12 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
             <?php 
-            if( empty($aboutPrivacy[0]["enReturn"]) ){
-                echo "{$aboutPrivacy[0]["arReturn"]}";
-            }elseif( empty($aboutPrivacy[0]["arReturn"]) ){
-                echo "{$aboutPrivacy[0]["enReturn"]}";
+            if( empty($aboutPrivacy[0]["enTerms"]) ){
+                echo "{$aboutPrivacy[0]["arTerms"]}";
+            }elseif( empty($aboutPrivacy[0]["arTerms"]) ){
+                echo "{$aboutPrivacy[0]["enTerms"]}";
             }else{
-                echo direction($aboutPrivacy[0]["enReturn"], $aboutPrivacy[0]["arReturn"]);
+                echo direction($aboutPrivacy[0]["enTerms"], $aboutPrivacy[0]["arTerms"]);
             }
             ?>
             </div>
