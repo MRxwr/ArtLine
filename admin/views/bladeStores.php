@@ -740,6 +740,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var country = $("#country"+id).html();
 		var language = $("#language"+id).html();
 		var currency = $("#currency"+id).html();
+		var maintenanceMode = $("#maintenanceMode"+id).html();
 		
 		// Payment
 		var package = $("#package"+id).html();
@@ -764,7 +765,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var bgImage = $("#bgImage"+id).html();
 		
 		// Fill form fields
-		$("input[name=title]").val(title);
+		$("input[name=title]").val(title).focus();
 		$("input[name=storeCode]").val(storeCode);
 		$("input[name=email]").val(email);
 		$("input[name=phone]").val(phone);
