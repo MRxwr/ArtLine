@@ -42,12 +42,20 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 }
 
 if ( $maintenace = selectDB("maintenance","`id` = '1'") ){
-	if( $maintenace[0]["status"] == 1 ){
-		header ("LOCATION: ?v=Maintenance");die();
-	}elseif( $maintenace[0]["status"] == 2 ){
-		header ("LOCATION: ?v=Busy");die();
-	}elseif( isset($_GET["v"]) && ( $_GET["v"] == "Maintenance" || $_GET["v"] == "Busy" ) ){
-		header("LOCATION: ?v=Home");die();
+	$currentPage = isset($_GET["v"]) ? $_GET["v"] : "Home";
+	$maintenanceStatus = $maintenace[0]["status"];
+	
+	// If maintenance mode is ON and not already on Maintenance page
+	if( $maintenanceStatus == 1 && $currentPage != "Maintenance" ){
+		header("LOCATION: ?v=Maintenance&storeCode={$storeCode}");die();
+	}
+	// If busy mode is ON and not already on Busy page
+	elseif( $maintenanceStatus == 2 && $currentPage != "Busy" ){
+		header("LOCATION: ?v=Busy&storeCode={$storeCode}");die();
+	}
+	// If maintenance/busy is OFF but user is on Maintenance or Busy page, redirect to Home
+	elseif( $maintenanceStatus == 0 && ($currentPage == "Maintenance" || $currentPage == "Busy") ){
+		header("LOCATION: ?v=Home&storeCode={$storeCode}");die();
 	}
 }
 
