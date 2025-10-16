@@ -8,11 +8,11 @@
                 <h4 class="title"><?php echo direction("About Us","معلومات عنا") ?></h4>
             <?php 
                 if( empty($aboutPrivacy[0]["enAbout"]) ){
-                    echo "{$aboutPrivacy[0]["arAbout"]}";
+                    echo urldecode("{$aboutPrivacy[0]["arAbout"]}");
                 }elseif( empty($aboutPrivacy[0]["arAbout"]) ){
-                    echo "{$aboutPrivacy[0]["enAbout"]}";
+                    echo urldecode("{$aboutPrivacy[0]["enAbout"]}");
                 }else{
-                    echo direction($aboutPrivacy[0]["enAbout"], $aboutPrivacy[0]["arAbout"]);
+                    echo direction(urldecode($aboutPrivacy[0]["enAbout"]), urldecode($aboutPrivacy[0]["arAbout"]));
                 }
             ?>
             </div>

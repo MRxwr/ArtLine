@@ -8,11 +8,11 @@
                 <h4 class="title"><?php echo direction("Privacy Policy","سياسة الخصوصية") ?></h4>
             <?php 
                 if( empty($aboutPrivacy[0]["enPrivacy"]) ){
-                    echo "{$aboutPrivacy[0]["arPrivacy"]}";
+                    echo urldecode("{$aboutPrivacy[0]["arPrivacy"]}");
                 }elseif( empty($aboutPrivacy[0]["arPrivacy"]) ){
-                    echo "{$aboutPrivacy[0]["enPrivacy"]}";
+                    echo urldecode("{$aboutPrivacy[0]["enPrivacy"]}");
                 }else{
-                    echo direction($aboutPrivacy[0]["enPrivacy"], $aboutPrivacy[0]["arPrivacy"]);
+                    echo direction(urldecode($aboutPrivacy[0]["enPrivacy"]), urldecode($aboutPrivacy[0]["arPrivacy"]));
                 }
             ?>
             </div>
