@@ -56,6 +56,7 @@ a.toggle-left-nav-btn i, a#toggle_mobile_nav i, a#toggle_mobile_search i {
 }
 .txt-dark {
     color: #4e4933 !important;
+    font-weight: 500;
 }
 
 /* Active Menu Items */
