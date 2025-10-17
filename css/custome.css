@@ -2234,14 +2234,13 @@
     margin-left: 0 !important;
     margin-right: 0 !important;
     justify-content: center !important;
-    gap: 10px !important;
   }
   .social-icons li {
     list-style: none;
-    margin: 0 !important;
+    margin: 5px !important;
     display: flex !important;
-    width: calc(33.33% - 10px) !important;
-    max-width: 80px !important;
+    flex: 0 0 calc(33.33% - 10px) !important;
+    max-width: calc(33.33% - 10px) !important;
   }
   .social-icons li a {
     font-size: 20px;
