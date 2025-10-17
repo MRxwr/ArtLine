@@ -20,11 +20,18 @@ if( isset($_POST["title"]) ){
 		$filenewname = uploadImageBannerFreeImageHost($_FILES['bgImage']['tmp_name']);
 		$_POST["bgImage"] = $filenewname;
 	}
+
+	// Handle sizechart image upload
+	if (is_uploaded_file($_FILES['sizeChartImage']['tmp_name'])) {
+		$filenewname = uploadImageBannerFreeImageHost($_FILES['sizeChartImage']['tmp_name']);
+		$_POST["sizeChartImage"] = $filenewname;
+	}
 	
 	// Handle whatsapp notification array
 	if(isset($_POST["whatsappNoti"]) && is_array($_POST["whatsappNoti"])) {
 		$_POST["whatsappNoti"] = json_encode($_POST["whatsappNoti"]);
 	}
+	
 	// Handle about and privacy encoding
 	$_POST["enAbout"] = urlencode($_POST["enAbout"]);
 	$_POST["arAbout"] = urlencode($_POST["arAbout"]);
@@ -33,6 +40,7 @@ if( isset($_POST["title"]) ){
 	$_POST["enTerms"] = urlencode($_POST["enTerms"]);
 	$_POST["arTerms"] = urlencode($_POST["arTerms"]);
 	$_POST["socialMedia"] = json_encode($_POST["socialMedia"]);
+	$_POST["internationalDelivery"] = json_encode($_POST["internationalDelivery"]);
 
 	if ( $id == 0 ){
 		if( insertDB("stores", $_POST) ){
