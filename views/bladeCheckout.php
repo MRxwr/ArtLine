@@ -1,7 +1,7 @@
 <?php
 if( isset($_GET["error"]) && $_GET["error"] == "3" ){
 	$gatewayPayload = json_decode( base64_decode( urldecode( $_GET["keys"] ) ), true );
-	updateDB("orders2",["status"=>"2","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$gatewayPayload["gatewayId"]}'");
+	updateDB("orders2",["status"=>"5","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$gatewayPayload["gatewayId"]}'");
 }
 ?>
 <div class="sec-pad grey-bg">
