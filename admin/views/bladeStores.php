@@ -369,27 +369,13 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 					<!-- Package details -->
-					<div class="col-md-12">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark">Package Details</h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="col-md-6">
-										<label><?php echo direction("Start Date", "تاريخ البدء") ?></label>
-										<input class="form-control" type="date" name="startDate">
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("Amount", "المبلغ") ?></label>
-										<input class="form-control" type="float" name="amount" placeholder="25.0">
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Start Date", "تاريخ البدء") ?></label>
+						<input class="form-control" type="date" name="startDate">
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Amount", "المبلغ") ?></label>
+						<input class="form-control" type="float" name="amount" placeholder="25.0">
 					</div>
 				</div>
 				</div>
