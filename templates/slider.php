@@ -34,16 +34,19 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
             </div>
             <div class="col-12">
                 <ul class="social-icons pl-0 mb-0 pr-0" style="margin-top: 0rem!important;">
-					<?php
-					if( $socialMedia = selectDB("s_media","`id` = '1'") ){
-						$smIndex = ["whatsapp","snapchat","TikTok","instagram","location","email"];
-						$smIcon = ["fa fa-whatsapp","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-globe","fa fa-envelope"];
-						$smURL = ["https://wa.me/","https://www.snapchat.com/add/","https://www.tiktok.com/@","https://www.instagram.com/",$socialMedia[0]["location"],"mailto:"];
+                    <!-- $socialMedia loop through it and get all available social media -->
+                    <?php
+					if( isset($socialMedia) && !empty($socialMedia) ){
+						$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
+						$smIcon = ["fa fa-phone","fa fa-whatsapp","fa fa-envelope","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-twitter","fa fa-facebook","fa fa-map-marker"];
+						$smURL = ["tel:","https://wa.me/","mailto:","https://www.snapchat.com/add/","https://www.tiktok.com/@","https://www.instagram.com/","https://twitter.com/","https://facebook.com/",""];
 						for( $i = 0; $i < sizeof($smIndex); $i++ ){
-							if( !empty($socialMedia[0][$smIndex[$i]]) && $socialMedia[0][$smIndex[$i]] != "#" ){
+							if( isset($socialMedia[$smIndex[$i]]) && !empty($socialMedia[$smIndex[$i]]) && $socialMedia[$smIndex[$i]] != "#" ){
+								// For location, use the value directly; for others, concatenate with URL
+								$link = ($smIndex[$i] == "location") ? $socialMedia[$smIndex[$i]] : $smURL[$i] . $socialMedia[$smIndex[$i]];
 								echo "
 								<li>
-									<a href='{$smURL[$i]}{$socialMedia[0][$smIndex[$i]]}' aria-label='{$smIndex[$i]}'>
+									<a href='{$link}' aria-label='{$smIndex[$i]}' target='_blank'>
 										<span class='{$smIcon[$i]}'></span>
 									</a>
 								</li>";

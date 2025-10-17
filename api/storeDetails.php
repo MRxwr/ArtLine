@@ -21,6 +21,7 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 	$showCategoryTitle = $storeDetails[0]["showCategoryTitle"];
 	$categoryView = $storeDetails[0]["categoryView"];
 	$theme = $storeDetails[0]["theme"];
+	$socialMedia = json_decode($storeDetails[0]["socialMedia"], true);
 }else{
 	header ("LOCATION: default.php");die();
 }
