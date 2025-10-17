@@ -45,22 +45,6 @@ input {
 <form action="" method="POST">
 <div class="row">
 
-<div class="col-md-12">
-	<div class="form-group">
-		<label class="control-label mb-10"><?php echo direction("Stores","المتاجر") ?></label>
-		<?php
-			if( $stores = selectDB("stores", "`status` = '0' AND `hidden` = '0'") ){
-				echo "<select name='storeId' class='form-control' required style=''>";
-				echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
-				for( $i = 0; $i < sizeof($stores); $i++ ){
-					echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
-				}
-				echo "</select>";
-			}
-		?>
-	</div>
-</div>
-
 	<div class="col-md-6">
 	<div class="form-group">
 	<label class="control-label mb-10 text-left">Start Date</label>
@@ -76,63 +60,19 @@ input {
 	</div>	
 
 	<div class="col-md-6">
-	<div class="form-group">
-	<label class="control-label mb-10">Select Product</label>
-	<select class="selectpicker productId" name="productId" data-style="form-control btn-default btn-outline">
-	<option></option>
-	<?php
-	$dhlBills = 0;
-	$sql = "SELECT * 
-			FROM 
-			`products`
-			WHERE `hidden` != 2";
-	$result = $dbconnect->query($sql);
-	while ( $row = $result->fetch_assoc() )
-	{
-	?>
-	<option value="<?php echo $row["id"] ?>"><?php echo $row["enTitle"] ?></option>
-	<?php
-	}
-	?>
-	</select>
-	</div>	
-	</div>
-
-	<div class="col-md-6">
-	<div class="form-group sizes">
-	<label class="control-label mb-10"><?php echo $selectSubProduct ?></label>
-	<select class="selectpicker" name="" data-style="form-control btn-default btn-outline">
-	<option></option>
-	</select>
-	</div>	
-	</div>
-
-	<div class="col-md-6">
-	<div class="form-group">
-	<label class="control-label mb-10"><?php echo direction("Status","الحالة") ?></label>
-	<select class="selectpicker" name="status" data-style="form-control btn-default btn-outline">
-		<option></option>
-		<option value="0"><?php echo direction("Pending","انتظار") ?></option>
-		<option value="1"><?php echo direction("Success","ناجح") ?></option>
-		<option value="2"><?php echo direction("Preparing","جاري التجهيز") ?></option>
-		<option value="3"><?php echo direction("On Delivery","جاري التوصيل") ?></option>
-		<option value="4"><?php echo direction("Delivered","تم تسليمها") ?></option>
-		<option value="5"><?php echo direction("Failed","فاشلة") ?></option>
-		<option value="6"><?php echo direction("Returned","مسترجعه") ?></option>
-	</select>
-	</div>	
-	</div>
-
-	<div class="col-md-6">
-	<div class="form-group">
-	<label class="control-label mb-10"><?php echo direction("Payment Method","طريقة الدفع") ?></label>
-	<select class="selectpicker" name="pMethod" data-style="form-control btn-default btn-outline">
-		<option></option>
-		<option value="1">K-NET</option>
-		<option value="2">Visa/Master</option>
-		<option value="3">Cash</option>
-	</select>
-	</div>	
+		<div class="form-group">
+			<label class="control-label mb-10"><?php echo direction("Stores","المتاجر") ?></label>
+			<?php
+				if( $stores = selectDB("stores", "`status` = '0' AND `hidden` = '0'") ){
+					echo "<select name='storeId' class='form-control' required style=''>";
+					echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
+					for( $i = 0; $i < sizeof($stores); $i++ ){
+						echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
+					}
+					echo "</select>";
+				}
+			?>
+		</div>
 	</div>
 
 	<div class="col-md-6">
@@ -173,20 +113,11 @@ if ( isset($_POST["endDate"]) ){
 			if ( !empty($_POST["voucher"]) ){
 				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(voucher,'$.id')) LIKE '%{$_POST["voucher"]}%'";
 			}
-			if ( !empty($_POST["productId"]) ){
-				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(items,'$[*].productId')) LIKE '%{$_POST["productId"]}%'";
-			}
-			if ( !empty($_POST["size"]) ){
-				$where .= " AND JSON_UNQUOTE(JSON_EXTRACT(items,'$[*].subId')) LIKE '%{$_POST["size"]}%'";
-			}
-			if ( !empty($_POST["pMethod"]) ){
-				$where .= " AND `paymentMethod` = '{$_POST["pMethod"]}'";
-			}
 			if ( !empty($_POST["storeId"]) ){
 				$where .= " AND `storeId` = '{$_POST["storeId"]}'";
 			}
 			if ( $_POST["status"] != "" ){
-				$where .= " AND `status` = '{$_POST["status"]}'";
+				$where .= " AND ( `status` > '0' AND `status` < '5' )";
 			}
 	if( $orderIds = selectDB("orders2",$where . " GROUP BY `orderId`") ){
 	}else{
