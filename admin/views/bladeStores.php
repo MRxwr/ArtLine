@@ -301,30 +301,18 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 							</div>
 
 							<div class="col-md-4">
-							<div class="panel panel-default card-view">
-								<div class="panel-heading">
-									<div class="pull-left">
-										<h6 class="panel-title txt-dark">Whatsapp Notification <?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="panel-wrapper collapse in">
-									<div class="panel-body">
-										<div class="text">
-										<select class="form-control" name="whatsappNoti[status]" >
-											<?php 
-											$wStatus = [0,1];
-											$wTitle = [direction("No","لا"),direction("Yes","نعم")];
-											for( $i = 0; $i < sizeof($wStatus); $i++){
-												echo "<option value='{$wStatus[$i]}'>{$wTitle[$i]}</option>";
-											}
-											?>
-										</select>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark">Whatsapp Notification <?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
+								<select class="form-control" name="whatsappNoti[status]" >
+									<?php 
+									$wStatus = [0,1];
+									$wTitle = [direction("No","لا"),direction("Yes","نعم")];
+									for( $i = 0; $i < sizeof($wStatus); $i++){
+										echo "<option value='{$wStatus[$i]}'>{$wTitle[$i]}</option>";
+									}
+									?>
+								</select>
 							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
