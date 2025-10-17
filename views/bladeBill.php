@@ -44,15 +44,17 @@ if ( $cart = selectDBNew("cart",[$getCartId["cart"]],"`cartId` = ?","") ){
 if ( isset($_POST["address"]["place"]) && !empty($_POST["address"]["place"]) && $_POST["address"]["place"] != 3 && $_POST["address"]["place"] != 4 ){
 	if ( $_POST["address"]["country"] == "KW" && $delivery = selectDBNew("areas",[$_POST["address"]["area"]],"`id` = ?","") ){
 		$shoppingCharges = $delivery[0]["charges"];
-	}elseif( $delivery = selectDB("settings","`id` = '1'") ){
+	}elseif( $delivery = selectDBNew("stores",[$storeCode],"`storeCode` = ?","") ){
 		if( $delivery[0]["shippingMethod"] != 0 ){
+			$PaymentAPIKey = $delivery[0]["PaymentAPIKey"];
+			$settingsShippingMethod = $delivery[0]["shippingMethod"];
 			$shoppingCharges = getInternationalShipping(getItemsForPayment($getCartId["cart"],$paymentAPIPrice),$_POST["address"]);
 		}else{
-			$shippingPerPiece = selectDB("s_media","`id` = '2'");
+			$shippingPerPiece = json_decode($delivery[0]["internationalDelivery"],true);
 			if ( getCartQuantity() == 1 ){
-				$shoppingCharges = $shippingPerPiece[0]["internationalDelivery"];
+				$shoppingCharges = $shippingPerPiece[0];
 			}else{
-				$shoppingCharges = ($shippingPerPiece[0]["internationalDelivery1"] * (getCartQuantity() - 1 ) ) + $shippingPerPiece[0]["internationalDelivery"];
+				$shoppingCharges = ($shippingPerPiece[0] * (getCartQuantity() - 1 ) ) + $shippingPerPiece[1];
 			}
 		}
 	}

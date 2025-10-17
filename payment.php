@@ -4,12 +4,8 @@ require("admin/includes/config.php");
 require("admin/includes/functions.php");
 require("admin/includes/translate.php");
 require("includes/checksouthead.php");
+require("api/storeDetails.php");
 
-//get storeId from store code
-$storeId = 0;
-if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?","") ){
-	$storeId = $storeDetails[0]["id"];
-}
 ini_set( 'precision', 4 );
 ini_set( 'serialize_precision', -1 );
 // get user info \\
@@ -56,6 +52,7 @@ if ( $cart = selectDBNew("cart",[$getCartId["cart"]],"`cartId` = ?","") ){
 // generate order Id \\
 $orderId = generateOrderId();
 $price = (float)substr(getCartPriceDefault(),0,6);
+
 // voucher details \\
 if( $voucherData = selectDBNew("vouchers",[$_POST["voucher"]],"`id` = ? AND `endDate` >= '".date("Y-m-d")."' AND `startDate` <= '".date("Y-m-d")."'","") ){
 	$voucherId = $voucherData[0]["id"];
@@ -82,6 +79,7 @@ if( $voucherData = selectDBNew("vouchers",[$_POST["voucher"]],"`id` = ? AND `end
 		"percentage" => 0
 	);
 }
+
 // check price after user discount \\
 $price = $price * ((100-$userDiscount)/100);
 
@@ -117,26 +115,26 @@ if( $address["country"] == "KW" ){
 		"Quantity" 		=> 1,
 		"UnitPrice" 	=> (float)$address["shipping"]
 	);
-}elseif( $deliverySetting = selectDB("settings","`id` = '1'") ){
-	if( $deliverySetting[0]["shippingMethod"] != 0 ){
+}elseif( $storeDetails[0]["shippingMethod"] != 0 ){
+		$PaymentAPIKey = $storeDetails[0]["PaymentAPIKey"];
+		$settingsShippingMethod = $storeDetails[0]["shippingMethod"];
 		$address["shipping"] = getInternationalShipping(getItemsForPayment($getCartId["cart"],$paymentAPIPrice),$address);
 		$totalPrice = numTo3Float((float)$price + (float)substr(getExtarsTotalDefault(),0,6));
+}else{
+	$shippingPerPiece = json_decode($storeDetails[0]["internationalDelivery"],true);
+	if ( getCartQuantity() == 1 ){
+		$address["shipping"] = $shippingPerPiece[0];
 	}else{
-		$shippingPerPiece = selectDB("s_media","`id` = '2'");
-		if ( getCartQuantity() == 1 ){
-			$address["shipping"] = $shippingPerPiece[0]["internationalDelivery"];
-		}else{
-			$address["shipping"] = ($shippingPerPiece[0]["internationalDelivery1"] * ( getCartQuantity() - 1 ) ) + $shippingPerPiece[0]["internationalDelivery"];
-		}
-		$totalPrice = numTo3Float((float)$price + (float)$address["shipping"] + (float)substr(getExtarsTotalDefault(),0,6));
-    	$itemList[] = array(
-    		"ItemName" 		=> "International Delivery charges",
-    		"ProductName" 	=> "International Delivery charges",
-    		"Description" 	=> "International Delivery charges",
-    		"Quantity" 		=> 1,
-    		"UnitPrice" 	=> (float)$address["shipping"]
-    	);
+		$address["shipping"] = ($shippingPerPiece[0] * ( getCartQuantity() - 1 ) ) + $shippingPerPiece[1];
 	}
+	$totalPrice = numTo3Float((float)$price + (float)$address["shipping"] + (float)substr(getExtarsTotalDefault(),0,6));
+	$itemList[] = array(
+		"ItemName" 		=> "International Delivery charges",
+		"ProductName" 	=> "International Delivery charges",
+		"Description" 	=> "International Delivery charges",
+		"Quantity" 		=> 1,
+		"UnitPrice" 	=> (float)$address["shipping"]
+	);
 }
 
 $shippingInfo = array(
@@ -171,7 +169,7 @@ $data = array(
 	"userDiscount"	=> $userDiscount,
 	"voucher"		=> json_encode($voucher,JSON_UNESCAPED_UNICODE),
 	"items"			=> json_encode($items,JSON_UNESCAPED_UNICODE),
-	"storeId"		=> $storeId
+	"storeId"		=> $storeID
 );
 //print_r($data);print_r($postMethodLines);print_r($resultMY);die();
 
