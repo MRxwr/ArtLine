@@ -49,6 +49,10 @@ if ( isset($_GET["id"]) AND !empty($_GET["id"]) && $product = selectDB("products
 				echo "<select name='storeId' class='form-control' required style=''>";
 				echo "<option value='' disabled selected>".direction("Select Store","حدد المتجر")."</option>";
 				for( $i = 0; $i < sizeof($stores); $i++ ){
+					if( isset($product["storeId"]) && $product["storeId"] == $stores[$i]["id"] ){
+						echo "<option value='{$stores[$i]["id"]}' selected>{$stores[$i]["title"]}</option>";
+						continue;
+					}
 					echo "<option value='{$stores[$i]["id"]}' >{$stores[$i]["title"]}</option>";
 				}
 				echo "</select>";
