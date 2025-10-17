@@ -284,6 +284,19 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					</div>
 
 					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Buyer Email", "البريد الإلكتروني للمشتري") ?></h6>
+						<select class="form-control" name="emailOpt">
+							<?php
+							$emailOptValue = [0, 1];
+							$emailOptName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($emailOptValue); $i++) {
+								echo "<option value='$emailOptValue[$i]'>{$emailOptName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
 						<h6 class="panel-title txt-dark"><?php echo direction("Enable Invoice Image", "تمكين صورة الفاتورة") ?></h6>
 						<select class="form-control" name="enableInvoiceImage">
 							<?php
