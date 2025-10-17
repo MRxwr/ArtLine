@@ -830,6 +830,12 @@
     left: auto;
     border-radius: 6px 0px 0px 6px;
   }
+  
+  /* RTL (Arabic) - Reverse flex direction for cart */
+  .right-to-left .product-cart {
+    flex-direction: column-reverse;
+  }
+  
   .cart_price {
     width: auto;
     height: 35px;
@@ -849,6 +855,12 @@
     border-radius: 6px;
     margin: 0px 10px 10px;
   }
+  
+  /* RTL (Arabic) - Adjust margin for price */
+  .right-to-left .cart_price {
+    margin: 10px 10px 0px;
+  }
+  
   .totalItems {
     /*font-family: 'Tajawal';*/
     
