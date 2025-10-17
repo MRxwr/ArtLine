@@ -237,6 +237,105 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				</div>
 			</div>
 
+			<!-- other section -->
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+				<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Other Settings", "إعدادات أخرى") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Pick Up", "استلام الطلب") ?></h6>
+						<select class="form-control" name="inStore">
+							<?php
+							$pickupValue = [0, 1];
+							$pickupName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($pickupValue); $i++) {
+								echo "<option value='$pickupValue[$i]'>{$pickupName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Gift Card", "بطاقة هدية") ?></h6>
+						<select class="form-control" name="giftCard">
+							<?php
+							$giftCardValue = [0, 1];
+							$giftCardName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($giftCardValue); $i++) {
+								echo "<option value='$giftCardValue[$i]'>{$giftCardName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Enable Invoice Image", "تمكين صورة الفاتورة") ?></h6>
+						<select class="form-control" name="enableInvoiceImage">
+							<?php
+							$enableInvoiceImageValue = [0, 1];
+							$enableInvoiceImageName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($enableInvoiceImageValue); $i++) {
+								echo "<option value='$enableInvoiceImageValue[$i]'>{$enableInvoiceImageName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("No Address", "لا يوجد عنوان") ?></h6>
+						<select class="form-control" name="noAddress">
+							<?php
+							$noAddressValue = [0, 1];
+							$noAddressName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($noAddressValue); $i++) {
+								echo "<option value='$noAddressValue[$i]'>{$noAddressName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("No Address Delivery", "توصيل بدون عنوان") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="noAddressDelivery" placeholder="0">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery", "توصيل سريع") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="expressDelivery" placeholder="0">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("International Delivery 1st Item", "توصيل دولي للمنتج الأول") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="internationalDelivery[0]" placeholder="0">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("International Delivery Extra Item", "توصيل دولي للمنتج الإضافي") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="internationalDelivery[1]" placeholder="0">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("User Discount", "خصم المستخدم") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="userDiscount" placeholder="25.0">
+					</div>
+
+					<div class="col-md-12">
+						<h6 class="panel-title txt-dark"><?php echo direction("Size Chart Image", "صورة جدول المقاسات") ?></h6>
+						<input class="form-control" type="file" name="sizeChartImage" >
+					</div>
+
+				</div>
+				</div>
+				</div>
+			</div>
+
 			<!-- soccial media accounts section -->
 			<div class="col-md-12">
 				<div class="panel panel-default card-view">
@@ -571,6 +670,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="enTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enTerms"]) ?></label>
 					<label id="arTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arTerms"]) ?></label>
 					<label id="socialMedia<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["socialMedia"]) ?></label>
+					<label id="sizeChartImage<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["sizeChartImage"] ?></label>
+					<label id="userDiscount<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["userDiscount"] ?></label>
+					<label id="internationalDelivery<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["internationalDelivery"]) ?></label>
+					<label id="inStore<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["inStore"] ?></label>
+					<label id="giftCard<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["giftCard"] ?></label>
+					<label id="enableInvoiceImage<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["enableInvoiceImage"] ?></label>
+					<label id="noAddress<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddress"] ?></label>
+					<label id="noAddressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddressDelivery"] ?></label>
+					<label id="expressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["expressDelivery"] ?></label>
 				</div>
 				<?php
 			}
@@ -606,6 +714,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var enTerms = $("#enTerms"+id).html();
 		var arTerms = $("#arTerms"+id).html();
 		var socialMedia = $("#socialMedia"+id).html();
+		var sizeChartImage = $("#sizeChartImage"+id).html();
+		var userDiscount = $("#userDiscount"+id).html();
+		var internationalDelivery = $("#internationalDelivery"+id).html();
+		var inStore = $("#inStore"+id).html();
+		var giftCard = $("#giftCard"+id).html();
+		var enableInvoiceImage = $("#enableInvoiceImage"+id).html();
+		var noAddress = $("#noAddress"+id).html();
+		var noAddressDelivery = $("#noAddressDelivery"+id).html();
+		var expressDelivery = $("#expressDelivery"+id).html();
 
 		// Payment
 		var package = $("#package"+id).html();
@@ -638,7 +755,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
-		
+		$("input[name=sizeChartImage]").val(sizeChartImage);
+		$("input[name=userDiscount]").val(userDiscount);
+		$("select[name=inStore]").val(inStore);
+		$("select[name=giftCard]").val(giftCard);
+		$("select[name=enableInvoiceImage]").val(enableInvoiceImage);
+		$("select[name=noAddress]").val(noAddress);
+		$("input[name=noAddressDelivery]").val(noAddressDelivery);
+		$("input[name=expressDelivery]").val(expressDelivery);
+
 		// Social Media - Parse JSON and populate fields
 		if (socialMedia) {
 			try {
@@ -657,6 +782,19 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				}
 			} catch (e) {
 				console.log("Error parsing social media data:", e);
+			}
+		}
+
+		// internationalDelivery - Parse JSON if needed
+		if (internationalDelivery) {
+			try {
+				var internationalDeliveryData = JSON.parse(internationalDelivery);
+				if (internationalDeliveryData) {
+					$("input[name='internationalDelivery[0]']").val(internationalDeliveryData[0]);
+					$("input[name='internationalDelivery[1]']").val(internationalDeliveryData[1]);
+				}
+			} catch (e) {
+				console.log("Error parsing international delivery data:", e);
 			}
 		}
 		
