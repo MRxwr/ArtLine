@@ -570,7 +570,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="arPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arPrivacy"]) ?></label>
 					<label id="enTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enTerms"]) ?></label>
 					<label id="arTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arTerms"]) ?></label>
-					<label id="socialMedia<?php echo $stores[$i]["id"] ?>"><?php echo json_decode($stores[$i]["socialMedia"], true) ?></label>
+					<label id="socialMedia<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["socialMedia"]) ?></label>
 				</div>
 				<?php
 			}
@@ -638,17 +638,25 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
-		// Social Media
+		
+		// Social Media - Parse JSON and populate fields
 		if (socialMedia) {
 			try {
 				var socialMediaData = JSON.parse(socialMedia);
-				for (var key in socialMediaData) {
-					if (socialMediaData.hasOwnProperty(key)) {
-						$("input[name='socialMedia[" + key + "]']").val(socialMediaData[key]);
-					}
+				if (socialMediaData) {
+					// Populate each social media field
+					if (socialMediaData.phone) $("input[name='socialMedia[phone]']").val(socialMediaData.phone);
+					if (socialMediaData.email) $("input[name='socialMedia[email]']").val(socialMediaData.email);
+					if (socialMediaData.whatsapp) $("input[name='socialMedia[whatsapp]']").val(socialMediaData.whatsapp);
+					if (socialMediaData.instagram) $("input[name='socialMedia[instagram]']").val(socialMediaData.instagram);
+					if (socialMediaData.snapchat) $("input[name='socialMedia[snapchat]']").val(socialMediaData.snapchat);
+					if (socialMediaData.tiktok) $("input[name='socialMedia[tiktok]']").val(socialMediaData.tiktok);
+					if (socialMediaData.twitter) $("input[name='socialMedia[twitter]']").val(socialMediaData.twitter);
+					if (socialMediaData.facebook) $("input[name='socialMedia[facebook]']").val(socialMediaData.facebook);
+					if (socialMediaData.location) $("input[name='socialMedia[location]']").val(socialMediaData.location);
 				}
 			} catch (e) {
-				console.log("Social media data is not in valid JSON format");
+				console.log("Error parsing social media data:", e);
 			}
 		}
 		
