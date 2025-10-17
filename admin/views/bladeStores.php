@@ -258,20 +258,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 
-					<div class="col-md-4">
-						<h6 class="panel-title txt-dark"><?php echo direction("Pick Up", "استلام الطلب") ?></h6>
-						<select class="form-control" name="inStore">
-							<?php
-							$pickupValue = [0, 1];
-							$pickupName = [direction("No", "لا"), direction("Yes", "نعم")];
-							for ($i = 0; $i < sizeof($pickupValue); $i++) {
-								echo "<option value='$pickupValue[$i]'>{$pickupName[$i]}</option>";
-							}
-							?>
-						</select>
-					</div>
-
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Gift Card", "بطاقة هدية") ?></h6>
 						<select class="form-control" name="giftCard">
 							<?php
@@ -284,7 +271,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						</select>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Buyer Email", "البريد الإلكتروني للمشتري") ?></h6>
 						<select class="form-control" name="emailOpt">
 							<?php
@@ -297,7 +284,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						</select>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Enable Invoice Image", "تمكين صورة الفاتورة") ?></h6>
 						<select class="form-control" name="enableInvoiceImage">
 							<?php
@@ -305,6 +292,47 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 							$enableInvoiceImageName = [direction("No", "لا"), direction("Yes", "نعم")];
 							for ($i = 0; $i < sizeof($enableInvoiceImageValue); $i++) {
 								echo "<option value='$enableInvoiceImageValue[$i]'>{$enableInvoiceImageName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-3">
+						<h6 class="panel-title txt-dark"><?php echo direction("User Discount", "خصم المستخدم") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="userDiscount" placeholder="25.0">
+					</div>
+
+					<div class="col-md-12">
+						<h6 class="panel-title txt-dark"><?php echo direction("Size Chart Image", "صورة جدول المقاسات") ?></h6>
+						<input class="form-control" type="file" name="sizeChartImage" >
+						<img id="sizeChartPreview" src="" style="max-width: 100%; max-height: 300px; margin-top: 10px; display: none;">
+					</div>
+
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Delivery section -->
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+				<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Delivery Settings", "إعدادات التوصيل") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Pick Up", "استلام الطلب") ?></h6>
+						<select class="form-control" name="inStore">
+							<?php
+							$pickupValue = [0, 1];
+							$pickupName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($pickupValue); $i++) {
+								echo "<option value='$pickupValue[$i]'>{$pickupName[$i]}</option>";
 							}
 							?>
 						</select>
@@ -328,7 +356,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						<input class="form-control" type="number" step="0.1" min="0" name="noAddressDelivery" placeholder="0">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery", "توصيل سريع") ?></h6>
 						<select class="form-control" name="expressDelivery[status]">
 							<?php
@@ -341,40 +369,29 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						</select>
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery Charge", "رسوم التوصيل السريع") ?></h6>
 						<input class="form-control" type="number" step="0.1" min="0" name="expressDelivery[charge]" placeholder="0">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery English Note", "ملاحظة توصيل سريع باللغة الإنجليزية") ?></h6>
 						<input class="form-control" type="text" name="expressDelivery[englishNote]" placeholder="Enter note in English">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery Arabic Note", "ملاحظة توصيل سريع باللغة العربية") ?></h6>
 						<input class="form-control" type="text" name="expressDelivery[arabicNote]" placeholder="Enter note in Arabic">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<h6 class="panel-title txt-dark"><?php echo direction("International Delivery 1st Item", "توصيل دولي للمنتج الأول") ?></h6>
 						<input class="form-control" type="number" step="0.1" min="0" name="internationalDelivery[0]" placeholder="0">
 					</div>
 
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<h6 class="panel-title txt-dark"><?php echo direction("International Delivery Extra Item", "توصيل دولي للمنتج الإضافي") ?></h6>
 						<input class="form-control" type="number" step="0.1" min="0" name="internationalDelivery[1]" placeholder="0">
-					</div>
-
-					<div class="col-md-4">
-						<h6 class="panel-title txt-dark"><?php echo direction("User Discount", "خصم المستخدم") ?></h6>
-						<input class="form-control" type="number" step="0.1" min="0" name="userDiscount" placeholder="25.0">
-					</div>
-
-					<div class="col-md-12">
-						<h6 class="panel-title txt-dark"><?php echo direction("Size Chart Image", "صورة جدول المقاسات") ?></h6>
-						<input class="form-control" type="file" name="sizeChartImage" >
-						<img id="sizeChartPreview" src="" style="max-width: 100%; max-height: 300px; margin-top: 10px; display: none;">
 					</div>
 
 				</div>
