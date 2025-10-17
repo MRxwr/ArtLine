@@ -83,4 +83,8 @@ a.toggle-left-nav-btn i, a#toggle_mobile_nav i, a#toggle_mobile_search i {
 .fixed-sidebar-left .side-nav .collapse-level-1 li.active > a .right-nav-text {
     color: #ffffff !important;
 }
+.wrapper.theme-1-active .fixed-sidebar-left, .wrapper.theme-3-active .fixed-sidebar-left, .wrapper.theme-6-active .fixed-sidebar-left {
+    border-right: 1px solid #c4bfa6;
+    box-shadow: 0px 10px 10px 3px;
+}
 </style>
