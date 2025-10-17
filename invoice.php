@@ -9,6 +9,7 @@ if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) ){
 	$voucher = json_decode($order[0]["voucher"],true);
 	$items = json_decode($order[0]["items"],true);
 	$settings = selectDB("settings","`id` = '1'");
+	$storeDetails = selectDB("stores","`id` = '{$order[0]["storeId"]}'");
 }else{
 	echo "error no order found"; die();
 }
@@ -123,14 +124,14 @@ if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) ){
     			<tr class="receipt-header">
 					<td class="col-xs-6 col-sm-6 col-md-6">
 						<div class="receipt-left">
-						    <img src="<?php echo "{$settings[0]["website"]}/logos/{$settings[0]["logo"]}" ?>" style="width:200px">
+						    <img src="<?php echo "{$storeDetails[0]["website"]}/logos/{$storeDetails[0]["logo"]}" ?>" style="width:200px">
 						</div>
 					</td>
 					<td class="col-xs-6 col-sm-6 col-md-6" style="text-align:right">
 						<div class="receipt-right">
-							<h5><?php echo $settings[0]['title'] ?></h5>
-							<p><?php echo $settings[0]['website'] ?><i class="fa fa-globe"></i></p>
-							<p><?php echo $settings[0]['email'] ?><i class="fa fa-envelope-o"></i></p>
+							<h5><?php echo $storeDetails[0]['title'] ?></h5>
+							<p><?php echo $storeDetails[0]['website'] ?><i class="fa fa-globe"></i></p>
+							<p><?php echo $storeDetails[0]['email'] ?><i class="fa fa-envelope-o"></i></p>
 						</div>
 					</td>
 				</tr>
