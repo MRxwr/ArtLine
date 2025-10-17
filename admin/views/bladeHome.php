@@ -37,11 +37,11 @@
 }
 .tabHead{
 	padding: 15px;
-    color: black;
+    color: #4e4933;
     font-weight: 700;
     font-size: 16px;
-	width: 100%;
-    background-color: #f2f2f2;
+    width: 100%;
+    background-color: #c1bfb4;
 }
 .card-view.panel .panel-body {
     padding: 0px 0 0px;
