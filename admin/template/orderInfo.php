@@ -2,6 +2,7 @@
 	if( $settings = selectDB("settings","`id` = '1'") ){
 		$defaultCurr = $settings[0]["currency"];
 	}
+	$enableInvoiceImage = 0;
 	if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) && $order = selectDB("orders2","`id` = '{$_GET["orderId"]}'") ){
 		$items = json_decode($order[0]["items"],true);
 		$voucher = json_decode($order[0]["voucher"],true);
@@ -24,6 +25,9 @@
 			$discountAmount = $voucher["discount"] . $defaultCurr;
 		}else{
 			$discountAmount = "";
+		}
+		if( $storeDetails = selectDB("stores","`id` = '{$order[0]["storeId"]}'") ){
+			$enableInvoiceImage = $storeDetails[0]["enableInvoiceImage"];
 		}
 	}else{
 		header("LOCATION: product-orders.php");
@@ -51,7 +55,7 @@ td{
 <table style="width:100%">
 	<tr>
 		<td style="text-align: center">
-			<img src="../logos/<?php echo $settingslogo ?>" style="width:150px; height:150px">
+			<img src="../logos/<?php echo $storeDetails[0]["logo"] ?>" style="width:150px; height:150px">
 		</td>
 	</tr>
 	<tr>
