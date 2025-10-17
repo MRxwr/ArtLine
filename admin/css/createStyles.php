@@ -57,4 +57,30 @@ a.toggle-left-nav-btn i, a#toggle_mobile_nav i, a#toggle_mobile_search i {
 .txt-dark {
     color: #4e4933 !important;
 }
+
+/* Active Menu Items */
+.fixed-sidebar-left .side-nav li.active > a,
+.fixed-sidebar-left .side-nav li.active > a:hover,
+.fixed-sidebar-left .side-nav li.active > a:focus {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fixed-sidebar-left .side-nav li.active > a .pull-left > i,
+.fixed-sidebar-left .side-nav li.active > a .right-nav-text {
+    color: #ffffff !important;
+}
+
+/* Submenu active items */
+.fixed-sidebar-left .side-nav .collapse-level-1 li.active > a,
+.fixed-sidebar-left .side-nav .collapse-level-1 li.active > a:hover,
+.fixed-sidebar-left .side-nav .collapse-level-1 li.active > a:focus {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fixed-sidebar-left .side-nav .collapse-level-1 li.active > a .pull-left > i,
+.fixed-sidebar-left .side-nav .collapse-level-1 li.active > a .right-nav-text {
+    color: #ffffff !important;
+}
 </style>
