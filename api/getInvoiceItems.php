@@ -38,7 +38,6 @@ if( $orders = queryDB("SELECT orders2.*, stores.title as storeName
                         WHERE orders2.`id` != '0' {$searchQuery} {$type} 
                         ORDER BY ".$columnName." ".$columnSortOrder." 
                         LIMIT ".$row.",".$rowperpage) ){
-    
     $data = array(); 
 	$statusId = [0,1,2,3,4,5,6];
 	$statusText = [direction("Pending","انتظار"),direction("Success","ناجح"),direction("Preparing","جاري التجهيز"), direction("On Delivery","جاري التوصيل"), direction("Delivered","تم تسليمها"), direction("Failed","فاشلة"),direction("Returned","مسترجعه")];
