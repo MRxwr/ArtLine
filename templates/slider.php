@@ -37,24 +37,16 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
                     <!-- $socialMedia loop through it and get all available social media -->
                      
                     <?php
-                    var_dump($socialMedia);
-					// Debug: Check if $socialMedia exists and what it contains
-					if( !isset($socialMedia) ){
-						// Try to load it directly if not set
-						if( isset($storeDetails) && isset($storeDetails[0]["socialMedia"]) ){
-							$socialMedia = json_decode($storeDetails[0]["socialMedia"], true);
-						}
-					}
-					
-					if( isset($socialMedia) && !empty($socialMedia) && is_array($socialMedia) ){
+                    var_dump($storeSocialMediaLinks);
+					if( isset($storeSocialMediaLinks) && !empty($storeSocialMediaLinks) && is_array($storeSocialMediaLinks) ){
 						$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
 						$smIcon = ["fa fa-phone","fa fa-whatsapp","fa fa-envelope","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-twitter","fa fa-facebook","fa fa-map-marker"];
 						$smURL = ["tel:","https://wa.me/","mailto:","https://www.snapchat.com/add/","https://www.tiktok.com/@","https://www.instagram.com/","https://twitter.com/","https://facebook.com/",""]; 
 						
 						for( $i = 0; $i < sizeof($smIndex); $i++ ){
-							if( isset($socialMedia[$smIndex[$i]]) && !empty($socialMedia[$smIndex[$i]]) && $socialMedia[$smIndex[$i]] != "#" ){
+							if( isset($storeSocialMediaLinks[$smIndex[$i]]) && !empty($storeSocialMediaLinks[$smIndex[$i]]) && $storeSocialMediaLinks[$smIndex[$i]] != "#" ){
 								// For location, use the value directly; for others, concatenate with URL
-								$link = ($smIndex[$i] == "location") ? $socialMedia[$smIndex[$i]] : $smURL[$i] . $socialMedia[$smIndex[$i]];
+								$link = ($smIndex[$i] == "location") ? $storeSocialMediaLinks[$smIndex[$i]] : $smURL[$i] . $storeSocialMediaLinks[$smIndex[$i]];
 								echo "
 								<li>
 									<a href='{$link}' aria-label='{$smIndex[$i]}' target='_blank'>
