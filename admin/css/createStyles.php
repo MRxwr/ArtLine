@@ -13,4 +13,7 @@
     background: #f2f2f2;
     border-radius: 10px 10px 0px 0px;
 }
+.row{
+    margin-top: 10px;
+}
 </style>
