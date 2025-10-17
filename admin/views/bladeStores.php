@@ -370,6 +370,18 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-body">
 					<!-- Package details -->
 					<div class="col-md-6">
+						<label><?php echo direction("Select Package Type", "اختر نوع الباقة") ?></label>
+						<select class="form-control" name="package">
+							<?php
+							$packageValue = [0, 1, 2];
+							$packageName = [direction("Free", "مجاني"), direction("Monthly", "شهرية"), direction("Annually", "سنوية")];
+							for ($i = 0; $i < sizeof($packageValue); $i++) {
+								echo "<option value='$packageValue[$i]'>{$packageName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+					<div class="col-md-6">
 						<label><?php echo direction("Start Date", "تاريخ البدء") ?></label>
 						<input class="form-control" type="date" name="startDate">
 					</div>
