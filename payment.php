@@ -158,18 +158,21 @@ require_once ('api/paymentBody.php');
 
 // full order details \\
 $data = array(
-	"info" 			=> $_POST["info"],
-	"address"		=> json_encode($address,JSON_UNESCAPED_UNICODE),
-	"giftCard" 		=> $_POST["giftCard"],
-	"creditTax" 	=> $_POST["creditTax"],
-	"paymentMethod" => $_POST["paymentMethod"],
-	"gatewayId" 	=> $gatewayId,
-	"orderId" 		=> $orderId,
-	"price" 		=> $price,
-	"userDiscount"	=> $userDiscount,
-	"voucher"		=> json_encode($voucher,JSON_UNESCAPED_UNICODE),
-	"items"			=> json_encode($items,JSON_UNESCAPED_UNICODE),
-	"storeId"		=> $storeID
+	"info" 				=> $_POST["info"],
+	"address"			=> json_encode($address,JSON_UNESCAPED_UNICODE),
+	"giftCard" 			=> $_POST["giftCard"],
+	"creditTax" 		=> $_POST["creditTax"],
+	"paymentMethod" 	=> $_POST["paymentMethod"],
+	"gatewayId" 		=> $gatewayId,
+	"orderId" 			=> $orderId,
+	"price" 			=> $price,
+	"userDiscount"		=> $userDiscount,
+	"voucher"			=> json_encode($voucher,JSON_UNESCAPED_UNICODE),
+	"items"				=> json_encode($items,JSON_UNESCAPED_UNICODE),
+	"storeId"			=> $storeID,
+	"payload"			=> json_encode($postMethodLines,JSON_UNESCAPED_UNICODE),
+	"gatewayResponse"	=> json_encode($resultMY,JSON_UNESCAPED_UNICODE),
+	"gatewayURL"		=> ( isset($resultMY["data"]["PaymentURL"]) ? $resultMY["data"]["PaymentURL"] : "" )
 );
 //print_r($data);print_r($postMethodLines);print_r($resultMY);die();
 
