@@ -1,5 +1,5 @@
 <style>
-    .card-view {
+.card-view {
     background: #fff;
     margin-bottom: 20px;
     border: 1px #e8e8e8 solid;
@@ -10,7 +10,7 @@
     margin-right: -5px;
 }
 .card-view.panel.panel-default > .panel-heading {
-    background: #f2f2f2;
+    background: #c1bfb4;
     border-radius: 10px 10px 0px 0px;
 }
 .container-fluid {
