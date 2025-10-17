@@ -16,4 +16,9 @@
 .container-fluid {
     margin-top: 10px;
 }
+input, textarea, select{
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    font-weight: 700;
+}
 </style>
