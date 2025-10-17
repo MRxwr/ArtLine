@@ -108,7 +108,7 @@ if( isset($_POST["arTitle"]) ){
 </div>
 				
 				<!-- Bordered Table -->
-<form method="post" action="">
+<form method="post" action=""> 
 <input name="updateRank" type="hidden" value="1">
 <div class="col-sm-12">
 <div class="panel panel-default card-view">
