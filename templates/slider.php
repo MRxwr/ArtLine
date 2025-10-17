@@ -36,6 +36,14 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
                 <ul class="social-icons pl-0 mb-0 pr-0" style="margin-top: 0rem!important;">
                     <!-- $socialMedia loop through it and get all available social media -->
                     <?php
+					// Debug: Check if $socialMedia exists and what it contains
+					if( !isset($socialMedia) ){
+						// Try to load it directly if not set
+						if( isset($storeDetails) && isset($storeDetails[0]["socialMedia"]) ){
+							$socialMedia = json_decode($storeDetails[0]["socialMedia"], true);
+						}
+					}
+					
 					if( isset($socialMedia) && !empty($socialMedia) && is_array($socialMedia) ){
 						$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
 						$smIcon = ["fa fa-phone","fa fa-whatsapp","fa fa-envelope","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-twitter","fa fa-facebook","fa fa-map-marker"];
