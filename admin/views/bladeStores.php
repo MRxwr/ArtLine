@@ -164,7 +164,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 									?>
 								</select>
 							</div>
-
+ 
 							<!-- default currency -->
 							<div class="col-md-4">
 								<h6 class="panel-title txt-dark"><?php echo direction("Default Currency", "العملة الأساسية"); ?></h6>
@@ -194,7 +194,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 							<!-- payment API Key -->
 							<div class="col-md-4">
 								<h6 class="panel-title txt-dark"><?php echo direction("Payment API Key","مفتاح واجهة برمجة التطبيقات للدفع") ?></h6>
-								<input class="form-control" type="text" name="paymentAPIKey" placeholder="sk_test_4eC39HqLyjWDarjtT1zdp7dc">
+								<input class="form-control" type="text" name="paymentAPIKey" placeholder="CKW-1616996182-7527">
 							</div>
 
 							<div class="col-md-4">
