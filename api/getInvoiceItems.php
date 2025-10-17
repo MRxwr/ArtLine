@@ -32,7 +32,12 @@ $totalRecords = $psorders[0]["totalCount"];
 $sorders = queryDB("SELECT count(*) as totalCount FROM orders2 WHERE `id` != '0' {$searchQuery} {$type} ");
 $totalRecordwithFilter = $sorders[0]["totalCount"];
 
-if( $orders = queryDB("SELECT * FROM orders2 WHERE `id` != '0' {$searchQuery}  {$type} order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage) ){
+if( $orders = queryDB("SELECT orders2.*, stores.title as storeName 
+                        FROM orders2 
+                        LEFT JOIN stores ON orders2.storeId = stores.id 
+                        WHERE orders2.`id` != '0' {$searchQuery} {$type} 
+                        ORDER BY ".$columnName." ".$columnSortOrder." 
+                        LIMIT ".$row.",".$rowperpage) ){
     
     $data = array(); 
 	$statusId = [0,1,2,3,4,5,6];
@@ -69,7 +74,7 @@ if( $orders = queryDB("SELECT * FROM orders2 WHERE `id` != '0' {$searchQuery}  {
 		$data[] = array( 
               "date" => $date,
               "orderId" => $orderId,
-              "store" => getStoreNameById($orders[$i]["storeId"]),
+              "store" => $orders[$i]["storeName"] ?? '',
               "phone" => $phone,
               "method" => $method,
               "price" => $price.'KD',
