@@ -20,6 +20,7 @@ input, textarea, select{
     border: 1px solid #cacaca;
     border-radius: 10px !important;
     font-weight: 700;
+    margin-bottom: 10px;
 }
 .wrapper.theme-6-active .navbar.navbar-inverse.navbar-fixed-top {
     background: #a39f8f;
