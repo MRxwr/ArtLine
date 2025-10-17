@@ -325,6 +325,16 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 
+					<div class="col-md-6">
+						<h6 class="panel-title txt-dark"><?php echo direction("Delivery English Note", "ملاحظة توصيل باللغة الإنجليزية") ?></h6>
+						<input class="form-control" type="text" name="enDeveliveryTime" placeholder="Enter note in English">
+					</div>
+
+					<div class="col-md-6">
+						<h6 class="panel-title txt-dark"><?php echo direction("Delivery Arabic Note", "ملاحظة توصيل باللغة العربية") ?></h6>
+						<input class="form-control" type="text" name="arDeveliveryTime" placeholder="Enter note in Arabic">
+					</div>
+
 					<div class="col-md-4">
 						<h6 class="panel-title txt-dark"><?php echo direction("Pick Up", "استلام الطلب") ?></h6>
 						<select class="form-control" name="inStore">
@@ -352,7 +362,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					</div>
 
 					<div class="col-md-4">
-						<h6 class="panel-title txt-dark"><?php echo direction("No Address Delivery", "توصيل بدون عنوان") ?></h6>
+						<h6 class="panel-title txt-dark"><?php echo direction("No Address Delivery Charge", "رسوم التوصيل بدون عنوان") ?></h6>
 						<input class="form-control" type="number" step="0.1" min="0" name="noAddressDelivery" placeholder="0">
 					</div>
 
