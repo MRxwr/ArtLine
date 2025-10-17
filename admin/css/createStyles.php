@@ -13,7 +13,7 @@
     background: #f2f2f2;
     border-radius: 10px 10px 0px 0px;
 }
-.row{
+.container-fluid {
     margin-top: 10px;
 }
 </style>
