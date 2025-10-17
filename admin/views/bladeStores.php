@@ -337,6 +337,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<div class="col-md-12">
 						<h6 class="panel-title txt-dark"><?php echo direction("Size Chart Image", "صورة جدول المقاسات") ?></h6>
 						<input class="form-control" type="file" name="sizeChartImage" >
+						<img id="sizeChartPreview" src="" style="max-width: 100%; max-height: 300px; margin-top: 10px; display: none;">
 					</div>
 
 				</div>
@@ -763,14 +764,15 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
-		$("input[name=sizeChartImage]").val(sizeChartImage);
-		$("input[name=userDiscount]").val(userDiscount);
+		
+		// Other Settings Fields
 		$("select[name=inStore]").val(inStore);
 		$("select[name=giftCard]").val(giftCard);
 		$("select[name=enableInvoiceImage]").val(enableInvoiceImage);
 		$("select[name=noAddress]").val(noAddress);
 		$("input[name=noAddressDelivery]").val(noAddressDelivery);
 		$("input[name=expressDelivery]").val(expressDelivery);
+		$("input[name=userDiscount]").val(userDiscount);
 
 		// Social Media - Parse JSON and populate fields
 		if (socialMedia) {
@@ -869,6 +871,12 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 			$("#bgImagePreview").attr("src", "../logos/" + bgImage).show();
 		} else {
 			$("#bgImagePreview").hide();
+		}
+		
+		if (sizeChartImage) {
+			$("#sizeChartPreview").attr("src", "../logos/" + sizeChartImage).show();
+		} else {
+			$("#sizeChartPreview").hide();
 		}
 		
 		$("input[name=update]").val(id);
