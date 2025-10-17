@@ -2576,9 +2576,9 @@ a#toggle_mobile_nav {
 .card-view {
 	background:$white;
 	margin-bottom:20px;
-	border: none;
-    border-radius: 0;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+	border: 1px #e8e8e8 solid;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px;
 	padding:15px 15px 0;
 	margin-left:-5px;
 	margin-right:-5px;
@@ -2586,7 +2586,7 @@ a#toggle_mobile_nav {
 		> .panel-heading {
 			border:none;
 			color: inherit;
-			border-radius:0;
+			border-radius: 10px 10px 0px 0px;
 			margin: -15px -15px 0;
 			padding:20px 15px;
 			&.small-panel-heading {
