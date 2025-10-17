@@ -56,7 +56,7 @@ td{
 <table style="width:100%">
 	<tr>
 		<td style="text-align: center">
-			<img src="../logos/<?php echo $settingslogo ?>" style="width:150px; height:150px">
+			<img src="../logos/<?php echo $storeDetails[0]["logo"] ?>" style="width:150px; height:150px">
 		</td>
 	</tr>
 	<tr>
