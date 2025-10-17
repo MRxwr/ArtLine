@@ -131,7 +131,12 @@
     padding: 0.7rem 15px;
   }
   ul.social-icons {
-    margin-top: 10px;
+    margin-top: 10px !important;
+    gap: 8px !important;
+  }
+  .social-icons li {
+    width: calc(33.33% - 8px) !important;
+    max-width: 70px !important;
   }
   .search-box .form-control {
     width: 300px;
@@ -202,10 +207,12 @@
     height: 36vh;
   }
   ul.social-icons {
-    margin-top: 10px;
+    margin-top: 10px !important;
+    gap: 6px !important;
   }
   .social-icons li {
-    margin: 0px 5px;
+    width: calc(33.33% - 6px) !important;
+    max-width: 60px !important;
   }
   .social-icons li a {
     font-size: 18px;
@@ -512,10 +519,12 @@
     margin-right: 5px;
   }
   ul.social-icons {
-    margin-top: 0px;
+    margin-top: 0px !important;
+    gap: 5px !important;
   }
   .social-icons li {
-    margin: 0px 2px;
+    width: calc(33.33% - 5px) !important;
+    max-width: 50px !important;
   }
   .social-icons li a {
     font-size: 15px;
