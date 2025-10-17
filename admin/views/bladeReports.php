@@ -182,6 +182,9 @@ if ( isset($_POST["endDate"]) ){
 			if ( !empty($_POST["pMethod"]) ){
 				$where .= " AND `paymentMethod` = '{$_POST["pMethod"]}'";
 			}
+			if ( !empty($_POST["storeId"]) ){
+				$where .= " AND `storeId` = '{$_POST["storeId"]}'";
+			}
 			if ( $_POST["status"] != "" ){
 				$where .= " AND `status` = '{$_POST["status"]}'";
 			}
