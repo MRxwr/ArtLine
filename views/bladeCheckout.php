@@ -162,11 +162,7 @@
 								</li>
 
 								<?php
-								$sql = "SELECT `inStore`,`noAddress` FROM `s_media` WHERE `id` LIKE '3'";
-								$result = $dbconnect->query($sql);
-								$row = $result->fetch_assoc();
-								if ( $row["inStore"] == "1")
-								{
+								if ( $inStore == "1" ){
 								?>
 								<li class="nav-item">
 									<a class="nav-link pickUpFROM" id="pickUpFROMid">
@@ -177,8 +173,7 @@
 								</li>
 								<?php
 								}
-								if ( $row["noAddress"] == "1")
-								{
+								if ( $noAddressDelivery == "1" ){
 								?>
 								<li class="nav-item">
 									<a class="nav-link noAddressFROM" id="noAddressFROMid">
