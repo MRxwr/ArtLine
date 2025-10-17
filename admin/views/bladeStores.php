@@ -701,6 +701,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="noAddress<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddress"] ?></label>
 					<label id="noAddressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddressDelivery"] ?></label>
 					<label id="expressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["expressDelivery"] ?></label>
+					<label id="emailOpt<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["emailOpt"] ?></label>
 				</div>
 				<?php
 			}
@@ -745,6 +746,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var noAddress = $("#noAddress"+id).html();
 		var noAddressDelivery = $("#noAddressDelivery"+id).html();
 		var expressDelivery = $("#expressDelivery"+id).html();
+		var emailOpt = $("#emailOpt"+id).html();
 
 		// Payment
 		var package = $("#package"+id).html();
@@ -777,6 +779,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
+		$("select[name=emailOpt]").val(emailOpt);
 		
 		// Other Settings Fields
 		$("select[name=inStore]").val(inStore);

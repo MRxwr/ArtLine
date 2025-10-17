@@ -1,16 +1,9 @@
 <?php
-$s_mdeia = selectDB("s_media","`id` = '3'");
-$emailOpt = $s_mdeia[0]["emailOpt"];
-$giftCard = $s_mdeia[0]["giftCard"];
-
 $settings = selectDB("settings","`id` = '1'");
-$settingsDTime = $settings[0]["dTime"];
-$settingsDTimeAr = $settings[0]["dTimeArabic"];
 $cookieSession = $settings[0]["cookie"];
 $settingsWebsite = $settings[0]["website"];
-$PaymentAPIKey = $settings[0]["PaymentAPIKey"];
 $settingsOgDescription = $settings[0]["OgDescription"];
-$SettingsServiceCharge = $settings[0]["serviceCharge"];
+$SettingsServiceCharge = $settings[0]["serviceCharge"]; 
 $googleCode = urldecode($settings[0]["google"]);
 $pixilCode = urldecode($settings[0]["pixil"]);
 $settingsEmail = $settings[0]["email"];

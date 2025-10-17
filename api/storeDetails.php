@@ -21,8 +21,15 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 	$showCategoryTitle = $storeDetails[0]["showCategoryTitle"];
 	$categoryView = $storeDetails[0]["categoryView"];
 	$theme = $storeDetails[0]["theme"];
+	$giftCard = $storeDetails[0]["giftCard"];
+	$emailOpt = $storeDetails[0]["emailOpt"];
+	$storeAddress = $storeDetails[0]["noAddress"];
+	$settingsDTime = $storeDetails[0]["enDeveliveryTime"];
+	$settingsDTimeAr = $storeDetails[0]["arDeveliveryTime"];
+	$PaymentAPIKey = $storeDetails[0]["PaymentAPIKey"];
 	$storeSocialMediaLinks = json_decode($storeDetails[0]["socialMedia"], true);
 }else{
 	header ("LOCATION: default.php");die();
 }
 ?>
+
