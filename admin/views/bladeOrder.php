@@ -6,7 +6,7 @@
 	if( $settings = selectDB("s_media","`id` = '3'") ){
 		$enableInvoiceImage = $settings[0]["enableInvoiceImage"];
 	}
-	if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) && $order = selectDB("orders2","`id` = '{$_GET["orderId"]}'") ){
+	if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) && $order = selectDB("orders2","`orderId` = '{$_GET["orderId"]}'") ){
 		$items = json_decode($order[0]["items"],true);
 		$voucher = json_decode($order[0]["voucher"],true);
 		$giftCard = json_decode($order[0]["giftCard"],true);
