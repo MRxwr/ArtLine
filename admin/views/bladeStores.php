@@ -379,27 +379,27 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
 					<div class="col-md-6">
-						<label><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></h6>
 						<textarea id="enAbout" name="enAbout" class="tinymce"></textarea>
 					</div>
 					<div class="col-md-6">
-						<label><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></h6>
 						<textarea id="arAbout" name="arAbout" class="tinymce"></textarea>
 					</div>
 					<div class="col-md-6">
-						<label><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></h6>
 						<textarea id="enPrivacy" name="enPrivacy" class="tinymce"></textarea>
 					</div>
 					<div class="col-md-6">
-						<label><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></h6>
 						<textarea id="arPrivacy" name="arPrivacy" class="tinymce"></textarea>
 					</div>
 					<div class="col-md-6">
-						<label><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></h6>
 						<textarea id="enTerms" name="enTerms" class="tinymce"></textarea>
 					</div>
 					<div class="col-md-6">
-						<label><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></h6>
 						<textarea id="arTerms" name="arTerms" class="tinymce"></textarea>
 					</div>
 				</div>
