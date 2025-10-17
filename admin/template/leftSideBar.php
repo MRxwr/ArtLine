@@ -44,7 +44,7 @@ if( $pages = selectDB("pages","`status` = '0' AND `section` = '0' ORDER BY CASE 
 			
 			$parentActiveClass = ($isParentActive || $hasActiveSub) ? "active" : "";
 			?>
-			<li class="<?php echo $parentActiveClass ?>"
+			<li class="<?php echo $parentActiveClass ?>">
 				<a <?php echo $anchor ?> >
 					<div class="pull-left">
 						<i class="<?php echo $pages[$i]["icon"] ?> mr-20"></i>
