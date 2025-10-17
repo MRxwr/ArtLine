@@ -258,7 +258,7 @@ $totalIntInvoices = 0;
 	?>
 	<tr>
 		<td><?php echo $orderIds[$i]["date"] ?></td>
-		<td class="txt-dark"><a href="?v=Order&orderId=<?php echo $orderIds[$i]["orderId"] ?>" target="_blank"><?php echo $orderIds[$i]["orderId"] ?></a></td>
+		<td class="txt-dark"><a href="?v=Order&orderId=<?php echo $orderIds[$i]["id"] ?>" target="_blank"><?php echo $orderIds[$i]["orderId"] ?></a></td>
 		<td class="txt-dark"><?php echo $info["phone"] ?></td>
 		<td><?php echo $voucher["voucher"] ?></td>
 		<td><?php echo $voucher["percentage"] ?>%</td>
