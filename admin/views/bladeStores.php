@@ -300,33 +300,6 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								</div>
 							</div>
 
-							<!-- system package -->
-							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">Select Package</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" name="package">
-													<?php
-													$packageValue = [0, 1, 2];
-													$packageName = [direction("Free", "مجاني"), direction("Monthly", "شهرية"), direction("Annually", "سنوية")];
-													for ($i = 0; $i < sizeof($packageValue); $i++) {
-														echo "<option value='$packageValue[$i]'>{$packageName[$i]}</option>";
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
 							<div class="col-md-4">
 							<div class="panel panel-default card-view">
 								<div class="panel-heading">
@@ -405,44 +378,29 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				</div>
 				<div class="panel-wrapper collapse in">
 				<div class="panel-body">
-					<!-- Package details -->
-					<div class="col-md-12">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark">Package Details</h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="col-md-6">
-										<label><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></label>
-										<textarea id="enAbout" name="enAbout" class="tinymce"></textarea>
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></label>
-										<textarea id="arAbout" name="arAbout" class="tinymce"></textarea>
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></label>
-										<textarea id="enPrivacy" name="enPrivacy" class="tinymce"></textarea>
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></label>
-										<textarea id="arPrivacy" name="arPrivacy" class="tinymce"></textarea>
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></label>
-										<textarea id="enTerms" name="enTerms" class="tinymce"></textarea>
-									</div>
-									<div class="col-md-6">
-										<label><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></label>
-										<textarea id="arTerms" name="arTerms" class="tinymce"></textarea>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="col-md-6">
+						<label><?php echo direction("About Us (EN)", "من نحن (إنجليزي)") ?></label>
+						<textarea id="enAbout" name="enAbout" class="tinymce"></textarea>
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("About Us (AR)", "من نحن (عربي)") ?></label>
+						<textarea id="arAbout" name="arAbout" class="tinymce"></textarea>
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Privacy Policy (EN)", "سياسة الخصوصية (إنجليزي)") ?></label>
+						<textarea id="enPrivacy" name="enPrivacy" class="tinymce"></textarea>
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Privacy Policy (AR)", "سياسة الخصوصية (عربي)") ?></label>
+						<textarea id="arPrivacy" name="arPrivacy" class="tinymce"></textarea>
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Terms of Service (EN)", "شروط الخدمة (إنجليزي)") ?></label>
+						<textarea id="enTerms" name="enTerms" class="tinymce"></textarea>
+					</div>
+					<div class="col-md-6">
+						<label><?php echo direction("Terms of Service (AR)", "شروط الخدمة (عربي)") ?></label>
+						<textarea id="arTerms" name="arTerms" class="tinymce"></textarea>
 					</div>
 				</div>
 				</div>
