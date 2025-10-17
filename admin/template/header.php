@@ -54,9 +54,10 @@ require ("payment.php");
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 	<!-- Custom CSS -->
-	<link href="dist/css/style.css?<?php echo randLetter() . "=" . time(); ?>" rel="stylesheet" type="text/css">
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<link rel="manifest" href="manifest.json">
+	<?php require ("css/createStyles.php") ?>
 </head>
 
 <body>
