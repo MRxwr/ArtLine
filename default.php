@@ -319,6 +319,69 @@
             height: 100%;
         }
         
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background: var(--light-color);
+        }
+        
+        .contact-info .info-item {
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-info .info-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-info h5 {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .contact-form .form-label {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-form .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .contact-form textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
         .testimonial-text {
             font-size: 1.1rem;
             line-height: 1.8;
@@ -794,8 +857,101 @@
         </div>
     </section>
 
+    <!-- Contact Us Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <p class="section-subtitle">Get In Touch</p>
+                    <h2 class="section-title">Let's Talk About Your Business</h2>
+                    <p class="lead text-muted mb-4">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                    
+                    <div class="contact-info">
+                        <div class="info-item mb-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="info-icon">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <div>
+                                    <h5>Email Us</h5>
+                                    <p class="text-muted mb-0">support@theartline.com</p>
+                                    <p class="text-muted mb-0">sales@theartline.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item mb-4">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="info-icon">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <div>
+                                    <h5>Call Us</h5>
+                                    <p class="text-muted mb-0">+1 (555) 123-4567</p>
+                                    <p class="text-muted mb-0">Mon-Fri: 9:00 AM - 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="info-icon">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <div>
+                                    <h5>Visit Us</h5>
+                                    <p class="text-muted mb-0">123 Business Street</p>
+                                    <p class="text-muted mb-0">New York, NY 10001</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="contact-form-card">
+                        <form id="contactForm" class="contact-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name *</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name *</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                                <div class="col-12">
+                                    <label for="subject" class="form-label">Subject *</label>
+                                    <input type="text" class="form-control" id="subject" name="subject" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="message" class="form-label">Message *</label>
+                                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary-custom text-white w-100 py-3">
+                                        <i class="bi bi-send me-2"></i>Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="formMessage" class="alert mt-3" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
@@ -948,6 +1104,77 @@
         const carousel = new bootstrap.Carousel(document.getElementById('featuresCarousel'), {
             interval: 5000,
             ride: 'carousel'
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                // Show success message
+                formMessage.className = 'alert alert-success mt-3';
+                formMessage.style.display = 'block';
+                formMessage.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+            
+            // For actual implementation, use this:
+            /*
+            fetch('api/contact.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    formMessage.className = 'alert alert-success mt-3';
+                    formMessage.style.display = 'block';
+                    formMessage.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i>' + result.message;
+                    contactForm.reset();
+                } else {
+                    formMessage.className = 'alert alert-danger mt-3';
+                    formMessage.style.display = 'block';
+                    formMessage.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>' + result.message;
+                }
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            })
+            .catch(error => {
+                formMessage.className = 'alert alert-danger mt-3';
+                formMessage.style.display = 'block';
+                formMessage.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>An error occurred. Please try again.';
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            });
+            */
         });
     </script>
 </body>
