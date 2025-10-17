@@ -32,6 +32,7 @@ if( isset($_POST["title"]) ){
 	$_POST["arPrivacy"] = urlencode($_POST["arPrivacy"]);
 	$_POST["enTerms"] = urlencode($_POST["enTerms"]);
 	$_POST["arTerms"] = urlencode($_POST["arTerms"]);
+	$_POST["socialMedia"] = json_encode($_POST["socialMedia"]);
 
 	if ( $id == 0 ){
 		if( insertDB("stores", $_POST) ){
@@ -230,6 +231,58 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<div class="col-md-4">
 						<h6 class="panel-title txt-dark"><?php echo direction("Amount", "المبلغ") ?></h6>
 						<input class="form-control" type="float" name="amount" placeholder="25.0">
+					</div>
+				</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- soccial media accounts section -->
+			<div class="col-md-12">
+				<div class="panel panel-default card-view">
+				<div class="panel-heading">
+				<div class="pull-left">
+					<h6 class="panel-title txt-dark"><?php echo direction("Social Media Accounts", "حسابات التواصل الاجتماعي") ?></h6>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+				<div class="panel-wrapper collapse in">
+				<div class="panel-body">
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Phone Number", "رقم الهاتف") ?></h6>
+						<input class="form-control" type="number" step="1" minlength="11" name="socialMedia[phone]" placeholder="965xxxxxxxx">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Email", "البريد الإلكتروني") ?></h6>
+						<input class="form-control" type="email" name="socialMedia[email]" placeholder="you@example.com">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("whatsapp", "واتساب") ?></h6>
+						<input class="form-control" type="number" step="1" minlength="11" name="socialMedia[whatsapp]" placeholder="965xxxxxxxx">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("instagram", "إنستغرام") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[instagram]" placeholder="https://instagram.com/yourpage">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("snapchat", "سناب شات") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[snapchat]" placeholder="https://snapchat.com/yourpage">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("tiktok", "تيك توك") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[tiktok]" placeholder="https://tiktok.com/yourpage">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("twitter", "تويتر") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[twitter]" placeholder="https://twitter.com/yourpage">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("facebook", "فيسبوك") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[facebook]" placeholder="https://facebook.com/yourpage">
+					</div>
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("google maps", "خرائط جوجل") ?></h6>
+						<input class="form-control" type="text" name="socialMedia[location]" placeholder="https://google.com/maps/yourlocation">
 					</div>
 				</div>
 				</div>
@@ -517,6 +570,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="arPrivacy<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arPrivacy"]) ?></label>
 					<label id="enTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["enTerms"]) ?></label>
 					<label id="arTerms<?php echo $stores[$i]["id"] ?>"><?php echo urldecode($stores[$i]["arTerms"]) ?></label>
+					<label id="socialMedia<?php echo $stores[$i]["id"] ?>"><?php echo json_decode($stores[$i]["socialMedia"], true) ?></label>
 				</div>
 				<?php
 			}
@@ -551,6 +605,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var arPrivacy = $("#arPrivacy"+id).html();
 		var enTerms = $("#enTerms"+id).html();
 		var arTerms = $("#arTerms"+id).html();
+		var socialMedia = $("#socialMedia"+id).html();
 
 		// Payment
 		var package = $("#package"+id).html();
@@ -583,6 +638,19 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=language]").val(language);
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
+		// Social Media
+		if (socialMedia) {
+			try {
+				var socialMediaData = JSON.parse(socialMedia);
+				for (var key in socialMediaData) {
+					if (socialMediaData.hasOwnProperty(key)) {
+						$("input[name='socialMedia[" + key + "]']").val(socialMediaData[key]);
+					}
+				}
+			} catch (e) {
+				console.log("Social media data is not in valid JSON format");
+			}
+		}
 		
 		// Payment
 		$("select[name=package]").val(package);
