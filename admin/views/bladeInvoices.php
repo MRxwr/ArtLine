@@ -123,6 +123,7 @@ $(document).ready(function(){
       'columns': [
          { data: 'date' },
          { data: 'orderId' },
+         { data: 'store' },
          { data: 'phone' },
          { data: 'price' },
          { data: 'method' },
