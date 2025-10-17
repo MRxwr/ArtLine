@@ -3,9 +3,7 @@
 		$defaultCurr = $settings[0]["currency"];
 	}
 	$enableInvoiceImage = 0;
-	if( $settings = selectDB("s_media","`id` = '3'") ){
-		$enableInvoiceImage = $settings[0]["enableInvoiceImage"];
-	}
+	
 	if( isset($_GET["orderId"]) && !empty($_GET["orderId"]) && $order = selectDB("orders2","`id` = '{$_GET["orderId"]}'") ){
 		$items = json_decode($order[0]["items"],true);
 		$voucher = json_decode($order[0]["voucher"],true);
@@ -28,6 +26,9 @@
 			$discountAmount = $voucher["discount"] . $defaultCurr;
 		}else{
 			$discountAmount = "";
+		}
+		if( $storeDetails = selectDB("stores","`id` = '{$order[0]["storeId"]}'") ){
+			$enableInvoiceImage = $storeDetails[0]["enableInvoiceImage"];
 		}
 	}else{
 		header("LOCATION: product-orders.php");
