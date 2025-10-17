@@ -92,6 +92,14 @@ function getCategories(){
 	return $output;
 }
 
+function getStoreNameById($id){
+	if( $store = selectDB("stores","`id` = '{$id}'") ){
+		return $store[0]["title"];
+	}else{
+		return "";
+	}
+}
+
 //items
 function updateItemQuantity($data){
 	GLOBAL $dbconnect;

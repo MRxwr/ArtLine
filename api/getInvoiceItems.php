@@ -47,12 +47,12 @@ if( $orders = queryDB("SELECT * FROM orders2 WHERE `id` != '0' {$searchQuery}  {
 	}
 	for( $i = 0; $i < sizeof($orders); $i++ ){
 		$price = numTo3Float($orders[$i]["price"]+getExtrasOrder($orders[$i]["id"]));
-		$date=timeZoneConverter($orders[$i]["date"]);
-		$orderId=$orders[$i]["id"];
+		$date = timeZoneConverter($orders[$i]["date"]);
+		$orderId = $orders[$i]["id"];
 		$phone = json_decode($orders[$i]["info"],true)["phone"];
 		$method = isset($paymentMethodsMap[$orders[$i]["paymentMethod"]]) ? $paymentMethodsMap[$orders[$i]["paymentMethod"]] : "";
 		$voucher = json_decode($orders[$i]["voucher"],true);
-		$status="<div class='bg-{$statusBgColor[$orders[$i]["status"]]}' style='font-weight:700; color:black; padding:20px 15px;'>{$statusText[$orders[$i]["status"]]}</div>";
+		$status = "<div class='bg-{$statusBgColor[$orders[$i]["status"]]}' style='font-weight:700; color:black; padding:20px 15px;'>{$statusText[$orders[$i]["status"]]}</div>";
 		$_GET["v"] = ( isset($_GET["type"]) && !empty($_GET["type"]) ) ? "{$_GET["v"]}&type={$_GET["type"]}": "{$_GET["v"]}";
 		$action="<div>
 				<a href='?v=Order&orderId={$orders[$i]["id"]}' class='btn btn-default btn-circle' title='".direction("View","عرض")."' data-toggle='tooltip' target='_blank'><i class='fa fa-eye' style='font-size: 27px;margin-top: 5px;'></i></a>
@@ -67,24 +67,26 @@ if( $orders = queryDB("SELECT * FROM orders2 WHERE `id` != '0' {$searchQuery}  {
 				</button>
 			  </div>";
 		$data[] = array( 
-              "date"=>$date,
-              "orderId"=>$orderId,
-              "phone"=>$phone,
-              "method"=>$method,
-              "price"=>$price.'KD',
-              "status"=>$status,
-              "action"=>$action
+              "date" => $date,
+              "orderId" => $orderId,
+              "store" => getStoreNameById($orders[$i]["storeId"]),
+              "phone" => $phone,
+              "method" => $method,
+              "price" => $price.'KD',
+              "status" => $status,
+              "action" => $action
            );	  
 	}
 }else{
 	$data[] = array(
-		"date"=>"",
-		"orderId"=>"",
-		"phone"=>"",
-		"method"=>"",
-		"price"=>"",
-		"status"=>"",
-		"action"=>""
+		"date" => "",
+		"orderId" => "",
+		"store" => "",
+		"phone" => "",
+		"method" => "",
+		"price" => "",
+		"status" => "",
+		"action" => ""
 	);
 }
 $response = array(

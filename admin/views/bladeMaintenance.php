@@ -99,6 +99,8 @@ $arReturn = $options[2]["arReturn"];
 $userDiscount = $options[3]["userDiscount"];
 $enableInvoiceImage = $options[3]["enableInvoiceImage"];
 
+$maintenance = selectDB("maintenance","`id` = '1'"); 
+$mainSwitch = $maintenance[0]["status"];
 $settings = selectDB("settings","`id` = '1'"); 
 ?>
 <div class="row" style="padding:16px">
