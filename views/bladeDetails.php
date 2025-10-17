@@ -2,9 +2,6 @@
 date_default_timezone_set('Asia/Riyadh');
 $check = ["'",'"',")","(",";","?",">","<","~","!","#","$","%","^","&","*","-","_","=","+","/","|",":"];
 if( $order = selectDBNew("orders2",[$_GET["orderId"]],"`id` = ?","") ){
-	if( $order[0]["status"] == '0' ){
-		updateDB("orders2",["status"=>"1"],"`id` = '{$_GET["orderId"]}'");
-	}
 }else{
 	echo "<script>window.location='?v=Home&error=1'</script>";die();
 }
