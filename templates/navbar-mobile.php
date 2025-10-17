@@ -66,16 +66,19 @@
 						<li>
 						<ul class="social-icons pl-0 mb-0 pr-0" style="margin-top: 10px;text-align: center;">
 						<?php
-						if( $socialMedia = selectDB("s_media","`id` = '1'") ){
-							$smIndex = ["whatsapp","snapchat","instagram","location","email"];
-							$smIcon = ["fa fa-whatsapp","fa fa-snapchat","fa fa-instagram","fa fa-globe","fa fa-envelope"];
-							$smURL = ["https://wa.me/","https://www.snapchat.com/add/","https://www.instagram.com/",$socialMedia[0]["location"],"mailto:"];
+						if( isset($storeSocialMediaLinks) && !empty($storeSocialMediaLinks) && is_array($storeSocialMediaLinks) ){
+							$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
+							$smIcon = ["fa fa-phone","fa fa-whatsapp","fa fa-envelope","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-twitter","fa fa-facebook","fa fa-map-marker"];
+							$smURL = ["tel:","https://wa.me/","mailto:","https://www.snapchat.com/add/","https://www.tiktok.com/@","https://www.instagram.com/","https://twitter.com/","https://facebook.com/",""]; 
+							
 							for( $i = 0; $i < sizeof($smIndex); $i++ ){
-								if( !empty($socialMedia[0][$smIndex[$i]]) && $socialMedia[0][$smIndex[$i]] != "#" ){
+								if( isset($storeSocialMediaLinks[$smIndex[$i]]) && !empty($storeSocialMediaLinks[$smIndex[$i]]) && $storeSocialMediaLinks[$smIndex[$i]] != "#" ){
+									// For location, use the value directly; for others, concatenate with URL
+									$link = ($smIndex[$i] == "location") ? $storeSocialMediaLinks[$smIndex[$i]] : $smURL[$i] . $storeSocialMediaLinks[$smIndex[$i]];
 									echo "
-									<li style='padding: 10px;'>
-										<a style='font-size: 20px;height: 36px;width: 36px;' href='{$smURL[$i]}{$socialMedia[0][$smIndex[$i]]}' aria-label='{$smIndex[$i]}'>
-											<span class='{$smIcon[$i]}' style='height: 15px; background: {$websiteColor}'></span>
+									<li style='padding: 5px;'>
+										<a style='font-size: 18px;height: 36px;width: 36px;' href='{$link}' aria-label='{$smIndex[$i]}' target='_blank'>
+											<span class='{$smIcon[$i]}' style='background: {$websiteColor}'></span>
 										</a>
 									</li>";
 								}
