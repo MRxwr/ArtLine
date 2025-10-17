@@ -1,20 +1,7 @@
 <?php
 if( isset($_GET["error"]) && $_GET["error"] == "3" ){
 	$gatewayPayload = json_decode( base64_decode( urldecode( $_GET["keys"] ) ), true );
-	var_dump($gatewayPayload);
-	// orderId should = c / paymentId / requested_order_id / tap_id
-	if( isset($gatewayPayload["c"]) ){
-		$orderId = $gatewayPayload["c"];
-	}elseif( isset($gatewayPayload["paymentId"]) ){
-		$orderId = $gatewayPayload["paymentId"];
-	}elseif( isset($gatewayPayload["p"]) ){
-		$orderId = $gatewayPayload["p"];
-	}elseif( isset($gatewayPayload["requested_order_id"]) ){
-		$orderId = $gatewayPayload["requested_order_id"];
-	}elseif( isset($gatewayPayload["tap_id"]) ){
-		$orderId = $gatewayPayload["tap_id"];
-	}
-	updateDB("orders2",["status"=>"2","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$orderId}'");
+	updateDB("orders2",["status"=>"2","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$gatewayPayload["gatewayId"]}'");
 }
 ?>
 <div class="sec-pad grey-bg">
