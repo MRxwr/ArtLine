@@ -35,7 +35,9 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
             <div class="col-12">
                 <ul class="social-icons pl-0 mb-0 pr-0" style="margin-top: 0rem!important;">
                     <!-- $socialMedia loop through it and get all available social media -->
+                     
                     <?php
+                    var_dump($socialMedia);
 					// Debug: Check if $socialMedia exists and what it contains
 					if( !isset($socialMedia) ){
 						// Try to load it directly if not set
