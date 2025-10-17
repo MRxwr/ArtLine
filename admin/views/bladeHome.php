@@ -50,11 +50,12 @@
 	padding: 0px 15px 0;
 }
 .statsHeading{
-	background-color: #f2f2f2;
-	font-size:22px;
-	font-weight:700;
-	border-radius: 10px;
+	background-color: #c1bfb4;
+    font-size: 22px;
+    font-weight: 700;
+    border-radius: 10px;
     margin-bottom: 10px;
+    color: #4e4933;
 }
 </style>
 
