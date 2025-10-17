@@ -191,6 +191,12 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								<input class="form-control" type="text" name="phone" placeholder="+1234567890">
 							</div>
 
+							<!-- payment API Key -->
+							<div class="col-md-4">
+								<h6 class="panel-title txt-dark"><?php echo direction("Payment API Key","مفتاح واجهة برمجة التطبيقات للدفع") ?></h6>
+								<input class="form-control" type="text" name="paymentAPIKey" placeholder="sk_test_4eC39HqLyjWDarjtT1zdp7dc">
+							</div>
+
 							<div class="col-md-4">
 								<h6 class="panel-title txt-dark">Whatsapp Notification <?php echo direction("Turn On/Off","تشغيل/إيقاف") ?></h6>
 								<select class="form-control" name="whatsappNoti[status]" >
