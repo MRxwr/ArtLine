@@ -54,4 +54,7 @@ a.toggle-left-nav-btn i, a#toggle_mobile_nav i, a#toggle_mobile_search i {
     top: 4px;
     border-radius: 100px;
 }
+.txt-dark {
+    color: #4e4933 !important;
+}
 </style>
