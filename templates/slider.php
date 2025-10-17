@@ -37,7 +37,6 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
                     <!-- $socialMedia loop through it and get all available social media -->
                      
                     <?php
-                    var_dump($storeSocialMediaLinks);
 					if( isset($storeSocialMediaLinks) && !empty($storeSocialMediaLinks) && is_array($storeSocialMediaLinks) ){
 						$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
 						$smIcon = ["fa fa-phone","fa fa-whatsapp","fa fa-envelope","fa fa-snapchat","fa fa-tiktok","fa fa-instagram","fa fa-twitter","fa fa-facebook","fa fa-map-marker"];
