@@ -343,7 +343,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				<div class="panel-body">
 					<!-- Package details -->
 					<div class="col-md-4">
-						<label class="panel-title txt-dark"><?php echo direction("Select Package Type", "اختر نوع الباقة") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Select Package Type", "اختر نوع الباقة") ?></h6>
 						<select class="form-control" name="package">
 							<?php
 							$packageValue = [0, 1, 2];
@@ -355,11 +355,11 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 						</select>
 					</div>
 					<div class="col-md-4">
-						<label class="panel-title txt-dark"><?php echo direction("Start Date", "تاريخ البدء") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Start Date", "تاريخ البدء") ?></h6>
 						<input class="form-control" type="date" name="startDate">
 					</div>
 					<div class="col-md-4">
-						<label><?php echo direction("Amount", "المبلغ") ?></label>
+						<h6 class="panel-title txt-dark"><?php echo direction("Amount", "المبلغ") ?></h6>
 						<input class="form-control" type="float" name="amount" placeholder="25.0">
 					</div>
 				</div>
