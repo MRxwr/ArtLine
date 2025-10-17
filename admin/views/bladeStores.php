@@ -191,7 +191,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 								<input class="form-control" type="text" name="phone" placeholder="+1234567890">
 							</div>
 
-							<!-- payment API Key -->
+							<!-- payment API Key --> 
 							<div class="col-md-4">
 								<h6 class="panel-title txt-dark"><?php echo direction("Payment API Key","مفتاح واجهة برمجة التطبيقات للدفع") ?></h6>
 								<input class="form-control" type="text" name="paymentAPIKey" placeholder="payment api key">
