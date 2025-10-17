@@ -7,7 +7,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 // Check if request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+    echo json_encode(['success' => false, 'message' => 'طريقة الطلب غير مسموحة']);
     exit;
 }
 
@@ -21,13 +21,20 @@ $errors = [];
 
 foreach ($required as $field) {
     if (empty($data[$field])) {
-        $errors[] = ucfirst($field) . ' is required';
+        $fieldNames = [
+            'firstName' => 'الاسم الأول',
+            'lastName' => 'اسم العائلة',
+            'email' => 'البريد الإلكتروني',
+            'subject' => 'الموضوع',
+            'message' => 'الرسالة'
+        ];
+        $errors[] = $fieldNames[$field] . ' مطلوب';
     }
 }
 
 // Validate email
 if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors[] = 'Invalid email address';
+    $errors[] = 'البريد الإلكتروني غير صحيح';
 }
 
 if (!empty($errors)) {
@@ -40,29 +47,29 @@ if (!empty($errors)) {
 $firstName = htmlspecialchars(trim($data['firstName']));
 $lastName = htmlspecialchars(trim($data['lastName']));
 $email = filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL);
-$phone = !empty($data['phone']) ? htmlspecialchars(trim($data['phone'])) : 'N/A';
+$phone = !empty($data['phone']) ? htmlspecialchars(trim($data['phone'])) : 'غير محدد';
 $subject = htmlspecialchars(trim($data['subject']));
 $message = htmlspecialchars(trim($data['message']));
 
 // Prepare email
-$to = 'support@theartline.com'; // Change this to your email
-$emailSubject = 'Contact Form: ' . $subject;
+$to = 'support@weedesign.com'; // غيري هذا لبريدك الإلكتروني
+$emailSubject = 'رسالة من نموذج التواصل: ' . $subject;
 $emailBody = "
-New Contact Form Submission
+رسالة جديدة من نموذج التواصل - Wee Design
 
-Name: $firstName $lastName
-Email: $email
-Phone: $phone
-Subject: $subject
+الاسم: $firstName $lastName
+البريد الإلكتروني: $email
+رقم الهاتف: $phone
+الموضوع: $subject
 
-Message:
+الرسالة:
 $message
 
 ---
-Sent from The Art Line Contact Form
+أرسلت من نموذج التواصل في موقع Wee Design
 ";
 
-$headers = "From: noreply@theartline.com\r\n";
+$headers = "From: noreply@weedesign.com\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
@@ -71,17 +78,17 @@ $mailSent = mail($to, $emailSubject, $emailBody, $headers);
 
 if ($mailSent) {
     // Log to database (optional)
-    // You can add database logging here if needed
+    // يمكنك إضافة تسجيل في قاعدة البيانات هنا إذا أردت
     
     echo json_encode([
         'success' => true,
-        'message' => 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.'
+        'message' => 'شكراً لك! تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.'
     ]);
 } else {
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Failed to send message. Please try again later.'
+        'message' => 'فشل إرسال الرسالة. يرجى المحاولة مرة أخرى لاحقاً.'
     ]);
 }
 ?>
