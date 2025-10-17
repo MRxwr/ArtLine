@@ -86,218 +86,99 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					</div>
 					<div class="panel-wrapper collapse in">
 						<div class="panel-body">
-							<!-- system Title -->
-
+							<!-- system url code -->
 							<div class="col-md-6">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Store URL Title", "عنوان المتجر") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="storeCode" placeholder="artline">
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Store URL Title", "عنوان المتجر") ?></h6>
+								<input class="form-control" type="text" name="storeCode" placeholder="artline">
 							</div>
 
 							<!-- maintenance mode -->
 							<div class="col-md-6">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Maintenance Mode", "وضع الصيانة") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" type="text" name="maintenanceMode">
-													<?php
-													$maintenanceModesValue = [1,2,3];
-													$maintenanceModesText = [direction("Maintenance Mode", "وضع الصيانة"), direction("Busy Mode", "وضع مشغول"), direction("OFF", "إيقاف")];
-													for ($i = 0; $i < sizeof($maintenanceModesValue); $i++) {
-														echo "<option value='{$maintenanceModesValue[$i]}'>{$maintenanceModesText[$i]}</option>";
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Maintenance Mode", "وضع الصيانة") ?></h6>
+								<select class="form-control" type="text" name="maintenanceMode">
+									<?php
+									$maintenanceModesValue = [1,2,3];
+									$maintenanceModesText = [direction("Maintenance Mode", "وضع الصيانة"), direction("Busy Mode", "وضع مشغول"), direction("OFF", "إيقاف")];
+									for ($i = 0; $i < sizeof($maintenanceModesValue); $i++) {
+										echo "<option value='{$maintenanceModesValue[$i]}'>{$maintenanceModesText[$i]}</option>";
+									}
+									?>
+								</select>
 							</div>
 
-
+							<!-- system Title -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">Title</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="title" placeholder="Create-Store">
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Title", "العنوان") ?></h6>
+								<input class="form-control" type="text" name="title" placeholder="Create-Store">
 							</div>
+
 							<!-- default international shipping -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("International Shipping", "التوصيل الدولي") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" type="text" name="shippingMethod">
-													<?php
-													$shippingMethodValues = [0, 1, 2, 3];
-													$shippingMethodText = [direction("None", "لا يوجد"), direction("DHL", "دي اتش ال"), direction("Aramex", "أراميكس"), direction("AllowMENA","الومينا")];
-													for ($i = 0; $i < sizeof($shippingMethodValues); $i++) {
-														echo "<option value='{$shippingMethodValues[$i]}'>{$shippingMethodText[$i]}</option>";
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("International Shipping", "التوصيل الدولي") ?></h6>
+								<select class="form-control" type="text" name="shippingMethod">
+									<?php
+									$shippingMethodValues = [0, 1, 2, 3];
+									$shippingMethodText = [direction("None", "لا يوجد"), direction("DHL", "دي اتش ال"), direction("Aramex", "أراميكس"), direction("AllowMENA","الومينا")];
+									for ($i = 0; $i < sizeof($shippingMethodValues); $i++) {
+										echo "<option value='{$shippingMethodValues[$i]}'>{$shippingMethodText[$i]}</option>";
+									}
+									?>
+								</select>
 							</div>
 
 							<!-- default Language -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Language", "اللغة") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" type="text" name="language">
-													<?php
-													$languageValue = [0, 1];
-													$languages = [direction("English", "الإنجليزية"), direction("Arabic", "العربية")];
-													for ($i = 0; $i < sizeof($languageValue); $i++) {
-														echo "<option value='{$languageValue[$i]}'>{$languages[$i]}</option>";
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Language", "اللغة") ?></h6>
+								<select class="form-control" type="text" name="language">
+									<?php
+									$languageValue = [0, 1];
+									$languages = [direction("English", "الإنجليزية"), direction("Arabic", "العربية")];
+									for ($i = 0; $i < sizeof($languageValue); $i++) {
+										echo "<option value='{$languageValue[$i]}'>{$languages[$i]}</option>";
+									}
+									?>
+								</select>
 							</div>
 
 							<!-- default country -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Country", "الدولة") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" type="text" name="country">
-													<option value=""><?php echo direction("Select Country","إختر الدولة") ?></option>
-													<?php
-													if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") ){
-														for ($i = 0; $i < sizeof($listOfCountries); $i++) {
-															echo "<option value='{$listOfCountries[$i]["CountryCode"]}'>{$listOfCountries[$i]["CountryName"]}</option>";
-														}
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Country", "الدولة") ?></h6>
+								<select class="form-control" type="text" name="country">
+									<option value=""><?php echo direction("Select Country","إختر الدولة") ?></option>
+									<?php
+									if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") ){
+										for ($i = 0; $i < sizeof($listOfCountries); $i++) {
+											echo "<option value='{$listOfCountries[$i]["CountryCode"]}'>{$listOfCountries[$i]["CountryName"]}</option>";
+										}
+									}
+									?>
+								</select>
 							</div>
-
-
 
 							<!-- default currency -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Default Currency", "العملة الأساسية"); ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<select class="form-control" name="currency">
-													<?php
-													if ($currency = selectDB("currency", "`status` = '0' AND `hidden` = '1'")) {
-														foreach ($currency as $key) {
-															echo "<option value='{$key["short"]}'>{$key["short"]}</option>";
-														}
-													}
-													?>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Default Currency", "العملة الأساسية"); ?></h6>
+								<select class="form-control" name="currency">
+									<?php
+									if ($currency = selectDB("currency", "`status` = '0' AND `hidden` = '1'")) {
+										foreach ($currency as $key) {
+											echo "<option value='{$key["short"]}'>{$key["short"]}</option>";
+										}
+									}
+									?>
+								</select>
 							</div>
 
 							<!-- system main email -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark">Email</h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="email" placeholder="info@store.com">
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Email","البريد الإلكتروني") ?></h6>
+								<input class="form-control" type="text" name="email" placeholder="info@store.com">
 							</div>
 
 							<!-- Phone -->
 							<div class="col-md-4">
-								<div class="panel panel-default card-view">
-									<div class="panel-heading">
-										<div class="pull-left">
-											<h6 class="panel-title txt-dark"><?php echo direction("Phone","رقم الهاتف") ?></h6>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-									<div class="panel-wrapper collapse in">
-										<div class="panel-body">
-											<div class="text">
-												<input class="form-control" type="text" name="phone" placeholder="+1234567890">
-											</div>
-										</div>
-									</div>
-								</div>
+								<h6 class="panel-title txt-dark"><?php echo direction("Phone","رقم الهاتف") ?></h6>
+								<input class="form-control" type="text" name="phone" placeholder="+1234567890">
 							</div>
 
 							<div class="col-md-4">
@@ -450,175 +331,84 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 
 					<!-- select theme -->
 					<div class="col-md-3">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Theme", "التصميم") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" type="text" name="theme">
-											<?php
-											$themeValue = [0, 1];
-											$themes = [direction("Categories", "أقسام"), direction("Products", "منتجات")];
-											for ($i = 0; $i < sizeof($themeValue); $i++) {
-												echo "<option value='{$themeValue[$i]}'>{$themes[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Theme", "التصميم") ?></h6>
+						<select class="form-control" type="text" name="theme">
+							<?php
+							$themeValue = [0, 1];
+							$themes = [direction("Categories", "أقسام"), direction("Products", "منتجات")];
+							for ($i = 0; $i < sizeof($themeValue); $i++) {
+								echo "<option value='{$themeValue[$i]}'>{$themes[$i]}</option>";
+							}
+							?>
+						</select>
 					</div>
 
 					<!-- category View -->
 					<div class="col-md-3">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Category View", "عرض القسم") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" type="text" name="categoryView">
-											<?php
-											$categoryViewValue = [0, 1];
-											$categoryShapes = [direction("Square", "مربع"), direction("Portrait", "مستطيل")];
-											for ($i = 0; $i < sizeof($categoryViewValue); $i++) {
-												echo "<option value='{$categoryViewValue[$i]}'>{$categoryShapes[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Category View", "عرض القسم") ?></h6>
+						<select class="form-control" type="text" name="categoryView">
+							<?php
+							$categoryViewValue = [0, 1];
+							$categoryShapes = [direction("Square", "مربع"), direction("Portrait", "مستطيل")];
+							for ($i = 0; $i < sizeof($categoryViewValue); $i++) {
+								echo "<option value='{$categoryViewValue[$i]}'>{$categoryShapes[$i]}</option>";
+							}
+							?>
+						</select>
 					</div>
 
 					<!-- Product View -->
 					<div class="col-md-3">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Product View", "عرض المنتج") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" type="text" name="productView">
-											<?php
-											$productViewValue = [0, 1];
-											$productShapes = [direction("Square", "مربع"), direction("Portrait", "مستطيل")];
-											for ($i = 0; $i < sizeof($productViewValue); $i++) {
-												echo "<option value='{$productViewValue[$i]}'>{$productShapes[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Product View", "عرض المنتج") ?></h6>
+						<select class="form-control" type="text" name="productView">
+							<?php
+							$productViewValue = [0, 1];
+							$productShapes = [direction("Square", "مربع"), direction("Portrait", "مستطيل")];
+							for ($i = 0; $i < sizeof($productViewValue); $i++) {
+								echo "<option value='{$productViewValue[$i]}'>{$productShapes[$i]}</option>";
+							}
+							?>
+						</select>
 					</div>
 
 					<!-- show or hide logo -->
 					<div class="col-md-3">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Show Category Title", "أظهر عنوان القسم") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" type="text" name="showCategoryTitle">
-											<?php
-											$showCategoryTitleValue = [0, 1];
-											$showCategoryTitleText = [direction("Show", "أظهر"), direction("Hide", "أخفي") ];
-											for ($i = 0; $i < sizeof($showCategoryTitleValue); $i++) {
-												echo "<option value='{$showCategoryTitleValue[$i]}'>{$showCategoryTitleText[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Show Category Title", "أظهر عنوان القسم") ?></h6>
+						<select class="form-control" type="text" name="showCategoryTitle">
+							<?php
+							$showCategoryTitleValue = [0, 1];
+							$showCategoryTitleText = [direction("Show", "أظهر"), direction("Hide", "أخفي") ];
+							for ($i = 0; $i < sizeof($showCategoryTitleValue); $i++) {
+								echo "<option value='{$showCategoryTitleValue[$i]}'>{$showCategoryTitleText[$i]}</option>";
+							}
+							?>
+						</select>
 					</div>
 					
 					<!-- show or hide logo -->
 					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Show Logo", "أظهر اللوجو") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<select class="form-control" type="text" name="showLogo">
-											<?php
-											$showLogoValue = [0, 1];
-											$showLogoText = [direction("Show", "أظهر"), direction("Hide", "أخفي")];
-											for ($i = 0; $i < sizeof($showLogoValue); $i++) {
-												echo "<option value='{$showLogoValue[$i]}'>{$showLogoText[$i]}</option>";
-											}
-											?>
-										</select>
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Show Logo", "أظهر اللوجو") ?></h6>
+						<select class="form-control" type="text" name="showLogo">
+							<?php
+							$showLogoValue = [0, 1];
+							$showLogoText = [direction("Show", "أظهر"), direction("Hide", "أخفي")];
+							for ($i = 0; $i < sizeof($showLogoValue); $i++) {
+								echo "<option value='{$showLogoValue[$i]}'>{$showLogoText[$i]}</option>";
+							}
+							?>
+						</select>
 					</div>
 
 					<!-- Change websie main color -->
 					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Website Color", "لون الموقع") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<input class="form-control" type="color" name="websiteColor" value="#000000">
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Website Color", "لون الموقع") ?></h6>
+						<input class="form-control" type="color" name="websiteColor" value="#000000">
 					</div>
 
 					<!-- Change header button colot color -->
 					<div class="col-md-4">
-						<div class="panel panel-default card-view">
-							<div class="panel-heading">
-								<div class="pull-left">
-									<h6 class="panel-title txt-dark"><?php echo direction("Header Button Color", "لون الإيقونه") ?></h6>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="panel-wrapper collapse in">
-								<div class="panel-body">
-									<div class="text">
-										<input class="form-control" type="color" name="headerButton" value="#000000">
-									</div>
-								</div>
-							</div>
-						</div>
+						<h6 class="panel-title txt-dark"><?php echo direction("Header Button Color", "لون الإيقونه") ?></h6>
+						<input class="form-control" type="color" name="headerButton" value="#000000">
 					</div>
 				</div>
 				</div>
