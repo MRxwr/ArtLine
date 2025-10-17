@@ -1,7 +1,11 @@
 <?php
 if( isset($_GET["error"]) && $_GET["error"] == "3" ){
 	$gatewayPayload = json_decode( base64_decode( urldecode( $_GET["keys"] ) ), true );
-	updateDB("orders2",["status"=>"5","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$gatewayPayload["gatewayId"]}'");
+	if( $orderDetails = selectDBNew("orders2",[$gatewayPayload["gatewayId"]],"`gatewayId` = ?","") ){
+		if( $orderDetails[0]["status"] == "0" ){
+			updateDB("orders2",["status"=>"5","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$gatewayPayload["gatewayId"]}'");
+		}
+	}
 }
 ?>
 <div class="sec-pad grey-bg">
