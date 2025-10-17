@@ -157,12 +157,11 @@ $info = array(
 							<span style="color:red"><?php echo direction($settingsDTime,$settingsDTimeAr);  ?></span>
 
 							<?php
-							if( $_POST["address"]["country"] == "KW" && $express = selectDB("settings","`id` = '1'") ){
-								$express = json_decode(stripslashes($express[0]["expressDelivery"]),true);
+							if( $_POST["address"]["country"] == "KW" && !empty($expressDelivery) ){
 								$expressOption = direction("Experss Delivery","توصيل سريع");
-								$expressPeriod = direction($express["English"],$express["arabic"]);
-								$expressPrice = numTo3Float(priceCurr($express["expressDeliveryCharge"])) . selectedCurr();
-								if( isset($expressDeliveryStatus) && $expressDeliveryStatus == 1 ){
+								$expressPeriod = direction($expressDelivery["englishNote"],$expressDelivery["arabicNote"]);
+								$expressPrice = numTo3Float(priceCurr($expressDelivery["charge"])) . selectedCurr();
+								if( isset($expressDelivery["status"]) && $expressDelivery["status"] == 1 ){
 									echo "<div class='mt-3'><input name='express' type='checkbox' class=''> <span>{$expressOption} {$expressPeriod} - {$expressPrice}</span></div>";
 								}else{
 									$expressPrice = 0;

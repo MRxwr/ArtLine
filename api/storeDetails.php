@@ -29,7 +29,7 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 	$PaymentAPIKey = $storeDetails[0]["PaymentAPIKey"];
 	$inStore = $storeDetails[0]["inStore"];
 	$noAddressDelivery = $storeDetails[0]["noAddressDelivery"];
-	$expressDelivery = $storeDetails[0]["expressDelivery"];
+	$expressDelivery = json_decode($storeDetails[0]["expressDelivery"], true);
 	$storeSocialMediaLinks = json_decode($storeDetails[0]["socialMedia"], true);
 }else{
 	header ("LOCATION: default.php");die();
