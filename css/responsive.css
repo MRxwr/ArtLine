@@ -131,12 +131,7 @@
     padding: 0.7rem 15px;
   }
   ul.social-icons {
-    margin-top: 10px !important;
-  }
-  .social-icons li {
-    flex: 0 0 calc(33.33% - 10px) !important;
-    max-width: calc(33.33% - 10px) !important;
-    margin: 5px !important;
+    margin-top: 10px;
   }
   .search-box .form-control {
     width: 300px;
@@ -207,12 +202,10 @@
     height: 36vh;
   }
   ul.social-icons {
-    margin-top: 10px !important;
+    margin-top: 10px;
   }
   .social-icons li {
-    flex: 0 0 calc(33.33% - 10px) !important;
-    max-width: calc(33.33% - 10px) !important;
-    margin: 5px !important;
+    margin: 0px 5px;
   }
   .social-icons li a {
     font-size: 18px;
@@ -519,12 +512,10 @@
     margin-right: 5px;
   }
   ul.social-icons {
-    margin-top: 0px !important;
+    margin-top: 0px;
   }
   .social-icons li {
-    flex: 0 0 calc(33.33% - 10px) !important;
-    max-width: calc(33.33% - 10px) !important;
-    margin: 5px !important;
+    margin: 0px 2px;
   }
   .social-icons li a {
     font-size: 15px;
