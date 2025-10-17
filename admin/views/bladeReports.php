@@ -116,9 +116,7 @@ if ( isset($_POST["endDate"]) ){
 			if ( !empty($_POST["storeId"]) ){
 				$where .= " AND `storeId` = '{$_POST["storeId"]}'";
 			}
-			if ( $_POST["status"] != "" ){
-				$where .= " AND ( `status` > '0' AND `status` < '5' )";
-			}
+			$where .= " AND ( `status` > '0' AND `status` < '5' )";
 	if( $orderIds = selectDB("orders2",$where . " GROUP BY `orderId`") ){
 	}else{
 		$orderIds = array();
