@@ -753,6 +753,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="noAddressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddressDelivery"] ?></label>
 					<label id="expressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["expressDelivery"]) ?></label>
 					<label id="emailOpt<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["emailOpt"] ?></label>
+					<label id="enDeliveryTime<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["enDeliveryTime"]) ?></label>
+					<label id="arDeliveryTime<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["arDeliveryTime"]) ?></label>
 				</div>
 				<?php
 			}
@@ -798,6 +800,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		var noAddressDelivery = $("#noAddressDelivery"+id).html();
 		var expressDelivery = $("#expressDelivery"+id).html();
 		var emailOpt = $("#emailOpt"+id).html();
+		var enDeliveryTime = $("#enDeliveryTime"+id).html();
+		var arDeliveryTime = $("#arDeliveryTime"+id).html();
 
 		// Payment
 		var package = $("#package"+id).html();
@@ -831,6 +835,8 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 		$("select[name=currency]").val(currency);
 		$("select[name=maintenanceMode]").val(maintenanceMode);
 		$("select[name=emailOpt]").val(emailOpt);
+		$("input[name=enDeliveryTime]").val(enDeliveryTime);
+		$("input[name=arDeliveryTime]").val(arDeliveryTime);
 		
 		// Other Settings Fields
 		$("select[name=inStore]").val(inStore);
