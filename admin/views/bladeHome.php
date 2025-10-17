@@ -42,6 +42,7 @@
     font-size: 16px;
     width: 100%;
     background-color: #c1bfb4;
+    border-radius: 10px 10px 0px 0px;
 }
 .card-view.panel .panel-body {
     padding: 0px 0 0px;
