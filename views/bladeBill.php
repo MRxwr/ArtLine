@@ -58,8 +58,7 @@ if ( isset($_POST["address"]["place"]) && !empty($_POST["address"]["place"]) && 
 	}
 	$userDelivery = $shoppingCharges;
 }elseif( $_POST["address"]["place"] == 4 ){
-	$delivery = selectDB("s_media","`id` = '3'");
-	$userDelivery = $delivery[0]["noAddressDelivery"];
+	$userDelivery = $noAddressDelivery;
 }else{
 	$userDelivery = 0;
 }
