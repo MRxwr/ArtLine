@@ -41,6 +41,7 @@ if( isset($_POST["title"]) ){
 	$_POST["arTerms"] = urlencode($_POST["arTerms"]);
 	$_POST["socialMedia"] = json_encode($_POST["socialMedia"]);
 	$_POST["internationalDelivery"] = json_encode($_POST["internationalDelivery"]);
+	$_POST["expressDelivery"] = json_encode($_POST["expressDelivery"]);
 
 	if ( $id == 0 ){
 		if( insertDB("stores", $_POST) ){
@@ -329,7 +330,30 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 
 					<div class="col-md-4">
 						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery", "توصيل سريع") ?></h6>
-						<input class="form-control" type="number" step="0.1" min="0" name="expressDelivery" placeholder="0">
+						<select class="form-control" name="expressDelivery[status]">
+							<?php
+							$expressDeliveryValue = [0, 1];
+							$expressDeliveryName = [direction("No", "لا"), direction("Yes", "نعم")];
+							for ($i = 0; $i < sizeof($expressDeliveryValue); $i++) {
+								echo "<option value='$expressDeliveryValue[$i]'>{$expressDeliveryName[$i]}</option>";
+							}
+							?>
+						</select>
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery Charge", "رسوم التوصيل السريع") ?></h6>
+						<input class="form-control" type="number" step="0.1" min="0" name="expressDelivery[charge]" placeholder="0">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery English Note", "ملاحظة توصيل سريع باللغة الإنجليزية") ?></h6>
+						<input class="form-control" type="text" name="expressDelivery[englishNote]" placeholder="Enter note in English">
+					</div>
+
+					<div class="col-md-4">
+						<h6 class="panel-title txt-dark"><?php echo direction("Express Delivery Arabic Note", "ملاحظة توصيل سريع باللغة العربية") ?></h6>
+						<input class="form-control" type="text" name="expressDelivery[arabicNote]" placeholder="Enter note in Arabic">
 					</div>
 
 					<div class="col-md-4">
@@ -700,7 +724,7 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 					<label id="enableInvoiceImage<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["enableInvoiceImage"] ?></label>
 					<label id="noAddress<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddress"] ?></label>
 					<label id="noAddressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["noAddressDelivery"] ?></label>
-					<label id="expressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["expressDelivery"] ?></label>
+					<label id="expressDelivery<?php echo $stores[$i]["id"] ?>"><?php echo htmlspecialchars($stores[$i]["expressDelivery"]) ?></label>
 					<label id="emailOpt<?php echo $stores[$i]["id"] ?>"><?php echo $stores[$i]["emailOpt"] ?></label>
 				</div>
 				<?php
@@ -821,6 +845,21 @@ if( $listOfCountries = selectDB("cities","`id` != '0' GROUP BY `countryName`") )
 				}
 			} catch (e) {
 				console.log("Error parsing international delivery data:", e);
+			}
+		}
+
+		// express Delivery - Parse JSON if needed
+		if (expressDelivery) {
+			try {
+				var expressDeliveryData = JSON.parse(expressDelivery);
+				if (expressDeliveryData) {
+					$("select[name='expressDelivery[status]']").val(expressDeliveryData.status);
+					$("input[name='expressDelivery[charge]']").val(expressDeliveryData.charge);
+					$("input[name='expressDelivery[englishNote]']").val(expressDeliveryData.englishNote);
+					$("input[name='expressDelivery[arabicNote]']").val(expressDeliveryData.arabicNote);
+				}
+			} catch (e) {
+				console.log("Error parsing express delivery data:", e);
 			}
 		}
 		
