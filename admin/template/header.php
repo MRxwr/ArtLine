@@ -39,8 +39,6 @@ require ("payment.php");
 	<!-- Bootstrap Datetimepicker CSS -->
 	<link href="../vendors/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
 
-	<!-- Custom CSS -->
-	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="../logos/<?php echo $settingslogo ?>">
 	<link rel="icon" href="../logos/<?php echo $settingslogo ?>" type="image/x-icon">
@@ -56,7 +54,7 @@ require ("payment.php");
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 	<!-- Custom CSS -->
-	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	<link href="dist/css/style.css?<?php echo randLetter() . "=" . time(); ?>" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../css/font-awesome.min.css">
 	<link rel="manifest" href="manifest.json">
 </head>
