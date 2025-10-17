@@ -1,6 +1,7 @@
 <?php
 if( isset($_GET["error"]) && $_GET["error"] == "3" ){
 	$gatewayPayload = json_decode( base64_decode( urldecode( $_GET["keys"] ) ), true );
+	var_dump($gatewayPayload);
 	// orderId should = c / paymentId / requested_order_id / tap_id
 	$orderId = $gatewayPayload["c"] ?? $gatewayPayload["paymentId"] ?? $gatewayPayload["p"] ?? $gatewayPayload["requested_order_id"] ?? $gatewayPayload["tap_id"] ?? "";
 	updateDB("orders2",["status"=>"2","gatewayPayload" => json_encode($gatewayPayload,JSON_UNESCAPED_UNICODE)],"`gatewayId` = '{$orderId}'");
