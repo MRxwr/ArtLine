@@ -34,8 +34,6 @@ if( isset($_GET["id"]) && !empty($_GET["id"]) ){
             </div>
             <div class="col-12">
                 <ul class="social-icons pl-0 mb-0 pr-0" style="margin-top: 0rem!important;">
-                    <!-- $socialMedia loop through it and get all available social media -->
-                     
                     <?php
 					if( isset($storeSocialMediaLinks) && !empty($storeSocialMediaLinks) && is_array($storeSocialMediaLinks) ){
 						$smIndex = ["phone","whatsapp","email","snapchat","tiktok","instagram","twitter","facebook","location"];
