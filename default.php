@@ -1,195 +1,954 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Default page</title>
-        <link rel="icon" type="image/x-icon" href="https://hpanel.hostinger.com/favicons/hostinger.png">
-        <meta charset="utf-8">
-        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-        <meta content="Default page" name="description">
-        <meta content="width=device-width, initial-scale=1" name="viewport">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
-        <style>
-            body {
-                margin: 0px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100vw;
-                height: 100vh;
-                min-height: 675px;
-                background-color: #F4F5FF;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Art Line - Complete Business Management System with POS, Inventory, and Analytics">
+    <title>The Art Line - Modern Business Management System</title>
+    
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        /* Navbar */
+        .navbar {
+            padding: 1rem 0;
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,138.7C960,139,1056,117,1152,101.3C1248,85,1344,75,1392,69.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.5;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-image {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+        }
+        
+        /* Banners Carousel */
+        .carousel-section {
+            padding: 80px 0;
+            background: var(--light-color);
+        }
+        
+        .carousel-inner img {
+            border-radius: 20px;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            bottom: 3rem;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .section-subtitle {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card {
+            padding: 2rem;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        /* Counters Section */
+        .counters-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .counter-item {
+            text-align: center;
+        }
+        
+        .counter-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        
+        .counter-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 100px 0;
+            background: var(--light-color);
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+        
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .pricing-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price span {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .pricing-features i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+            color: var(--text-color);
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .author-info h5 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .author-info p {
+            margin: 0;
+            color: var(--text-color);
+            font-size: 0.9rem;
+        }
+        
+        .rating {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 80px 0 30px;
+        }
+        
+        .footer h5 {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer ul li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
             }
-            p {
-                width: 100%;
-                left: 0px;
-                font-size: 16px;
-                font-family: 'DM Sans', sans-serif;
-                font-weight: 400;
-                letter-spacing: 0px;
-                text-align: center;
-                vertical-align: top;
-                max-width: 550px;
-                color: #727586;
-                margin: 0px;
-            }
-            a:hover {
-                cursor: pointer;
-                color: #673DE6;
-                text-decoration: underline;
-            }
-            h1 {
-                font-family: 'DM Sans', sans-serif;
-                font-size: 24px;
-                font-weight: 700;
-                letter-spacing: 0px;
-                text-align: center;
-                margin: 8px;
-            }
-            .content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 100%;
-            }
-            .ic-launch  {
-                margin-left: 10.5px;
-                width: 21px !important;
-                height: 20px !important;
-            }
-            .link-container {
-                margin-top: 32px;
-                margin-bottom: 32px;
-            }
-            .link {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                font-family: 'DM Sans', sans-serif;
-                font-style: normal;
-                font-weight: 700;
-                font-size: 14px;
-                color: #673DE6;
-                margin-top: 8px;
-                text-decoration: none;
-            }
-            .main-image {
-                width: 100%;
-                max-width: 650px;
-                max-height: 406px;
-                height: auto;
-            }
-            .navigation {
-                width: 100%;
-                height: 72px;
-                display: flex;
-                margin: 0;
-                padding: 0;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                background-color: #36344D;
-            }
-            @media screen and (max-width: 580px) and (min-width: 0px) {
-                h1, p, .link-container {
-                    width: 80%;
-                }
-            }
-            @media screen and (min-width: 650px) and (min-height: 0px) and (max-height: 750px) {
-                .link-container {
-                    margin-top: 12px;
-                }
-                h1 {
-                    margin-top: 0px;
-                    margin-bottom: 0px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navigation">
-            <a href="https://hpanel.hostinger.com" rel="nofollow" target="_blank">
-                <svg width="150" height="30" viewBox="0 0 150 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M116.793 12.1444C117.376 11.4191 118.324 11.0565 119.634 11.0565C120.223 11.0565 120.767 11.1312 121.267 11.2811C121.765 11.4312 122.207 11.6077 122.592 11.8114L123.404 9.56372C123.307 9.50387 123.149 9.41962 122.926 9.31174C122.703 9.2036 122.421 9.09874 122.078 8.99714C121.735 8.89504 121.326 8.80526 120.851 8.72705C120.376 8.64935 119.844 8.60986 119.255 8.60986C118.389 8.60986 117.575 8.75421 116.811 9.04215C116.048 9.32984 115.383 9.75233 114.818 10.3099C114.253 10.8671 113.808 11.5481 113.484 12.3511C113.159 13.1546 112.997 14.0777 112.997 15.1211C112.997 16.1522 113.143 17.0696 113.438 17.8723C113.733 18.6755 114.151 19.3532 114.692 19.9045C115.233 20.4562 115.885 20.8754 116.649 21.1636C117.412 21.4511 118.263 21.5951 119.201 21.5951C120.295 21.5951 121.215 21.5197 121.961 21.3701C122.706 21.2204 123.247 21.0799 123.584 20.9478V14.7794H120.77V19.1133C120.602 19.1495 120.407 19.1734 120.184 19.1852C119.962 19.1971 119.694 19.2031 119.381 19.2031C118.804 19.2031 118.299 19.1043 117.866 18.9066C117.433 18.7087 117.073 18.4298 116.784 18.0699C116.496 17.7101 116.279 17.2816 116.135 16.7844C115.991 16.287 115.919 15.732 115.919 15.1211C115.919 13.8617 116.21 12.8699 116.793 12.1444ZM72.0952 19.1222C71.8367 19.1886 71.5091 19.2213 71.1124 19.2213C70.3189 19.2213 69.6483 19.1403 69.1015 18.9781C68.5539 18.8166 68.0939 18.6341 67.7216 18.4299L66.9277 20.6597C67.0962 20.756 67.3035 20.8576 67.5499 20.9658C67.7965 21.0736 68.0914 21.1755 68.4339 21.2713C68.7766 21.3671 69.1703 21.4478 69.6152 21.5142C70.0601 21.5801 70.5593 21.6133 71.1124 21.6133C72.7596 21.6133 73.9921 21.2924 74.8098 20.6507C75.6275 20.0094 76.0366 19.1071 76.0366 17.944C76.0366 17.345 75.9581 16.8357 75.8022 16.4158C75.6456 15.9961 75.408 15.6302 75.0897 15.3186C74.771 15.007 74.3709 14.7342 73.8902 14.5003C73.409 14.2664 72.8438 14.0298 72.1949 13.7896C71.8819 13.6817 71.5961 13.5771 71.3381 13.475C71.0793 13.3734 70.8508 13.2592 70.6523 13.1335C70.4541 13.0075 70.3005 12.8667 70.1926 12.7108C70.0844 12.5554 70.0299 12.3632 70.0299 12.1351C70.0299 11.7519 70.1774 11.467 70.472 11.2811C70.7666 11.0955 71.2506 11.002 71.9242 11.002C72.5253 11.002 73.0393 11.0714 73.4663 11.2089C73.8928 11.347 74.2807 11.5059 74.6297 11.6857L75.4411 9.47375C75.0443 9.25798 74.5392 9.05982 73.9263 8.88001C73.3129 8.70046 72.5853 8.60992 71.7437 8.60992C71.0339 8.60992 70.3968 8.69744 69.8316 8.87096C69.2664 9.04523 68.7857 9.29344 68.389 9.61734C67.992 9.9415 67.6856 10.3338 67.4689 10.7955C67.2525 11.257 67.1443 11.7755 67.1443 12.3512C67.1443 12.9268 67.2465 13.4152 67.451 13.8165C67.6553 14.2186 67.9201 14.5604 68.2445 14.842C68.5691 15.1239 68.9358 15.3578 69.3446 15.5434C69.7535 15.729 70.1623 15.8942 70.5714 16.0376C71.5091 16.3499 72.1704 16.6404 72.5553 16.9104C72.9399 17.1798 73.1326 17.519 73.1326 17.9264C73.1326 18.1183 73.1026 18.2923 73.0423 18.448C72.982 18.6039 72.8736 18.7387 72.7174 18.8521C72.5613 18.9668 72.3538 19.0565 72.0952 19.1222ZM54.4948 15.121C54.4948 15.7321 54.5697 16.2836 54.72 16.7752C54.8703 17.2671 55.087 17.6896 55.3697 18.0432C55.6517 18.3972 55.9977 18.6696 56.4068 18.8612C56.8154 19.0536 57.2843 19.1497 57.8137 19.1497C58.3304 19.1497 58.7965 19.0536 59.2117 18.8612C59.626 18.6696 59.9751 18.3972 60.2573 18.0432C60.5398 17.6896 60.7567 17.2671 60.907 16.7752C61.0573 16.2836 61.1325 15.7321 61.1325 15.121C61.1325 14.5091 61.0573 13.9546 60.907 13.457C60.7567 12.9595 60.5398 12.5343 60.2573 12.1802C59.9751 11.8266 59.626 11.5535 59.2117 11.3622C58.7965 11.1703 58.3304 11.0745 57.8137 11.0745C57.2843 11.0745 56.8154 11.1733 56.4068 11.371C55.9977 11.5689 55.6517 11.8447 55.3697 12.1986C55.087 12.5522 54.8703 12.9777 54.72 13.4751C54.5697 13.973 54.4948 14.5215 54.4948 15.121ZM64.0369 15.121C64.0369 16.1878 63.8772 17.1263 63.5592 17.935C63.2401 18.7445 62.8041 19.422 62.2512 19.9672C61.6981 20.5132 61.0396 20.9236 60.2762 21.1992C59.5127 21.4753 58.6918 21.6131 57.8143 21.6131C56.9603 21.6131 56.155 21.4753 55.3974 21.1992C54.6397 20.9236 53.9782 20.5132 53.4132 19.9672C52.8478 19.422 52.4034 18.7445 52.0785 17.935C51.7539 17.1263 51.5912 16.1878 51.5912 15.121C51.5912 14.0537 51.7597 13.1155 52.0964 12.3065C52.4329 11.4969 52.8871 10.8164 53.4584 10.265C54.0291 9.71347 54.6907 9.30004 55.4425 9.02417C56.1936 8.74805 56.9845 8.60999 57.8143 8.60999C58.6678 8.60999 59.4734 8.74805 60.2313 9.02417C60.9887 9.30004 61.65 9.71347 62.2152 10.265C62.7801 10.8164 63.2253 11.4969 63.5499 12.3065C63.8747 13.1155 64.0369 14.0537 64.0369 15.121ZM45.1113 8.89825H47.9253V21.3612H45.1113V16.0739H40.3856V21.3612H37.5717V8.89825H40.3856V13.6638H45.1113V8.89825ZM88.4326 8.89838V11.2904H84.6628V21.3613H81.8491V11.2904H78.079V8.89838H88.4326ZM94.3715 21.3616H91.5576V8.89838H94.3715V21.3616ZM106.967 21.3613C106.162 19.9347 105.29 18.5262 104.352 17.135C103.414 15.7441 102.416 14.4314 101.358 13.1964V21.3613H98.58V8.89838H100.871C101.267 9.2937 101.706 9.7793 102.187 10.3549C102.668 10.9306 103.158 11.5452 103.657 12.1985C104.156 12.8519 104.652 13.5293 105.145 14.2305C105.638 14.9318 106.101 15.606 106.534 16.2536V8.89838H109.33V21.3613H106.967ZM127.521 21.3613V8.89838H135.963V11.2542H130.335V13.6998H135.331V16.0021H130.335V19.0055H136.378V21.3613H127.521ZM143.046 11.1641C143.209 11.1523 143.391 11.1463 143.596 11.1463C144.498 11.1463 145.18 11.2753 145.643 11.5325C146.106 11.7911 146.337 12.2251 146.337 12.8367C146.337 13.4724 146.109 13.9223 145.652 14.1856C145.195 14.4497 144.437 14.5809 143.38 14.5809H142.586V11.2001C142.731 11.1885 142.884 11.1764 143.046 11.1641ZM147.745 9.75233C146.747 9.08666 145.311 8.75421 143.435 8.75421C142.917 8.75421 142.331 8.7781 141.676 8.82639C141.021 8.87391 140.387 8.95841 139.773 9.07761V21.3613H142.587V16.8108H143.976C144.217 17.099 144.458 17.4196 144.7 17.7737C144.941 18.1273 145.187 18.5015 145.433 18.8973C145.681 19.2931 145.922 19.701 146.158 20.1205C146.392 20.5402 146.625 20.9536 146.854 21.3613H150C149.784 20.9059 149.549 20.4414 149.297 19.9673C149.044 19.4941 148.783 19.0386 148.512 18.6011C148.242 18.1635 147.968 17.7438 147.691 17.3419C147.415 16.9403 147.151 16.5837 146.898 16.2716C147.655 15.9603 148.236 15.5313 148.638 14.9861C149.041 14.4406 149.243 13.7297 149.243 12.8548C149.243 11.4518 148.743 10.4177 147.745 9.75233Z" fill="white"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.000188531 14.046V0.000497794L7.0891 3.78046V10.1086L16.4734 10.1132L23.6773 14.046H0.000188531ZM18.3924 8.95058V0L25.6725 3.6859V13.1797L18.3924 8.95058ZM18.3924 26.1177V19.8441L8.93571 19.8375C8.94454 19.8793 1.61224 15.8418 1.61224 15.8418L25.6725 15.9547V30L18.3924 26.1177ZM-6.10352e-05 26.1177L0.000191176 16.9393L7.0891 21.0683V29.8033L-6.10352e-05 26.1177Z" fill="white"/>
-                </svg>
-            </a>
-        </nav>
-        <div class="content">
-            <svg 
-                class="main-image"
-                width="650" 
-                height="406" 
-                viewBox="0 0 650 406" 
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path d="M603.171 195.67L445.106 347.201V44.1392L603.171 195.67Z" stroke="#C4CCE8" stroke-miterlimit="10"/>
-                <path d="M445.106 195.67L287.041 347.201V44.1392L445.106 195.67Z" stroke="#C4CCE8" stroke-miterlimit="10"/>
-                <path d="M603.171 195.67H180.043" stroke="#C4CCE8" stroke-miterlimit="10"/>
-                <path d="M57.0145 43H593.668C596.51 43 599.237 44.0612 601.247 45.9501C603.257 47.8391 604.387 50.401 604.387 53.0724V348.34H57.0145C54.1716 348.34 51.4452 347.279 49.435 345.39C47.4248 343.501 46.2954 340.939 46.2954 338.268V53.1252C46.288 51.798 46.5598 50.4826 47.0952 49.2544C47.6306 48.0263 48.4189 46.9097 49.415 45.9688C50.4111 45.0279 51.5953 44.2812 52.8994 43.7717C54.2036 43.2623 55.6021 43 57.0145 43V43Z" stroke="#C5CDE9" stroke-miterlimit="10"/>
-                <path d="M65.1415 64.6472C67.4918 64.6472 69.3971 62.8618 69.3971 60.6595C69.3971 58.4572 67.4918 56.6719 65.1415 56.6719C62.7912 56.6719 60.8859 58.4572 60.8859 60.6595C60.8859 62.8618 62.7912 64.6472 65.1415 64.6472Z" stroke="#C5CDE9" stroke-miterlimit="10"/>
-                <path d="M82.7718 65.7865C85.4579 65.7865 87.6354 63.7461 87.6354 61.2292C87.6354 58.7123 85.4579 56.6719 82.7718 56.6719C80.0858 56.6719 77.9083 58.7123 77.9083 61.2292C77.9083 63.7461 80.0858 65.7865 82.7718 65.7865Z" stroke="#C5CDE9" stroke-miterlimit="10"/>
-                <path d="M100.402 65.7866C102.752 65.7866 104.658 64.0013 104.658 61.7989C104.658 59.5966 102.752 57.8113 100.402 57.8113C98.0519 57.8113 96.1466 59.5966 96.1466 61.7989C96.1466 64.0013 98.0519 65.7866 100.402 65.7866Z" stroke="#C5CDE9" stroke-miterlimit="10"/>
-                <path d="M52.3747 171.744H39V184.277H52.3747V171.744Z" fill="#673CE5"/>
-                <path d="M611.682 88.573H598.307V102.245H611.682V88.573Z" fill="#673CE5"/>
-                <path d="M384.311 173.864C397.176 197.034 424.878 208.367 449.522 201.798C470.052 196.291 485.552 179.079 488.877 158.072" stroke="#673DE6" stroke-width="18" stroke-miterlimit="10"/>
-                <path d="M569.199 264.276L517.516 232.922L484.055 281.351L535.738 312.705L569.199 264.276Z" fill="#673DE6"/>
-                <rect x="76" y="55" width="325" height="308" fill="url(#pattern0)"/>
-                <defs>
-                <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-                <use xlink:href="#image0_793_7454" transform="translate(0 -0.0294456) scale(0.000431034 0.000453478)"/>
-                </pattern>
-                    <image 
-                        id="image0_793_7454" 
-                        width="2320"
-                        height="2296"
-                        href="https://cdn.hostinger.com/hostinger_welcome/v2/man1.png"
-                    />
-                </defs>
-            </svg>
-            <h1>You Are All Set to Go!</h1>
-            <p>All you have to do now is upload your website files and start your journey. Check out how to do that below:</p>
-            <div class="link-container">
-                <a 
-                    class=link
-                    href="https://support.hostinger.com/en/articles/4455931-how-can-i-migrate-website-to-hostinger"
-                    rel="nofollow"
-                    target="_blank"
-                >
-                    How can I migrate a website to Hostinger? 
-                    <svg class="ic-launch" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            fill-rule="evenodd" 
-                            clip-rule="evenodd" 
-                            d="M16.3333 15.8333H4.66667V4.16667H10.5V2.5H4.66667C3.74167 2.5 3 3.25 3 4.16667V15.8333C3 16.75 3.74167 17.5 4.66667 17.5H16.3333C17.25 17.5 18 16.75 18 15.8333V10H16.3333V15.8333ZM12.1667 2.5V4.16667H15.1583L6.96667 12.3583L8.14167 13.5333L16.3333 5.34167V8.33333H18V2.5H12.1667Z" 
-                            fill="#673DE6"
-                        />
-                    </svg>
-                </a>
-                <a 
-                    class="link"
-                    href="https://support.hostinger.com/en/articles/3220304-how-to-install-wordpress-using-auto-installer"
-                    rel="nofollow"
-                    target="_blank"
-                >
-                    How to install WordPress using Auto Installer?
-                    <svg class="ic-launch" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path 
-                            fill-rule="evenodd" 
-                            clip-rule="evenodd" 
-                            d="M16.3333 15.8333H4.66667V4.16667H10.5V2.5H4.66667C3.74167 2.5 3 3.25 3 4.16667V15.8333C3 16.75 3.74167 17.5 4.66667 17.5H16.3333C17.25 17.5 18 16.75 18 15.8333V10H16.3333V15.8333ZM12.1667 2.5V4.16667H15.1583L6.96667 12.3583L8.14167 13.5333L16.3333 5.34167V8.33333H18V2.5H12.1667Z" 
-                            fill="#673DE6"
-                        />
-                    </svg>
-                </a>
-            </div>
             
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .counter-number {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-palette"></i> The Art Line
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-lg-3">
+                        <a href="index.php" class="btn btn-primary-custom text-white">Get Started</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </body>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content" data-aos="fade-right">
+                    <h1>Transform Your Business with The Art Line</h1>
+                    <p>All-in-one business management system featuring POS, inventory management, analytics, and more. Streamline your operations and boost productivity.</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#pricing" class="btn btn-light btn-lg px-4 py-3 rounded-pill">View Pricing</a>
+                        <a href="#features" class="btn btn-outline-light btn-lg px-4 py-3 rounded-pill">Learn More</a>
+                    </div>
+                    <div class="mt-4">
+                        <small class="text-white opacity-75">
+                            <i class="bi bi-check-circle-fill me-2"></i>No credit card required
+                            <i class="bi bi-check-circle-fill ms-3 me-2"></i>14-day free trial
+                        </small>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image" data-aos="fade-left">
+                    <img src="img/hero-illustration.svg" alt="The Art Line Dashboard" class="img-fluid" 
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22500%22 viewBox=%220 0 600 500%22%3E%3Crect fill=%22%23ffffff%22 fill-opacity=%220.2%22 width=%22600%22 height=%22500%22 rx=%2220%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2224%22 fill=%22%23ffffff%22%3EDashboard Illustration%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banners Carousel -->
+    <section class="carousel-section" id="features">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Our Solutions</p>
+                <h2 class="section-title">Powerful Features for Your Business</h2>
+            </div>
+            <div id="featuresCarousel" class="carousel slide" data-bs-ride="carousel" data-aos="zoom-in">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#featuresCarousel" data-bs-slide-to="2"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/pos-banner.jpg" class="d-block w-100" alt="POS System"
+                             onerror="this.src='https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1200&h=400&fit=crop'">
+                        <div class="carousel-caption">
+                            <h3>Advanced POS System</h3>
+                            <p>Lightning-fast point of sale with offline capability and real-time sync</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/inventory-banner.jpg" class="d-block w-100" alt="Inventory Management"
+                             onerror="this.src='https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&h=400&fit=crop'">
+                        <div class="carousel-caption">
+                            <h3>Smart Inventory Management</h3>
+                            <p>Track stock levels, automate reordering, and prevent stockouts</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/analytics-banner.jpg" class="d-block w-100" alt="Analytics Dashboard"
+                             onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=400&fit=crop'">
+                        <div class="carousel-caption">
+                            <h3>Powerful Analytics</h3>
+                            <p>Data-driven insights to make informed business decisions</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#featuresCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#featuresCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Why Choose Us</p>
+                <h2 class="section-title">Everything You Need to Run Your Business</h2>
+                <p class="lead text-muted">The Art Line combines powerful features with intuitive design to help you manage your business efficiently</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-shop"></i>
+                        </div>
+                        <h4>Point of Sale</h4>
+                        <p>Modern, intuitive POS interface that works online and offline. Process transactions quickly with barcode scanning and multiple payment options.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                        <h4>Inventory Management</h4>
+                        <p>Keep track of your stock levels in real-time. Set up automatic alerts for low stock and manage suppliers efficiently.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h4>Analytics & Reports</h4>
+                        <p>Comprehensive dashboards and reports to understand your business performance. Make data-driven decisions with ease.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h4>Customer Management</h4>
+                        <p>Build lasting relationships with customer profiles, purchase history, and loyalty programs to increase retention.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+                        <h4>Invoice & Billing</h4>
+                        <p>Create professional invoices and receipts instantly. Support for multiple payment methods and automatic calculations.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h4>Secure & Reliable</h4>
+                        <p>Enterprise-grade security with data encryption, regular backups, and 99.9% uptime guarantee for peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counters Section -->
+    <section class="counters-section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="5000">0</div>
+                        <div class="counter-label">Active Users</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="50000">0</div>
+                        <div class="counter-label">Transactions Daily</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="99">0</div>
+                        <div class="counter-label">Customer Satisfaction</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="24">0</div>
+                        <div class="counter-label">Hours Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Pricing Plans</p>
+                <h2 class="section-title">Choose Your Perfect Plan</h2>
+                <p class="lead text-muted">Flexible pricing options to match your business needs</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="pricing-card">
+                        <div class="pricing-title">Starter</div>
+                        <div class="pricing-price">$29<span>/month</span></div>
+                        <p class="text-muted">Perfect for small businesses</p>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i> Single Location</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Up to 1,000 Products</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Basic POS Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Inventory Management</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Basic Reports</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Email Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary w-100 rounded-pill py-3 mt-3">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Most Popular</span>
+                        <div class="pricing-title">Professional</div>
+                        <div class="pricing-price">$79<span>/month</span></div>
+                        <p class="text-muted">Best for growing businesses</p>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i> Up to 3 Locations</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Products</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced POS Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced Inventory</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced Analytics</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Customer Management</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary-custom w-100 rounded-pill py-3 mt-3 text-white">Get Started</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="pricing-card">
+                        <div class="pricing-title">Enterprise</div>
+                        <div class="pricing-price">$199<span>/month</span></div>
+                        <p class="text-muted">For large organizations</p>
+                        <ul class="pricing-features">
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Locations</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Products</li>
+                            <li><i class="bi bi-check-circle-fill"></i> All Professional Features</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Multi-Store Management</li>
+                            <li><i class="bi bi-check-circle-fill"></i> API Access</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Custom Integrations</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Dedicated Account Manager</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 24/7 Phone Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary w-100 rounded-pill py-3 mt-3">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="section-subtitle">Testimonials</p>
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="lead text-muted">Join thousands of satisfied businesses using The Art Line</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">"The Art Line has completely transformed how we manage our retail store. The POS system is incredibly fast and the inventory management saves us hours every week."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">SM</div>
+                            <div class="author-info">
+                                <h5>Sarah Mitchell</h5>
+                                <p>Owner, Artisan Boutique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">"We switched to The Art Line 6 months ago and haven't looked back. The analytics features help us make better business decisions every day. Highly recommended!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">JC</div>
+                            <div class="author-info">
+                                <h5>James Chen</h5>
+                                <p>Manager, Tech Hub Store</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="testimonial-text">"Outstanding customer support and a feature-rich platform. The Art Line grows with our business. It's the perfect solution for multi-location retail."</p>
+                        <div class="testimonial-author">
+                            <div class="author-image">EP</div>
+                            <div class="author-info">
+                                <h5>Emma Parker</h5>
+                                <p>CEO, Fashion Forward</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <h5><i class="bi bi-palette"></i> The Art Line</h5>
+                    <p class="text-white-50">Complete business management solution for modern retailers. Streamline operations, boost sales, and grow your business with confidence.</p>
+                    <div class="social-links mt-4">
+                        <a href="https://facebook.com" class="social-link" target="_blank" rel="noopener">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com" class="social-link" target="_blank" rel="noopener">
+                            <i class="bi bi-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com" class="social-link" target="_blank" rel="noopener">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://youtube.com" class="social-link" target="_blank" rel="noopener">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Demo</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press Kit</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">System Status</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">GDPR</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Art Line. All rights reserved. Designed with <i class="bi bi-heart-fill text-danger"></i> for modern businesses.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+
+        // Counter animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current) + (element.textContent.includes('%') ? '%' : '+');
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + (target === 99 ? '%' : '+');
+                }
+            };
+
+            updateCounter();
+        }
+
+        // Intersection Observer for counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter-number');
+                    counters.forEach(counter => {
+                        animateCounter(counter);
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const countersSection = document.querySelector('.counters-section');
+        if (countersSection) {
+            counterObserver.observe(countersSection);
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Auto-play carousel
+        const carousel = new bootstrap.Carousel(document.getElementById('featuresCarousel'), {
+            interval: 5000,
+            ride: 'carousel'
+        });
+    </script>
+</body>
 </html>
