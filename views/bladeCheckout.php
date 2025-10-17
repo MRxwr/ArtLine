@@ -173,7 +173,7 @@
 								</li>
 								<?php
 								}
-								if ( $noAddressDelivery == "1" ){
+								if ( $noAddressOpt == "1" ){
 								?>
 								<li class="nav-item">
 									<a class="nav-link noAddressFROM" id="noAddressFROMid">

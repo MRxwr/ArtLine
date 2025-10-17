@@ -23,7 +23,7 @@ if( $storeDetails = selectDBNew("stores",[$_GET["storeCode"]],"`storeCode` = ?",
 	$theme = $storeDetails[0]["theme"];
 	$giftCard = $storeDetails[0]["giftCard"];
 	$emailOpt = $storeDetails[0]["emailOpt"];
-	$storeAddress = $storeDetails[0]["noAddress"];
+	$noAddressOpt = $storeDetails[0]["noAddress"];
 	$settingsDTime = $storeDetails[0]["enDeveliveryTime"];
 	$settingsDTimeAr = $storeDetails[0]["arDeveliveryTime"];
 	$PaymentAPIKey = $storeDetails[0]["PaymentAPIKey"];
